@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container">
+        <input type="text" id="tf">
+    </div>
+
+    <script>
+        document.querySelector("#tf").addEventListener("keydown", (event)=>{
+            // console.log(event);
+            // console.log(event.target.value);
+            if(event.keyCode == 13){
+                document.querySelector("body").prepend(event.target.value + "<br>");
+            }
+        });
+
+        //포커스 처리
+        document.querySelector("#tf").addEventListener("focus", (event)=>{
+            console.log(event);
+            event.target.style.color = "red";
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <p>현재 카운트 : <span id="result">0</span></p>
+    <button id="plusBtn" data-action="incre" type="button">+</button>
+    <button id="minusBtn" data-action="decre" type="button">-</button>
+    
+    <hr>
+    <button type="button" id="addStudent">학생 등록</button>
+    <button type="button" id="listStudents">학생 목록</button>
+
+
+    <script>
+        const changeCount = (function () {
+            let count = 0;
+            return function (fn) {
+                count = fn(count);
+                return count;
+            }
+        })(); //반환된 걸 changeCount에 저장
+
+
+        //storage에 카운트 값 저장 _ 1개씩 증가시키는 함수
+        const saveCount = function () {
+            if (sessionStorage) {
+                //console.log(sessionStorage);//dir은 계층적 구조랑 프로토타입까지 볼 수 있다
+                if (sessionStorage.getItem("count")) {//카운트라는 키 값이 있는지 검색
+                    let updateCount = parseInt(sessionStorage.getItem("count")) + 1;//기존 값 읽어와서 +1 시켜주기(내부적으로는 문자열로 저장되서 숫자로 바꿔줘야 함)
+                    sessionStorage.setItem("count", updateCount);//겟아이템은 얻어오는거, 셋아이템은 저장.
+                }
+                //sessionStorage.setItem("count", 1);//키는 문자열로
+                else {
+                    //이 경우는 섹션스토리지에 count라는 키가 없을 때이다
+                    //그럼 count를 0으로 초기화한다
+                    sessionStorage.setItem("count", 0);
+                }
+            } else {
+                alert("스토리지를 지원한지 않는 브라우저입니다");
+            }
+            return sessionStorage.getItem("count");//저장된 카운트 값을 리턴해준다
+        }
+
+        //카운트값 화면 출력
+        const displayCount = function (count) {
+            document.querySelector("#result").textContent = count;
+        }
+
+        //target
+        const plusBtn = document.querySelector("#plusBtn");
+        const minusBtn = document.querySelector("#minusBtn");
+        //핸들러 등록
+        plusBtn.addEventListener("click", (event) => {
+            /* 클로저 이용
+            let count = changeCount((count)=>{
+                return ++count;
+            });
+            displayCount(count);
+            */
+
+            //섹션 스토리지 이용 _ saveCount함수에 이벤트 등록
+            const updateCount = saveCount(); //버튼 누를 때마다 값이 증가한다
+            //이는 위에서 return sessionStorage.getItem();코드를 통해
+            displayCount(updateCount);
+        });
+        minusBtn.addEventListener("click", (event) => {
+            displayCount(changeCount(count => --count));
+        });
+
+
+
+
+
+
+        //객체 저장 _ 로컬스토리지에 저장
+        const saveStudent = function (student) {
+            if (localStorage.getItem("students")) {
+                let students = JSON.parse(localStorage.getItem("students"));//getItem은 문자열로 가져오니깐 객체로 바꿔줘야 함
+                students.push(student);
+                //문자열로 저장해줘야 해서 제이슨으로 바꿔야 로컬스토리지에 저장할 수 있다
+                const json = JSON.stringify(students);
+                localStorage.setItem("students", json);
+            }
+            else {
+                localStorage.setItem("students", JSON.stringify([]));
+            }
+        }
+
+        //객체 저장 _ 로컬스토리지에 저장
+        const readStudents = function () {
+            let students;
+            if (localStorage.getItem("students")) {
+                students = JSON.parse(localStorage.getItem("students"));
+            }
+            else {
+                students = [];
+            }
+            return students;
+        }
+
+        //target(버튼가져오기)
+        const addStudent = document.querySelector("#addStudent");
+        const listStudents = document.querySelector("#listStudents");
+        //학생 등록 핸들러 등록
+        addStudent.addEventListener("click", (event) => {
+            const student = {
+                sno : 11,
+                name : "박기정",
+            };
+            saveStudent(student);
+        });
+        //학생 목록 핸들러 등록
+        listStudents.addEventListener("click", (event) => {
+            const students = readStudents();
+            students.forEach((student)=>{
+                console.log(`학생번호 ${student.sno}, 학생이름${student.name}`);
+            })
+        });
+
+
+    </script>
+</body>
+
+</html>

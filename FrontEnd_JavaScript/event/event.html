@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <!-- 인라인 이벤트 처리 -->
+        <!-- <button onclick="console.log('버튼1 클릭')" ondblclick="console.log('두번 클릭 완료')">버튼1</button>
+        <button>버튼2</button> -->
+
+        <button id="btn1">버튼1</button>
+        <button id="btn2">버튼2</button>
+        <button id="btn3">버튼3</button>
+    </div>
+
+    <script>
+        //이벤트 타겟
+        const btn1 = document.querySelector("#btn1");
+        const btn2 = document.querySelector("#btn2");
+        const btn3 = document.querySelector("#btn3");
+
+
+        //함수를 이용한 이벤트 핸들러 정의
+        const onClickHandler = function(event){
+            console.log("버튼 클릭쇼");
+            //console.dir(event);
+
+            //상속 구조로 모든 이벤트 객체의 공통 프로퍼티
+            //console.log(event.type);
+            //console.log(event.target);
+
+            //기능 분기
+            //if(event.target === btn1)
+            if(this === btn1){//여기서 this는 왜 target일까?
+                console.log("버튼1 클릭");
+                console.log(this);
+            }else{
+                console.log("버튼2 클릭");
+                console.log(this);
+
+            }
+
+            //여기서 return 안써줫는데 이거 호출하면 undefined를 반환한다. 생성자는 this를 반환
+        }
+
+        //고전 이벤트_이벤트 타겟에 이벤트 핸들러를 등록(연결)
+        /*
+        btn1.onclick = onClickHandler;
+        btn2.onclick = function(){
+            console.log("버튼 클릭2");
+        }
+        btn3.onclick = ()=>{console.log("버튼 클릭3");};
+        */
+
+        //표준 이벤트_버튼1,버튼2
+        btn1.addEventListener("click", onClickHandler);
+        //버튼 색깔 속성 입히기
+        btn1.addEventListener("click", (event)=>{
+             //버튼 색깔 바꿔보기
+             btn1.style.background= "blue";
+        });
+        btn2.addEventListener("click", onClickHandler);
+
+        //이벤트 핸들러_제거
+        //btn1.removeEventListener("click", onClickHandler);
+
+        //우클릭 금지
+        document.addEventListener("contextmenu", (event)=>{ //기본 이벤트를 받고
+            alert("우클릭 금지");
+            event.preventDefault();
+        });
+    </script>
+
+</body>
+</html>

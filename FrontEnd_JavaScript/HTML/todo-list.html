@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body *{
+            padding : 7px 10px;
+            margin: 5px 8px;
+            color: bisque;
+            font-size: 12px;
+            background-color: rgb(77, 77, 77);
+        }
+        .done{
+            text-decoration: line-through;
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <h1 id="title">오늘 할일</h1>
+        <ul id="today_list">
+            <li class="item">자바스크립트 공부</li>
+            <li class="item">밥 먹기</li>
+            <li class="item">퇴근하기</li>
+        </ul>
+
+
+        <h1 id="title">내일 할 일</h1>
+        <ul id="tomorrow_list">
+            <li class="item">여행가기</li>
+            <li class="item">밥먹기</li>
+
+        </ul>
+    </div>
+    <script>
+        const tomorrowList= document.querySelector("#tomorrow_list");
+        // console.log(tomorrowList);
+        
+        //첫 번째 자식 요소를 추가
+        const fristLi = document.createElement("li");
+        fristLi.textContent = "짐 싸기"; //innerHTML도 쓸 수 있다
+        tomorrowList.prepend(fristLi); //자식으로 맨 앞에 들어간다
+
+        //중간 자식요소로 추가
+        const middleLi = document.createElement("li");
+        middleLi.textContent = "카페 가기";
+        tomorrowList.insertBefore(middleLi, tomorrowList.children.item(2));
+
+        //마지막 자식요소로 추가
+        const lastLi = document.createElement("li");
+        lastLi.textContent = "기차 타기"
+        tomorrowList.append(lastLi);
+
+        //특정 요소를 삭제
+        const todayList= document.querySelector("#today_list");
+        todayList.children.item(0).remove();
+        
+        //특정 자식을 삭제
+        todayList.removeChild(todayList.children.item(0));
+
+        //특정 요소를 이동
+        tomorrowList.prepend(todayList.children.item(0));
+
+        //이전 형제 요소 추가하기
+        const firstP = document.createElement("p");
+        firstP.innerHTML = "<strong>급한 일</strong>"
+        tomorrowList.before(firstP);
+
+        //요소에 css 적용
+        // tomorrowList.firstElementChild.style.textDecoration = "line-through";
+        //요소의 class속성 추가하기(css 활용)
+        // tomorrowList.firstElementChild.classList.add("done");
+        tomorrowList.firstElementChild.classList.toggle("done");
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>폼 예제</title>
+</head>
+<body>
+    <form name="loginForm">
+        <label for="username">사용자 이름:</label>
+        <input type="text" id="username" name="username">
+        
+        <label for="password">비밀번호:</label>
+        <input type="password" id="password" name="password">
+        
+        <button type="submit">로그인</button>
+    </form>
+
+    <script>
+        // document.forms를 통해 모든 폼을 접근할 수 있음
+        const forms = document.forms;
+        //console.log(forms); // 현재 문서의 모든 폼을 출력
+        
+        // 특정 폼에 접근
+        const loginForm = forms['loginForm'];
+        //console.log(loginForm); // name="loginForm"인 폼을 출력
+
+        // form.elements를 통해 폼 내부의 요소들을 접근할 수 있음
+        const elements = loginForm.elements;
+        //console.log(elements); // 폼 내부의 모든 요소를 출력
+        
+        // 특정 요소에 접근
+        const usernameInput = elements['username'];
+        console.log(usernameInput); // name="username"인 입력 요소를 출력
+    </script>
+</body>
+</html>

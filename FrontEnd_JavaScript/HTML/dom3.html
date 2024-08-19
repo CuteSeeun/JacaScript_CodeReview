@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <div id="list">
+
+        
+    </div>
+
+    <script>
+        // 새로운 li를 추가하고 싶다
+        const newLI = document.createElement("li");
+        const text = document.createTextNode("CSS");
+        newLI.append(text); //얘네들끼리는 부모 자식이 됏다. 새로 만든 li를 파이썬 밑에 붙일려면 일단 list에 접근해야 한다
+        
+        document.querySelector("#list").append(newLI); //아이디선택자니깐 #. 이로써 새로운 li를 추가함
+        document.querySelector("#list").prepend(newLI); //아이디선택자니깐 #. 이로써 새로운 li를 추가함
+
+
+        const array = [
+            {name : "김기정", age:10},
+            {naem : "박기정", age:10},
+            {name : "최기정", age:10}
+    ];
+    /* 내 코드
+    array.forEach((element)=>{
+        const newLi = document.createElement("li");
+        newLi.textContent = `${element.name} - ${element.age}`;
+        listDiv.append(newLi);
+    });
+    */
+   const list2 = document.querySelector("#list2");
+   array.map((student)=>{
+        return `<li>${student.name}(${student.age})</li>`;
+   })
+   .forEach((li)=>{
+        list2.innerHTML += li;
+   });
+
+   document.querySelector("img").setAttribute("src", "https://picsum.photos/200/200");
+   document.querySelector("img").removeAttribute("src");
+
+
+    </script>
+</body>
+
+</html>

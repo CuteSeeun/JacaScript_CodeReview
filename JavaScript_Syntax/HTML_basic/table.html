@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table{
+            border: 1px dotted solid;
+        }
+        th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <table border="1">
+        
+
+
+
+
+        <caption>상품 목록</caption>
+        <!--컬럼 그룹핑-->>
+        <col style="width: 200px;">
+        <colgroup span="2" style="background-color: bisque;"></colgroup>
+        <col>
+
+
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>상품명</th>
+                <th>수량</th>
+                <th>가격</th>
+            </tr>
+        </thead>
+
+        <tfoot>
+            <tr>
+                <td>총금액</td>
+                <td colspan="3">8000원</td>
+            </tr>
+        </tfoot>
+        
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>콜라</td>
+                <td>1개</td>
+                <td>1500원</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>제로사이다</td>
+                <td>2개</td>
+                <td rowspan="2">2000원</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>환타</td>
+                <td>2개</td>
+                <td>2000원</td>
+            </tr>
+
+        </tbody>
+        
+
+
+    </table>
+    
+    <h2>학생 성적표
+    </h2>
+    <table border="3">
+        <tr>
+            <th scope="col">구분</th>
+            <th scope="col">중간고사</th>
+            <th scope="col">기말고사</th>
+
+        </tr>
+        <tr>
+            <th scope="row">전공</th>
+            <td>b+
+            </td>
+            <td>c+</td>
+
+        </tr>
+        <tr>
+            <th scope="row">교양</th>
+            <td>c+</td>
+            <td>c+</td>
+        </tr>
+    </table>
+
+
+
+</body>
+</html>

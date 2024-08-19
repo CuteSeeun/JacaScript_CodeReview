@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/validator.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <form action="#" name="login">
+            <input type="text" name="id" placeholder="아이디">
+            <input type="password" name="pw" placeholder="비밀번호">
+            <button type="submit">로그인</button>
+            <button type="reset">취소</button>
+        </form>
+    </div>
+
+    <script>
+        // console.log(document.login);
+        document.login.addEventListener("submit", function(event){
+            event.preventDefault(); //기본 이벤트를 삭제
+            const inputId = this.id.value;
+
+            //유효성 검사
+            if(isEmpty(inputId)){ //valiator
+                alert("아이디를 입력하세요");
+                return; //함수 끝낼 때 return
+            }
+            this.submit();
+            console.log(inputId);
+        });
+        // document.login.addEventListener("reset", (event)=>{
+        //     event.preventDefault(); //기본 이벤트를 삭제
+        // });
+    </script>
+
+</body>
+
+</html>
