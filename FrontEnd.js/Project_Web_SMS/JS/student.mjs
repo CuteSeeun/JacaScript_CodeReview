@@ -30,7 +30,7 @@ export function getStudentList() {
 //#endregion
 
 
-//#region 학생 추가
+//#region 학생 추가 메서드
 // 학생 데이터 추가 함수
 export function addStudent(sno, name, kor, eng, math) {
     //학번으로 중복 체크
@@ -45,7 +45,8 @@ export function addStudent(sno, name, kor, eng, math) {
 }
 //#endregion
 
-//#region 학생 삭제
+
+//#region 학생 삭제 메서드
 export function deleteStudent(sno) {
     const initialLength = studentList.length;
     studentList = studentList.filter(student => student.sno !== sno);
@@ -59,8 +60,9 @@ export function deleteStudent(sno) {
 }
 //#endregion
 
-//#region 순위 업데이트
-// 순위 계산 함수 _ 내림차순 정렬 
+
+//#region 순위 계산 메서드
+//오름차순 정렬 
 export function updateRanks() {
     studentList.sort((a, b) => b.total - a.total);
     studentList.forEach((student, index) => {
@@ -68,5 +70,3 @@ export function updateRanks() {
     });
 }
 //#endregion
-
-

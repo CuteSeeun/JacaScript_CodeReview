@@ -1,4 +1,4 @@
-//등록, 삭제, 검색, 정렬에 대한 이벤트
+//등록, 삭제, 검색, 정렬에 대한 이벤트 //테이블 렌더링
 
 //#region 모듈
 //모든 모듈 가져오기
@@ -30,7 +30,6 @@ function renderStudentTable(studentList) {
 //#endregion
 
 
-
 //#region  초기 로드 시 학생 리스트 렌더링
 //초기 로드 시 로컬 스토리지에서 학생 데이터 로드 및 렌더링
 function init() {
@@ -49,36 +48,18 @@ function init() {
 //#endregion
 
 
-
-// 테이블을 정렬하는 함수
-function sortStudentList(criteria) {
-    const studentList = getStudentList();
-
-    // 정렬 기준에 따라 학생 리스트 정렬
-    if (criteria === '순위') {
-        studentList.sort((a, b) => a.rank - b.rank);
-    } else if (criteria === '번호') {
-        studentList.sort((a, b) => a.sno.localeCompare(b.sno));
-    } else if (criteria === '이름') {
-        studentList.sort((a, b) => a.name.localeCompare(b.name));
-    }
-
-    return studentList;
-}
-
-
-
 //#region 클릭 이벤트 설정
 
 //addBtn 버튼에 클릭 이벤트 핸들러 설정. 폼에서 데이터를 읽고 학생을 추가, 로컬 스토리지에 저장, 순위를 업데이트하고 테이블 다시 렌더링.
 document.addEventListener('DOMContentLoaded', () => {
 
-    //버튼
+    //html 요소 선택      
     const addBtn = document.getElementById('addBtn');// 등록 버튼
     const deleteBtn = document.querySelector('button.btn-warning');//삭제 버튼
-    const searchBtn = document.querySelector('button.btn-primary');// 검색 버튼
-    const searchSelect = document.querySelector('select.form-select');// 검색 기준 선택
-    const searchInput = document.querySelector('input.form-control');// 입력 필드
+    const searchBtn = document.getElementById('searchBtn');// 검색 버튼
+    const searchSelect = document.getElementById('searchSelect');// 검색 기준 선택
+    const searchInput = document.getElementById('searchID');// 입력 필드
+    const sortSelect = document.getElementById('sortSelect');//정렬 기준 선택
     const form = document.forms['inputForm'];// 입력 폼
 
     // 등록 버튼 클릭 이벤트 핸들러 등록
@@ -102,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 삭제 버튼 클릭 이벤트 핸들러 등록
     deleteBtn.addEventListener('click', () => {
-        const sno = form.sno.value.trim();
+        const sno = form.sno.value.trim(); //sno값을 폼에서 가져와서 변수에 저장
 
         if (sno) {
             if (deleteStudent(sno)) {
@@ -116,43 +97,67 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
-    /*
     // 검색 버튼 클릭 이벤트 핸들러 등록
     searchBtn.addEventListener('click', () => {
-        const searchCriteria = searchSelect.value;
-        const searchValue = searchInput.value.trim();
+        const searchCriteria = searchSelect.value; //검색 기준 가져오기
+        const searchValue = searchInput.value.trim(); //검색 값 가져오기
+        const studentList = getStudentList();//데이터 배열 가져오기
 
+        let filteredList = [];
+
+        //정규표현식을 쓰면 입력한 값을 자꾸 false로 줘서 정규표현식의 유효성을 빼고 해보자
+
+        //학번을 비교
         if (searchCriteria === 'ssn') {
-            if (isNaN(searchValue) || searchValue === '') {
-                alert('번호 검색 시 숫자만 입력해주세요.');
-                return;
-            }
-        } else if (searchCriteria === 'name') {
-            if (searchValue === '') {
-                alert('이름 검색 시 문자열을 입력해주세요.');
-                return;
-            }
-        }
+            //const searchValueAsNumber = parseInt(searchValue); // 검색 값을 숫자로 변환
 
-        const studentList = getStudentList();
-        let filteredList;
-
-        if (searchCriteria === 'ssn') {
+            // student.sno와 검색 값을 비교하여 필터링
             filteredList = studentList.filter(student => student.sno === searchValue);
-        } else if (searchCriteria === 'name') {
-            filteredList = studentList.filter(student => student.name === searchValue);
+
+            if (filteredList.length === 0) {
+                alert('일치하는 학생이 없습니다.');
+            } else {
+                renderStudentTable(filteredList);
+            }
         }
+        // 검색 기준이 'name'일 때: 이름으로 검색
+        else if (searchCriteria == 'name') {
 
-        renderStudentTable(filteredList);
+            filteredList = studentList.filter(student => student.name === searchValue);
+            console.log(4);
+
+            if (filteredList.length === 0) {
+                alert('일치하는 학생이 없습니다.');
+            } else {
+                renderStudentTable(filteredList);
+            }
+        }
+        else {
+            alert('검색 기준을 선택해주세요.');
+        }
     });
-    */
 
-    const sortSelect = document.getElementById('sortSelect');
+    //정렬 드롭다운 클릭 이벤트 핸들러 등록
     sortSelect.addEventListener('change', () => {
         const sortCriteria = sortSelect.value;
-        const sortedList = sortStudentList(sortCriteria);
-        renderStudentTable(sortedList); // Render sorted data
+        const studentList = getStudentList(); // 학생 목록 가져오기
+
+        // 정렬 함수
+        const sortFunction = (a, b) => {
+            if (sortCriteria === 'rank') {
+                return a.rank - b.rank; // 내림차순
+            } else if (sortCriteria === 'ssn') {
+                return a.sno.localeCompare(b.sno); // 내림차순
+            } else if (sortCriteria === 'name') {
+                return a.name.localeCompare(b.name); // 내림차순
+            }
+        };
+
+        // 학생 목록 정렬
+        studentList.sort(sortFunction);
+
+        // 정렬된 목록 렌더링
+        renderStudentTable(studentList);
     });
 
     init();
@@ -160,25 +165,5 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 //#endregion
 
-
-/*
-// "등 록" 버튼 클릭 이벤트 등록
-document.getElementById('addBtn').addEventListener('click', () => {
-    const form = document.forms['inputForm'];
-    const sno = form.sno.value.trim();
-    const sname = form.sname.value.trim();
-    const kor = parseInt(form.kor.value.trim(), 10);
-    const eng = parseInt(form.eng.value.trim(), 10);
-    const math = parseInt(form.math.value.trim(), 10);
-
-    if (sno && sname && !isNaN(kor) && !isNaN(eng) && !isNaN(math)) {
-        addStudent(sno, sname, kor, eng, math);
-        saveToLocalStorage(); // 로컬 스토리지에 저장
-        renderStudentTable(); // 테이블 업데이트
-    } else {
-        alert('모든 필드를 정확히 입력해주세요.');
-    }
-});
-*/
 
 init();
