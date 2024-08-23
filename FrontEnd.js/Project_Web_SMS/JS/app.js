@@ -34,6 +34,8 @@ function renderStudentTable(studentList) {
 //초기 로드 시 로컬 스토리지에서 학생 데이터 로드 및 렌더링
 function init() {
     loadFromLocalStorage(); // 초기화 시 로컬 스토리지에서 학생 데이터 로드
+    /*위 메서드 안쓰면 전에 저장햇던 데이터를 불러오지 않는다 */
+    
     renderStudentTable(getStudentList()); //학생 리스트를 ui에 렌더링
 
     // 더미 데이터 (중복 방지)
