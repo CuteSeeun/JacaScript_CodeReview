@@ -1,1 +1,1 @@
-# JacaScript_CodeReview
+# JavaScript_CodeReview
