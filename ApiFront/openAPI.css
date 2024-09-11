@@ -1,0 +1,70 @@
+
+h2{text-align: center; margin-bottom: 30px; margin-top: 50px;}
+.search{  display: flex; justify-content: center; align-items: center; margin-bottom: 30px; }
+.searchBtn {background: skyblue; border-radius: 8px; border: none; color: #fff; height: 30px; }
+.searchBtn:hover{}
+input {margin-right: 10px;}
+.inner{}
+.tableAll {display: flex; justify-content: center;}
+.table {border: 1px solid #000; width: 40%; }
+.table thead {border: 1px solid #000;}
+.table thead tr { }
+.table thead tr th { border: 1px solid #000;}
+.table tbody {}
+.table tbody tr {}
+.table tbody tr td {border: 1px solid #000;}
+
+
+
+.seebtn{border: none; background: #000; color: #fff; border-radius: 8px; height: 30px;}
+.seebtn:hover{ background: #fff; color: #000; border: 1px solid #000;}
+
+.page{display: flex; justify-content: center; margin-top: 50px;gap: 4px; }
+#pagebtn {width: 45px; height: 30px; cursor: pointer; border: none; border-radius: 8px;}
+
+.ppp img {width: 200px; }
+
+
+.viewDetails{
+    display: none;
+    position: fixed ; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup{
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: center;
+    position: relative;
+}
+
+.closebtn{
+    position: absolute; top: 10px; right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
