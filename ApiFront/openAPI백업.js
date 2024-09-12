@@ -12,7 +12,7 @@ const popup = document.querySelector('.viewDetails')
 const closebtn = document.querySelector('.closebtn')
 const pop = document.querySelector('.popup')
 
-const url = "https://smart.incheon.go.kr/server/rest/services/Hosted/전통시장/FeatureServer/47/query?where=1%3D1&outFields=name,type,addr,period,hitems,toiletsyn,parkingyn,odate,tel&outSR=4326&f=json";
+const url = "http://localhost:7778/markets";
 
 let currentPage = 1;
 const itemPage = 10;
