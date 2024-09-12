@@ -1,0 +1,52 @@
+<!-- market.html -->
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>시장 데이터</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid white;
+            padding: 8px;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        #pagination {
+            margin-top: 20px;
+        }
+
+        #pagination button {
+            margin: 0 5px;
+            padding: 5px 10px;
+        }
+
+        #detail {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>시장 데이터</h1>
+    <div id="result"></div>
+    <div id="pagination"></div>
+    <div>
+        <div>
+            <input type="text" id="keyword" name="keyword"><button type="button" id="btnSearch">검색</button>
+        </div>
+    </div>
+    <div id="detail"></div>
+    <script src="./marketController.js"></script>
+</body>
+
+</html>
