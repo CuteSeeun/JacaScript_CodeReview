@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메인페이지</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
     <!-- Font Awesome 추가 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* 기본 스타일 */
+        /* 스타일 정의 시작 */
         body {
+            /* font-family: Arial, sans-serif; */
             font-family: Arial, sans-serif;
             background-color: #ffffff;
             margin: 0;
@@ -26,53 +28,53 @@
             padding: 10px 20px;
             background-color: #f8f8f8;
         }
+
         .header nav {
             display: flex;
             gap: 20px;
         }
+
         .header nav a {
             color: #4f5253;
             text-decoration: none;
             font-size: 16px;
             font-weight: bold;
         }
+
         .header nav a:hover {
             color: #2767ff;
         }
 
-        /* .sell-btn {
-            background-color: #007bff;
-            color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        .sell-btn:hover {
-            background-color: #0056b3;
-        } */
-
         /* main */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 140px;
-            text-align: center;
-            /* 텍스트들을 가운데 정렬 */
+        main {
+            margin-top: 50px;
         }
+
+        /* 검색 섹션 중앙 정렬 */
         .search-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
+            width: 65%;
+            margin-bottom: 50px;
             padding: 20px;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            /* margin-bottom: 50px; 왜인지 몰라도 안 먹힘*/
-            width: 80%;
-            margin: 0 auto;
         }
-        .search-section select,
+
+        /* 모델명 입력 필드에 동일한 스타일 적용 */
+        #model-input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            color: #333;
+            width: 200px;
+            /* 너비는 필요에 따라 조정 가능 */
+        }
+
         .search-section button {
             padding: 10px;
             border: 1px solid #ddd;
@@ -80,6 +82,7 @@
             font-size: 16px;
             color: #333;
         }
+
         .search-section button {
             background-color: #007bff;
             color: #fff;
@@ -87,53 +90,135 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
         .search-section button:hover {
             background-color: #0056b3;
         }
 
-        .car-list {
-            margin-top: 90px;
+        /* 차량 목록과 사이드바를 나란히 배치 */
+        .sales-content {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
         }
-        .car-list h2 {
-            font-size: 20px;
-            color: #333;
+
+        /* 메인 섹션 중앙 정렬 */
+        .sales-main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .sales-banner {
+            width: 250px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-right: 30px;
+        }
+
+        .sales-banner label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .sales-banner select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .sales-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
-            text-align: left;
-            text-align: center;
+            /* width: calc(100% - 300px); */
+            width: 100%;
         }
-        .car-grid {
+
+        .sales-top span {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .sales-top select {
+            padding: 8px 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+
+        .car-list {
+            /* flex: 1; */
+
+            /* width: 100%;
+            padding-left: 0; */
+
+            flex: 1;
+            padding-left: 20px;
+        }
+
+        .car-list ul {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
-        }
-        .car-item {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            padding: 15px;
-            transition: box-shadow 0.3s ease-in-out;
-        }
-        .car-item:hover {
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
-        }
-        .car-item img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-        .car-item h3 {
-            font-size: 18px;
-            color: #007bff;
-            margin: 10px 0;
-        }
-        .car-item p {
-            font-size: 16px;
-            color: #333;
+            list-style: none;
+            padding: 0;
             margin: 0;
         }
-        .car-item p i {
+
+        .car-list li {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .car-list li:hover {
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.6);
+            cursor: pointer;
+        }
+
+        .car-list img {
+            width: 100%;
+            height: 160px;
+            display: block;
+        }
+
+        .car-list p {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .car-list p.price {
+            color: #0070c0;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .car-list p.sub-price {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .car-list p i {
             color: #a2a1a1;
             /* 회색 하트 */
             margin-left: 10px;
@@ -141,66 +226,106 @@
             cursor: pointer;
             /* 클릭 가능한 느낌을 주기 위한 포인터 커서 */
         }
-        .car-item p i:hover {
+
+        .car-list p i:hover {
             color: #ff0000;
             /* 호버 시 빨간색으로 변경 (선택 사항) */
         }
 
-        /* footer */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            padding: 10px 15px;
+            margin: 0 5px;
+            background-color: gray;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .pagination button:hover {
+            background-color: darkgray;
+        }
+
+        .pagination button.active {
+            background-color: #007bff;
+            font-weight: bold;
+        }
+
+        /* footrer */
         footer {
             background-color: #f8f9fa;
             padding: 60px 0;
         }
+
         footer .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
-            /* text-align: center;  */
+            text-align: center;
         }
+
         footer .row {
             display: flex;
             justify-content: space-between;
             margin-bottom: 30px;
             flex-wrap: wrap;
         }
+
         footer h6 {
             font-size: 1rem;
             font-weight: bold;
             margin-bottom: 10px;
         }
+
         footer ul {
             list-style-type: none;
             padding: 0;
         }
+
         footer ul li {
             margin-bottom: 5px;
         }
+
         footer ul li a {
             text-decoration: none;
             color: #6c757d;
             font-size: 0.9rem;
         }
+
         footer ul li a:hover {
             color: #007bff;
         }
+
         footer .app-download {
             margin-top: 30px;
         }
+
         footer .app-download h3 {
             font-size: 1.5rem;
             margin-bottom: 20px;
         }
+
         footer .app-download form {
             display: flex;
             justify-content: center;
             align-items: center;
         }
+
         footer .app-download input {
             padding: 10px;
             border-radius: 4px;
             border: 1px solid #ddd;
             width: 200px;
         }
+
         footer .app-download button {
             padding: 10px 20px;
             background-color: #007bff;
@@ -210,17 +335,21 @@
             margin-left: 10px;
             cursor: pointer;
         }
+
         footer .app-download button:hover {
             background-color: #0056b3;
         }
+
         footer hr {
             border-top: 1px solid #ddd;
             margin: 40px 0;
         }
+
         footer .bottom-info {
             color: #6c757d;
             font-size: 0.9rem;
         }
+
         footer .bottom-info ul {
             list-style-type: none;
             padding: 0;
@@ -228,16 +357,20 @@
             justify-content: center;
             margin-bottom: 10px;
         }
+
         footer .bottom-info ul li {
             margin: 0 10px;
         }
+
         footer .bottom-info ul li a {
             color: #6c757d;
             text-decoration: none;
         }
+
         footer .bottom-info ul li a:hover {
             text-decoration: underline;
         }
+
         footer .bottom-info p.copyright {
             margin-top: 20px;
             font-size: 0.9rem;
@@ -249,7 +382,7 @@
     <!-- 헤더 -->
     <header class="header">
         <a href="/main.html" class="navbar-brand">
-            <img src="/src/assets/icons/logo.png" alt="KRCAR" style="height: 40px;">
+            <img src="/front/src/assets/icons/logo.png" alt="KRCAR" style="height: 40px;">
         </a>
         <nav class="ms-auto">
             <a href="/sell.html" class="sell-btn">판매하기</a>
@@ -258,114 +391,170 @@
         </nav>
     </header>
 
-    <main>
-        <div class="container">
+
+    <main class="sales-main">
+        <!-- 검색 섹션 (가운데 정렬) -->
+        <section class="search-section">
             <h1>대한민국 No.1 개인거래 중고차</h1>
             <p>KOS CAR 에서 만나보세요.</p>
-            <div class="search-section">
-                <select id="brand-select">
-                    <option value="">브랜드 선택</option>
-                    <option value="kia">기아</option>
-                    <option value="hyundai">현대</option>
-                    <option value="chevrolet">쉐보레</option>
-                    <option value="renault">르노</option>
-                    <option value="benz">벤츠</option>
-                    <option value="bmw">BMW</option>
-                </select>
-                <select id="model-select">
-                    <option value="">모델 선택</option>
-                </select>
+            <div class="search-container">
+                <!-- 모델명 입력 필드로 변경 -->
+                <input type="text" id="model-input" placeholder="모델명 입력" />
                 <button>검색</button>
             </div>
+        </section>
 
-            <div class="car-list">
-                <h2>인기 Best 10</h2>
-                <div class="car-grid">
-                    <div class="car-item">
-                        <img src="/src/assets/images/car.jpg" alt="Car Image">
-                        <h3>마이바흐</h3>
-                        <p>18억 <i class="fas fa-heart"></i></p>
-                    </div>
-                    <div class="car-item">
-                        <img src="/src/assets/images/car.jpg" alt="Car Image">
-                        <h3>EQS SUV</h3>
-                        <p>14억 <i class="fas fa-heart"></i></p>
-                    </div>
-                    <div class="car-item">
-                        <img src="/src/assets/images/car.jpg" alt="Car Image">
-                        <h3>M8</h3>
-                        <p>13억 <i class="fas fa-heart"></i></p>
-                    </div>
-                    <div class="car-item">
-                        <img src="/src/assets/images/car.jpg" alt="Car Image">
-                        <h3>S클래스 플러그인</h3>
-                        <p>12억 5,000만원 <i class="fas fa-heart"></i></p>
-                    </div>
-                    <div class="car-item">
-                        <img src="/src/assets/images/car.jpg" alt="Car Image">
-                        <h3>S클래스 플러그인</h3>
-                        <p>12억 5,000만원 <i class="fas fa-heart"></i></p>
-                    </div>
-                    <div class="car-item">
-                        <img src="/src/assets/images/car.jpg" alt="Car Image">
-                        <h3>S클래스 플러그인</h3>
-                        <p>12억 5,000만원 <i class="fas fa-heart"></i></p>
-                    </div>
-                    <div class="car-item">
-                        <img src="/src/assets/images/car.jpg" alt="Car Image">
-                        <h3>S클래스 플러그인</h3>
-                        <p>12억 5,000만원 <i class="fas fa-heart"></i></p>
-                    </div>
-                    <div class="car-item">
-                        <img src="/src/assets/images/car.jpg" alt="Car Image">
-                        <h3>S클래스 플러그인</h3>
-                        <p>12억 5,000만원 <i class="fas fa-heart"></i></p>
-                    </div>
-                    <div class="car-item">
-                        <img src="/src/assets/images/car.jpg" alt="Car Image">
-                        <h3>S클래스 플러그인</h3>
-                        <p>12억 5,000만원 <i class="fas fa-heart"></i></p>
-                    </div>
-                    <div class="car-item">
-                        <img src="/src/assets/images/car.jpg" alt="Car Image">
-                        <h3>S클래스 플러그인</h3>
-                        <p>12억 5,000만원 <i class="fas fa-heart"></i></p>
-                    </div>
-                    <div class="car-item">
-                        <img src="/src/assets/images/car.jpg" alt="Car Image">
-                        <h3>S클래스 플러그인</h3>
-                        <p>12억 5,000만원 <i class="fas fa-heart"></i></p>
-                    </div>
-                    <div class="car-item">
-                        <img src="/src/assets/images/car.jpg" alt="Car Image">
-                        <h3>S클래스 플러그인</h3>
-                        <p>12억 5,000만원 <i class="fas fa-heart"></i></p>
-                    </div>
-                    <div class="car-item">
-                        <img src="/src/assets/images/car.jpg" alt="Car Image">
-                        <h3>S클래스 플러그인</h3>
-                        <p>12억 5,000만원 <i class="fas fa-heart"></i></p>
-                    </div>
-                    <div class="car-item">
-                        <img src="/src/assets/images/car.jpg" alt="Car Image">
-                        <h3>S클래스 플러그인</h3>
-                        <p>12억 5,000만원 <i class="fas fa-heart"></i></p>
-                    </div>
-                    <div class="car-item">
-                        <img src="/src/assets/images/car.jpg" alt="Car Image">
-                        <h3>S클래스 플러그인</h3>
-                        <p>12억 5,000만원 <i class="fas fa-heart"></i></p>
-                    </div>
-                    <div class="car-item">
-                        <img src="/src/assets/images/car.jpg" alt="Car Image">
-                        <h3>S클래스 플러그인</h3>
-                        <p>12억 5,000만원 <i class="fas fa-heart"></i></p>
-                    </div>
-                    <!-- 추가 차량 항목 복사하여 사용 -->
+        <!-- 차량 목록 섹션 (좌우 배치) -->
+        <section class="sales-content">
+            <section class="sales-banner">
+                <!-- 브랜드, 모델, 연식 등 필터링 부분 -->
+                <div>
+                    <label>브랜드:
+                        <select>
+                            <option value="전체">전체</option>
+                            <!-- 옵션들... -->
+                        </select>
+                    </label>
                 </div>
-            </div>
-        </div>
+                <div>
+                    <label>모델:
+                        <select>
+                            <option value="전체">전체</option>
+                            <!-- 옵션들... -->
+                        </select>
+                    </label>
+                </div>
+                <!-- 추가 필터링 요소들 -->
+            </section>
+
+            <section class="car-list">
+                <!-- 차량 리스트 -->
+                <section class="sales-top">
+                    <span>전체 200대</span>
+                    <select>
+                        <option value="최신순">최신순</option>
+                        <option value="낮은 가격순">낮은 가격순</option>
+                        <option value="높은 가격순">높은 가격순</option>
+                    </select>
+                </section>
+                <ul>
+                    <!-- 차량 항목들... -->
+                    <li>
+                        <figure class="img">
+                            <img src="/front/src/assets/images/car.jpg" alt="Car Image">
+                        </figure>
+                        <figcaption class="car-name">그랜저</figcaption>
+                        <p>2022년식</p>
+                        <p>가솔린 <span>5000km</span></p>
+                        <p class="price">5억</p>
+                        <p class="sub-price">(월 1,042만원) <i class="fas fa-heart"></i></p>
+                    </li>
+                    <li>
+                        <figure class="img">
+                            <img src="/front/src/assets/images/car.jpg" alt="Car Image">
+                        </figure>
+                        <figcaption class="car-name">그랜저</figcaption>
+                        <p>2022년식</p>
+                        <p>가솔린 <span>5000km</span></p>
+                        <p class="price">5억</p>
+                        <p class="sub-price">(월 1,042만원) <i class="fas fa-heart"></i></p>
+                    </li>
+                    <li>
+                        <figure class="img">
+                            <img src="/front/src/assets/images/car.jpg" alt="Car Image">
+                        </figure>
+                        <figcaption class="car-name">그랜저</figcaption>
+                        <p>2022년식</p>
+                        <p>가솔린 <span>5000km</span></p>
+                        <p class="price">5억</p>
+                        <p class="sub-price">(월 1,042만원) <i class="fas fa-heart"></i></p>
+                    </li>
+                    <li>
+                        <figure class="img">
+                            <img src="/front/src/assets/images/car.jpg" alt="Car Image">
+                        </figure>
+                        <figcaption class="car-name">그랜저</figcaption>
+                        <p>2022년식</p>
+                        <p>가솔린 <span>5000km</span></p>
+                        <p class="price">5억</p>
+                        <p class="sub-price">(월 1,042만원) <i class="fas fa-heart"></i></p>
+                    </li>
+                    <li>
+                        <figure class="img">
+                            <img src="/front/src/assets/images/car.jpg" alt="Car Image">
+                        </figure>
+                        <figcaption class="car-name">그랜저</figcaption>
+                        <p>2022년식</p>
+                        <p>가솔린 <span>5000km</span></p>
+                        <p class="price">5억</p>
+                        <p class="sub-price">(월 1,042만원) <i class="fas fa-heart"></i></p>
+                    </li>
+                    <li>
+                        <figure class="img">
+                            <img src="/front/src/assets/images/car.jpg" alt="Car Image">
+                        </figure>
+                        <figcaption class="car-name">그랜저</figcaption>
+                        <p>2022년식</p>
+                        <p>가솔린 <span>5000km</span></p>
+                        <p class="price">5억</p>
+                        <p class="sub-price">(월 1,042만원) <i class="fas fa-heart"></i></p>
+                    </li>
+                    <li>
+                        <figure class="img">
+                            <img src="/front/src/assets/images/car.jpg" alt="Car Image">
+                        </figure>
+                        <figcaption class="car-name">그랜저</figcaption>
+                        <p>2022년식</p>
+                        <p>가솔린 <span>5000km</span></p>
+                        <p class="price">5억</p>
+                        <p class="sub-price">(월 1,042만원) <i class="fas fa-heart"></i></p>
+                    </li>
+
+                    <li>
+                        <figure class="img">
+                            <img src="/front/src/assets/images/car.jpg" alt="Car Image">
+                        </figure>
+                        <figcaption class="car-name">그랜저</figcaption>
+                        <p>2022년식</p>
+                        <p>가솔린 <span>5000km</span></p>
+                        <p class="price">5억</p>
+                        <p class="sub-price">(월 1,042만원) <i class="fas fa-heart"></i></p>
+                    </li>
+                    <li>
+                        <figure class="img">
+                            <img src="/front/src/assets/images/car.jpg" alt="Car Image">
+                        </figure>
+                        <figcaption class="car-name">그랜저</figcaption>
+                        <p>2022년식</p>
+                        <p>가솔린 <span>5000km</span></p>
+                        <p class="price">5억</p>
+                        <p class="sub-price">(월 1,042만원) <i class="fas fa-heart"></i></p>
+                    </li>
+                    <li>
+                        <figure class="img">
+                            <img src="/front/src/assets/images/car.jpg" alt="Car Image">
+                        </figure>
+                        <figcaption class="car-name">그랜저</figcaption>
+                        <p>2022년식</p>
+                        <p>가솔린 <span>5000km</span></p>
+                        <p class="price">5억</p>
+                        <p class="sub-price">(월 1,042만원) <i class="fas fa-heart"></i></p>
+                    </li>
+                    <li>
+                        <figure class="img">
+                            <img src="/front/src/assets/images/car.jpg" alt="Car Image">
+                        </figure>
+                        <figcaption class="car-name">그랜저</figcaption>
+                        <p>2022년식</p>
+                        <p>가솔린 <span>5000km</span></p>
+                        <p class="price">5억</p>
+                        <p class="sub-price">(월 1,042만원) <i class="fas fa-heart"></i></p>
+                    </li>
+                </ul>
+            </section>
+        </section>
     </main>
+
 
     <!-- 푸터 -->
     <footer>
@@ -424,42 +613,6 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        // 브랜드별 모델 데이터
-        const brandModels = {
-            kia: ["K5", "K7", "스포티지", "쏘렌토"],
-            hyundai: ["아반떼", "소나타", "투싼", "팰리세이드"],
-            chevrolet: ["말리부", "트랙스", "캡티바"],
-            renault: ["SM3", "QM6", "트위지"],
-            benz: ["C-Class", "E-Class", "S-Class"],
-            bmw: ["3 Series", "5 Series", "X5"]
-        };
-    
-        // HTML 요소 참조
-        const brandSelect = document.getElementById('brand-select');
-        const modelSelect = document.getElementById('model-select');
-    
-        // 브랜드 선택 시 모델 업데이트 함수
-        brandSelect.addEventListener('change', function() {
-            // 모델 선택 초기화
-            modelSelect.innerHTML = '<option value="">모델 선택</option>';
-    
-            // 선택한 브랜드 가져오기
-            const selectedBrand = brandSelect.value;
-    
-            // 선택된 브랜드가 있을 때 모델 추가
-            if (selectedBrand && brandModels[selectedBrand]) {
-                brandModels[selectedBrand].forEach(function(model) {
-                    const option = document.createElement('option');
-                    option.value = model;
-                    option.textContent = model;
-                    modelSelect.appendChild(option);
-                });
-            }
-        });
-    </script>
-
 </body>
 
 </html>
