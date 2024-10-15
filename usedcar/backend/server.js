@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/user", joinRouter);
-app.use("/", mainRouter);
+app.use("/car", mainRouter);
 
 const PORT = process.env.PORT || 3333;
 app.listen(PORT, () => {
