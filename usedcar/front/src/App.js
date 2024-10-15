@@ -5,7 +5,6 @@ import CarListMain from './components/mainhj/CarListMain';
 import GlobalStyle from './styles/GlobalStyle';
 import DetailMain from './components/detail/DetailMain';
 import DetailUser from './components/detail/DetailUser';
-import Add from './components/add/Add';
 
 const App = () => {
   return (
@@ -13,9 +12,10 @@ const App = () => {
     <GlobalStyle/>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Layout/>}>
-          <Route index element={<DetailUser/>}/>
-        </Route>
+        <Route path='/' element={<CarListMain/>}/>
+          {/* <Route index element={<CarListMain/>}/> */}
+          <Route path='/detailmain/:id' element={<DetailMain/>}/>
+          <Route path='/detailuser/:id' element={<DetailUser/>}/>
       </Routes>
     </BrowserRouter>
     </>

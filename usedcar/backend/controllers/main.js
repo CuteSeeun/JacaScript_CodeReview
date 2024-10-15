@@ -1,23 +1,7 @@
-//정연
-
-//필요한 모듈 설치
-const express = require("express");
-const path = require("path");
-const cors = require("cors");
-const axios = require("axios");
 const pool = require("../dbpools");
+//필요한 모듈 설치
 
-
-//express 어플리케이션 인스턴스 생성
-const app = express();
-
-//미들웨어 설정
-app.use(express.static(path.join(__dirname, "public")));
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-//
+//정연 - car Table 전체 출력
 const carinfo = async (req, res) => {
   const sql = `select * from car`;
   try {

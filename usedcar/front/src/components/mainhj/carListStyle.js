@@ -2,11 +2,15 @@ import styled from 'styled-components';
 
 export const CarListMainWrap = styled.div`
   padding: 20px;
+  box-sizing: border-box;
 `;
 
 export const ContentWrap = styled.div`
-  display: flex;
+   display: flex;
+  justify-content: space-between;
   gap: 20px;
+  box-sizing: border-box;
+  width: 100%;
 `;
 
 export const CarListBannerWrap = styled.div`
@@ -18,6 +22,7 @@ export const CarListBannerWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  box-sizing: border-box;
 
   label {
     font-weight: bold;
@@ -31,14 +36,19 @@ export const CarListBannerWrap = styled.div`
     border: 1px solid #ccc;
     font-size: 16px;
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+}
 `;
 
 export const CarListOutputWrap = styled.div`
-  flex-grow: 1;
+  width: 75%;
   padding: 20px;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 
   .outTop {
     display: flex;
@@ -172,3 +182,4 @@ export const CarListTopWrap = styled.div`
     }
   }
 `;
+
