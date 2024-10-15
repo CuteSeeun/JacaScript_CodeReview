@@ -1,22 +1,42 @@
-import React from 'react';
 import { DetailMainWrap } from './detailStyle';
+import { useLocation, useNavigate} from 'react-router-dom';
+import { formatPrice } from '../../utils/formPrice';
+import axios from 'axios';
 
 const DetailMain = () => {
+
+    const location = useLocation();
+    const car = location.state;
+    const navigate= useNavigate();
+
+    const deleteCar = async()=>{
+        if(window.confirm("삭제하시겠습니까?")){
+            try {
+                await axios.delete(`http://localhost:3333/car/${car.cNo}`);
+                alert('삭제되었습니다.');
+                navigate('/');
+            } catch (error) {
+                console.error("차량 삭제 중 오류 발생: ", error);
+                alert("차량 삭제 중 오류가 발생했습니다.");
+            }
+        }
+    }
+
   return (
     <DetailMainWrap>
 <div className="main-info">
     <div className="info-text">
-        <h1>벤츠AMG GT43 2도어</h1>
-        <p>1999년식 · 555km · 가솔린</p>
+        <h1>{car.name}</h1>
+        <p>{car.year} · {car.mileage} · {car.fueltype}</p>
     </div>
     <div className="price-details">
         <div className="price">
             <span>판매가격</span>
-            <strong>5000만원</strong>
+            <strong>{formatPrice(car.price)}</strong>
         </div>
         <div className="monthly-payment">
             <span>할부</span>
-            <strong>월 50만원</strong>
+            <strong>{formatPrice(car.price)}</strong>
         </div>
     </div>
     <div className="contact-buttons">
@@ -25,28 +45,17 @@ const DetailMain = () => {
     </div>
 </div>
             <div className="image-section">
-                <img src={require('../../assets/images/car.jpg')} alt="" />
+                <img src={require('../../assets/images/car.jpg')} alt={car.name} />
             </div>
             <div className="info-section">
                 <div className="info-card">
                     <h3>차량 정보</h3>
-                    <p>모델명: 카니발</p>
-                    <p>제조사: 기아</p>
-                    <p>연식: 2022</p>
-                    <p>주행 거리: 5500km</p>
-                    <p>연료: 가솔린</p>
-                </div>
-                <div className="info-card">
-                    <h3>차량 리뷰</h3>
-                    <p>이 차량은 연비가 뛰어나고 주행 성능이 우수합니다. 실내 공간이 넉넉하여 장거리 운전에도 적합합니다.</p>
-                    <p>이 차량은 연비가 뛰어나고 주행 성능이 우수합니다. 실내 공간이 넉넉하여 장거리 운전에도 적합합니다.</p>
-                    <p>이 차량은 연비가 뛰어나고 주행 성능이 우수합니다. 실내 공간이 넉넉하여 장거리 운전에도 적합합니다.</p>
-                    <p>이 차량은 연비가 뛰어나고 주행 성능이 우수합니다. 실내 공간이 넉넉하여 장거리 운전에도 적합합니다.</p>
-                    <p>이 차량은 연비가 뛰어나고 주행 성능이 우수합니다. 실내 공간이 넉넉하여 장거리 운전에도 적합합니다.</p>
-                    <p>이 차량은 연비가 뛰어나고 주행 성능이 우수합니다. 실내 공간이 넉넉하여 장거리 운전에도 적합합니다.</p>
-                    <p>이 차량은 연비가 뛰어나고 주행 성능이 우수합니다. 실내 공간이 넉넉하여 장거리 운전에도 적합합니다.</p>
-                    <p>이 차량은 연비가 뛰어나고 주행 성능이 우수합니다. 실내 공간이 넉넉하여 장거리 운전에도 적합합니다.</p>
-                    <p>이 차량은 연비가 뛰어나고 주행 성능이 우수합니다. 실내 공간이 넉넉하여 장거리 운전에도 적합합니다.</p>
+                    <p>모델명: {car.name}</p>
+                    <p>제조사: {car.brand}</p>
+                    <p>연식: {car.year}년</p>
+                    <p>주행 거리: {car.mileage}km</p>
+                    <p>연료: {car.fueltype}</p>
+                    <p>컬러: {car.color}</p>
                 </div>
                 <div className="info-card">
                 <h3>판매자 정보</h3>
@@ -56,8 +65,8 @@ const DetailMain = () => {
                 </div>
             </div>
             <div className="userBtn">
-            <button>수정하기</button>
-            <button>삭제하기</button>
+            <button onClick={() => navigate(`/detailuser/${car.cNo}`, { state: car })}>수정하기</button>
+            <button onClick={deleteCar}>삭제하기</button>
             </div>
     </DetailMainWrap>
   );

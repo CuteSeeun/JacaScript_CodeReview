@@ -209,7 +209,6 @@ display: flex;
         width: 100%;
         max-width: 1200px;
         margin: 20px 0;
-
         img {
             width: 100%;
             height: auto;
