@@ -1,15 +1,15 @@
 // join.js
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 
 function Join() {
     const [formData, setFormData] = useState({
         name: '',
-        username: '',
-        password: '',
-        passwordConfirm: '',
-        phone: '',
+        userid: '',
+        passwd: '',
+        passwdConfirm: '',
+        tel: '',
         email: ''
     });
     const [error, setError] = useState('');
@@ -33,13 +33,10 @@ function Join() {
         }
     }, [formData.email]);
 
-    const back = () => {
-        navigate('/login'); // '/login' 경로로 이동
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (formData.password !== formData.passwordConfirm) {
+        if (formData.passwd !== formData.passwdConfirm) {
             setError('비밀번호가 일치하지 않습니다.');
             return;
         }
@@ -48,14 +45,14 @@ function Join() {
             console.log(response.data);
             navigate('/login'); // 성공적으로 저장된 후 로그인 페이지로 이동
         } catch (error) {
-            console.error('Error saving user:', error);
+            console.error(error);
             setError('사용자 저장 중 오류가 발생했습니다.');
         }
     };
 
     return (
         <div className="signup-container shadow-lg">
-            <i className="fas fa-arrow-left back-btn" onClick={back}></i>
+            <Link to="/login" className="fas fa-arrow-left back-btn"></Link>
             <h1>회원가입</h1>
             <form onSubmit={handleSubmit}>
                 {/* 이름 입력 */}
@@ -67,30 +64,30 @@ function Join() {
 
                 {/* 아이디 입력 */}
                 <div className="mb-3">
-                    <label htmlFor="username" className="form-label">아이디 <span className="required-label">*</span></label>
-                    <input type="text" className="form-control" id="username" placeholder="영문과 숫자 포함 4-12자리"
-                        value={formData.username} onChange={handleChange} />
+                    <label htmlFor="userid" className="form-label">아이디 <span className="required-label">*</span></label>
+                    <input type="text" className="form-control" id="userid" placeholder="영문과 숫자 포함 4-12자리"
+                        value={formData.userid} onChange={handleChange} />
                 </div>
 
                 {/* 비밀번호 입력 */}
                 <div className="mb-3">
-                    <label htmlFor="password" className="form-label">비밀번호 <span className="required-label">*</span></label>
-                    <input type="password" className="form-control" id="password" placeholder="비밀번호 입력"
-                        value={formData.password} onChange={handleChange} />
+                    <label htmlFor="passwd" className="form-label">비밀번호 <span className="required-label">*</span></label>
+                    <input type="password" className="form-control" id="passwd" placeholder="비밀번호 입력"
+                        value={formData.passwd} onChange={handleChange} />
                 </div>
 
                 {/* 비밀번호 확인 */}
                 <div className="mb-3">
-                    <label htmlFor="passwordConfirm" className="form-label">비밀번호 확인 <span className="required-label">*</span></label>
-                    <input type="password" className="form-control" id="passwordConfirm" placeholder="비밀번호 확인"
-                        value={formData.passwordConfirm} onChange={handleChange} />
+                    <label htmlFor="passwdConfirm" className="form-label">비밀번호 확인 <span className="required-label">*</span></label>
+                    <input type="password" className="form-control" id="passwdConfirm" placeholder="비밀번호 확인"
+                        value={formData.passwdConfirm} onChange={handleChange} />
                 </div>
 
                 {/* 휴대전화번호 입력 */}
                 <div className="mb-3">
-                    <label htmlFor="phone" className="form-label">휴대전화번호 <span className="required-label">*</span></label>
-                    <input type="text" className="form-control" id="phone" placeholder="'-' 제외하고 숫자만 입력"
-                        value={formData.phone} onChange={handleChange} />
+                    <label htmlFor="tel" className="form-label">휴대전화번호 <span className="required-label">*</span></label>
+                    <input type="text" className="form-control" id="tel" placeholder="'-' 제외하고 숫자만 입력"
+                        value={formData.tel} onChange={handleChange} />
                 </div>
 
                 {/* 이메일 입력 */}
