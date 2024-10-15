@@ -41,9 +41,10 @@ const DetailUser = () => {
 
                     <div className="info-card">
                     <h3>차량 리뷰</h3>
+                    <input type="text" />
                 </div>
-
-                </div>
+                    
+            </div>
 
 
                 <div className='sellState'>
