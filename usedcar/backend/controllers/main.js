@@ -1,6 +1,6 @@
 //정연
 
-const pool = require("../dbpools");
+const pool = require("../config/dbpools");
 
 //
 const carinfo = async (req, res) => {

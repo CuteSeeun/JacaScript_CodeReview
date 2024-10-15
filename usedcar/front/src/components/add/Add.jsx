@@ -118,7 +118,7 @@ const SellForm = () => {
     event.preventDefault(); // 폼 제출 방지
 
     if (validateForm()) {
-      // 유효성 검사가 통과되면 백엔드로 데이터를 전송
+      // 유효성 검사가 통과되면 백엔드로 데이터를 전송, FormData로 파일과 데이터를 함께 전송
       const formData = new FormData();
       formData.append('name', carModel);
       formData.append('brand', manufacturer);
@@ -127,7 +127,7 @@ const SellForm = () => {
       formData.append('fueltype', fuel);
       formData.append('price', price);
       formData.append('color', color);
-      // formData.append('carImage', carImage); // 파일 업로드
+      formData.append('carImage', carImage); // 파일 업로드
       // 임시로 user_uno 값을 지정
       const tempUserUno = 100; // 임시 user_uno 값, 123은 임의의 값
       formData.append('user_uno', tempUserUno);  // user_uno 값 추가
@@ -135,14 +135,14 @@ const SellForm = () => {
       // formData 내용을 로그로 출력
       // console.log([...formData.entries()]);
 
+      //FormData 전송
       axios.post('http://localhost:3333/addCar', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'multipart/form-data', // 파일 업로드를 위한 multipart/form-data 설정
         },
       })
         .then((response) => {
           console.log(response);
-          console.log('차량이 성공적으로 등록되었습니다.');
           alert('차량이 성공적으로 등록되었습니다.');
         })
         .catch((error) => {

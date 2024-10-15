@@ -3,6 +3,7 @@
 // server.js
 const express = require("express");
 const cors = require("cors");
+const path = require('path');
 const joinRouter = require("./routes/joinRouter");
 const mainRouter = require("./routes/mainRouter");
 const addRouter = require("./routes/addRouter");
@@ -11,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use("/user", joinRouter);
 app.use("/car", mainRouter);

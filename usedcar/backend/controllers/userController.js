@@ -1,5 +1,5 @@
 // userController.js
-const pool = require('../dbpools');
+const pool = require('../config/dbpools');
 
 const saveUser = async (req, res) => {
     const { name, userid, passwd, tel, email } = req.body;

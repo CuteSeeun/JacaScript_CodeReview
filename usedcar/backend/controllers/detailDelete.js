@@ -1,4 +1,4 @@
-const pool = require('../dbpools');
+const pool = require('../config/dbpools');
 
 const deleteCar = async (req, res) => {
     const { id } = req.params;
