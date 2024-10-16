@@ -23,6 +23,7 @@ const App = () => {
             <Route path="join" element={<Join />} />
             <Route path="login" element={<Login />} />
             {/* <Route index element={<CarListOutput />} /> */}
+            <Route index element={<MyPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
