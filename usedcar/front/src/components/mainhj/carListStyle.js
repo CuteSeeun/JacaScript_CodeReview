@@ -95,11 +95,11 @@ export const CarListOutputWrap = styled.div`
         height: 150px;
         margin-bottom: 16px;
         background-color: #f4f4f4;
+        object-fit: cover;
 
         img {
           width: 100%;
           height: 100%;
-          object-fit: cover;
         }
       }
 

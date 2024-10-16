@@ -35,7 +35,7 @@ const CarListOutput = ({ carList }) => {
   const indexofLastItem = currentPage * itemsPerPage;
   const indexofFirstItem = indexofLastItem - itemsPerPage;
   const currentItems = sortedCarList.slice(indexofFirstItem, indexofLastItem);
-
+  
   //페이지네이션 버튼 클릭 핸들러
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -61,14 +61,13 @@ const CarListOutput = ({ carList }) => {
           <li
             key={car.cNo}
             onClick={() => {
-              console.log(`/detailmain/${car.cNo}`, car);
               navigate(`/detailmain/${car.cNo}`, { state: car });
             }}
-          >
+            >
             <div className="img">
               <img
                 src={`http://localhost:3333${car.image}`}
-                alt={car.name}
+                alt=""
                 onError={(e) => (e.target.src = "/images/placeholder.png")}
               />
             </div>
@@ -78,8 +77,7 @@ const CarListOutput = ({ carList }) => {
               {car.fueltype} <IoCarSport /> {car.mileage}km
             </p>
             <p className="price">{formatPrice(car.price)}</p>
-            <p className="sub-price">(월 1,042만원)</p>
-            <button className="ZimBtn">
+            <button className="ZimBtn" onClick={e=> e.isPropagationStopped()}>
               {car.cNo % 2 === 0 ? <GoHeartFill /> : <GoHeart />}
             </button>
           </li>

@@ -1,4 +1,7 @@
 /* Header.css */
+import styled from 'styled-components';
+
+export const HeaderWrap = styled.div`
 .header {
     display: flex;
     justify-content: space-between;
@@ -22,3 +25,4 @@
 .header nav a:hover {
     color: #2767ff;
 }
+`
