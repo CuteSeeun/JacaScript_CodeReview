@@ -76,14 +76,11 @@ function Join() {
         }
     };
 
-    const BackBtn = () => (
-        <Link to="/login" className="fas fa-arrow-left back-btn"></Link>
-    );
 
     return (
         <JoinStyle>
             <div className="signup-container shadow-lg">
-                <i class="fas fa-arrow-left back-btn" onclick={BackBtn}></i>
+                <Link to="/"><i className="fas fa-arrow-left back-btn"></i></Link>
 
                 <h1>회원가입</h1>
                 <form onSubmit={handleSubmit}>

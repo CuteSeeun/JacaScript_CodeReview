@@ -5,8 +5,11 @@ const express = require("express");
 const cors = require("cors");
 const path = require('path');
 const joinRouter = require("./routes/joinRouter");
+const loginRouter = require("./routes/loginRouter");
 const mainRouter = require("./routes/mainRouter");
 const addRouter = require("./routes/addRouter");
+const editUserRouter = require("./routes/editUserRouter");
+const headerRouter = require("./routes/headerRouter");
 
 const app = express();
 app.use(express.json());
@@ -14,7 +17,10 @@ app.use(cors());
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+app.use('/header', headerRouter);
 app.use("/user", joinRouter);
+app.use("/login", loginRouter);
+app.use("/edituser", editUserRouter);
 app.use("/car", mainRouter);
 app.use("/addCar", addRouter);
 
