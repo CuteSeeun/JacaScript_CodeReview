@@ -22,6 +22,7 @@ const CarListMain = () => {
         const carListData = async () => {
             try {
                 const response = await axios.get('http://localhost:3333/car');
+                console.log('응답 데이터:', response.data);
                 setCarList(response.data);
                 setFilteredCars(response.data);
             } catch (error) {

@@ -11,16 +11,18 @@ const DetailUser = () => {
     const [car,setCar] = useState(location.state);
 
     useEffect(()=>{
-        const fetchCarData = async()=>{
-            try {
-                const response = await axios.get(`http://localhost:3333/car/${id}`)
-                setCar(response.data);
-            } catch (error) {
-                console.log('error',error);
-            }
+        if (!car) {
+            const fetchCarData = async () => {
+                try {
+                    const response = await axios.get(`http://localhost:3333/car/${id}`);
+                    setCar(response.data);
+                } catch (error) {
+                    console.log('Error fetching car data:', error);
+                }
+            };
+            fetchCarData();
         }
-        fetchCarData();
-    },[id,car])
+    }, [id, car]);
 
     const inputChange = e =>{
         const {name,value} = e.target;
@@ -31,19 +33,29 @@ const DetailUser = () => {
     }
 
     const editUpdate = async()=>{
-        try {
-            await axios.put(`http://localhost:3333/car/${id}`,car);
-            alert('차량 정보가 수정되었습니다!');
-            navigate(`/detailmain/${id}`);
-        } catch (error) {
-            console.error('car update error ',error)
+        if(window.confirm("수정하시겠습니까?")){
+            try {
+                await axios.put(`http://localhost:3333/car/${id}`,{
+                    name: car.name,
+                    brand: car.brand,
+                    year: car.year,
+                    mileage: car.mileage,
+                    fueltype: car.fueltype,
+                    price: car.price,
+                    sale:car.sale,
+                });
+                alert('차량 정보가 수정되었습니다!');
+                navigate(`/`);
+            } catch (error) {
+                console.error('car update error ',error)
+            }
         }
     }
 
     return (
         <DetailUserWrap>
              <div className="image-section">
-                <img src={require('../../assets/images/car.jpg')} alt="" />
+                <img src={`http://localhost:3333${car.image}`} alt="" />
             </div>
 
             <div className='info-section'>
@@ -75,25 +87,20 @@ const DetailUser = () => {
                     <input type="number"  name="price" value={car.price} onChange={inputChange}   />
                     </div>
 
-                    {/* <div className="info-card">
-                    <h3>차량 리뷰</h3>
-                    <input type="text" />
-                </div> */}
-                    
             </div>
 
 
                 <div className='sellState'>
                     <h3>판매 상태</h3>
-                    <select>
-                        <option value="판매중">판매중</option>
-                        <option value="판매완료">판매완료</option>
+                    <select name='sale' value={car.sale} onChange={inputChange}>
+                        <option value="1">판매중</option>
+                        <option value="0">판매완료</option>
                     </select>
                 </div>
 
                 <div className='userBtn'>
-                <button className='editBtn' onClick={editUpdate}>수정하기</button>
-                <button className='delBtn'>삭제하기</button>
+                <button className='editBtn' onClick={editUpdate}>완료</button>
+                <button className='editBtn' onClick={()=>navigate(-1)}>취소</button>
                 </div>
 
             </div>
