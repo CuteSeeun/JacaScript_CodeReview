@@ -77,7 +77,7 @@ const CarListOutput = ({ carList }) => {
               {car.fueltype} <IoCarSport /> {car.mileage}km
             </p>
             <p className="price">{formatPrice(car.price)}</p>
-            <button className="ZimBtn" onChange={e=> e.isPropagationStopped()}>
+            <button className="ZimBtn" onClick={e=> e.isPropagationStopped()}>
               {car.cNo % 2 === 0 ? <GoHeartFill /> : <GoHeart />}
             </button>
           </li>

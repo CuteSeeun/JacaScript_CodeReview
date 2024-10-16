@@ -56,7 +56,8 @@ const DetailUser = () => {
     return (
         <DetailUserWrap>
              <div className="image-section">
-                <img src={`http://localhost:3333${car.image}`} alt="" />
+                {/* <img src={`http://localhost:3333${car.image}`} alt="" /> */}
+                <img src={car.image} alt="" />
             </div>
 
             <div className='info-section'>
