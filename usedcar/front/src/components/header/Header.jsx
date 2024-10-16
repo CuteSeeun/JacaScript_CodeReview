@@ -26,7 +26,7 @@ const Header = () => {
 
   return (
     <header className="header">
-      <Link to="/carListMain">
+      <Link to="/">
         <img src={logo} alt="KRCAR" style={{ height: "40px" }} />
       </Link>
       <nav className="ms-auto">
