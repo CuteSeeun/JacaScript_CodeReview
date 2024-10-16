@@ -2,7 +2,7 @@
 import React from 'react';
 import ProfileInfo from './ProfileInfo';
 import OrderHistory from './OrderHistory';
-import WishList from './WishList';
+import WishList from './Wish';
 import SoldItems from './SoldItems';
 import EditInfoLink from './EditInfo';
 

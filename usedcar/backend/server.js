@@ -7,6 +7,7 @@ const path = require('path');
 const joinRouter = require("./routes/joinRouter");
 const mainRouter = require("./routes/mainRouter");
 const addRouter = require("./routes/addRouter");
+const wishRouter = require("./routes/wishRouter");
 
 const app = express();
 app.use(express.json());
@@ -17,6 +18,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use("/user", joinRouter);
 app.use("/car", mainRouter);
 app.use("/addCar", addRouter);
+app.use("/wishList", wishRouter);
 
 
 const PORT = process.env.PORT || 3333;
