@@ -18,9 +18,10 @@ const WishList = () => {
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
-        const response = await axios.get('http://localhost:3333/wishList');  // 백엔드에서 만든 API 호출
+        const response = await axios.get('http://localhost:3333/wishList');  // 백엔드에서 만든 API 호출(프론트랑 서버 주소 다르니깐 명시)
         setWishlist(response.data);  // 데이터를 상태에 저장
         console.log('데이터 상태에 저장 성공');
+        console.log(response.data);  // 데이터를 콘솔에 출력
       } catch (error) {
         // console.error('Failed to fetch wishlist:', error);
         console.log('데이터 가져오기 실패 : ' + error);
@@ -30,31 +31,23 @@ const WishList = () => {
     console.log('fetchWishlist 함수 호출 성공');
   }, []);
 
-  // 항목을 리스트에서 제거하고 백엔드로 데이터 전송하는 함수
-  const removeFromWishlist = async (cNo) => {
+  // 하트를 눌렀을 때 리스트에서 제거하지 않고 favorite 값을 0으로만 설정
+  const toggleFavorite = async (cNo) => {
     try {
-      //   // 1. React 상태에서 항목 제거
-      //   setWishlist((prevWishlist) => prevWishlist.filter((car) => car.cNo !== cNo));
-      //   console.log(`Car with cNo ${cNo} removed from wishlist`);
+      // 1. 클릭한 항목의 favorite 값을 0으로 설정하여 즉시 색상이 회색으로 바뀌도록 함
+      setWishlist((prevWishlist) =>
+        prevWishlist.map((car) => 
+          car.cNo === cNo ? { ...car, favorite: 0 } : car  // 클릭한 항목의 favorite 값만 0으로 바꿈
+        )
+      );
+      console.log('favorite 값이 0으로 설정됨');
 
-      //   // 2. 백엔드로 PUT 요청 보내서 DB 업데이트
-      //   await axios.put(`http://localhost:3333/wishList/${cNo}`, {
-      //     user_uno: 10, // user_uno를 10으로 전달
-      //   });
-      //   console.log(`Car with cNo ${cNo} updated in DB`);
-
-      // } catch (error) {
-      //   console.error('Error while removing from wishlist:', error);
-      // }
-
-      // 백엔드로 DELETE 요청을 보내서 favorite 값을 0으로 업데이트
+      // 2. favorite 값을 0으로 변경하는 요청을 백엔드에 보냄
       await axios.put(`http://localhost:3333/wishList/${cNo}`, { user_uno: 10 });
-
-      // 성공적으로 백엔드에서 업데이트 후, 로컬 상태에서 해당 항목을 삭제
-      setWishlist(wishlist.filter((car) => car.cNo !== cNo));
-      console.log('삭제 성공');
+      console.log('백엔드에 favorite 값 업데이트 요청 성공');
+      
     } catch (error) {
-      console.log('삭제 실패 : ' + error);
+      console.log('favorite 값 업데이트 실패: ' + error);
     }
   };
 
@@ -62,6 +55,7 @@ const WishList = () => {
 
   return (
     <>
+    {console.log(wishlist)} {/* 렌더링 전에 데이터를 출력 */}
       <ListGroupItem onClick={toggleCollapse}>
         찜한 차 <i className="fas fa-chevron-down action-icon"></i>
       </ListGroupItem>
@@ -106,24 +100,24 @@ const WishList = () => {
                 <i className="fas fa-heart wish-icon"></i>
               </WishListItem> */}
 
-              {wishlist.map((car) => (
+              {/* {wishlist.map((car) => (
                 <WishListItem key={car.cNo}>
-                  <img src={car.image} alt={car.name} /> {/*car의 이미지 출력*/}
-                  <a href={`/car-details/${car.cNo}`}>{car.name}</a> {/* car의 모델명 출력 */}
-                  {/* <i className="fas fa-heart wish-icon"
-                  style={{width:"50px", height:"50px"}}
-                                       onClick={(e) => {
-                      console.log('하트 클릭됨'); 
-                       }}
-                  >abc</i> */}
-
-{/* <i className="fas fa-heart wish-icon" onClick={() => alert('Icon clicked!')} style={{ display: 'inline-block', pointerEvents: 'all', cursor: 'pointer' }}></i> */}
-
-      <FontAwesomeIcon icon={faHeart } onClick={()=> console.log('클릭')} style={{ cursor: 'pointer', fontSize: '24px', color: 'red' }} />
-
-                  {/* <svg width="30" height="30" viewBox="0 0 24 24" style={{cursor: 'pointer', pointerEvents: 'all' }} onClick={() => alert('SVG clicked!')}>
-        <path fill="red" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
-      </svg> */}
+                  <img src={car.image} alt={car.name} /> 
+                  <a href={`/car-details/${car.cNo}`}>{car.name}</a> 
+                  <FontAwesomeIcon icon={faHeart } onClick={()=> console.log('클릭')} 
+                                   style={{ cursor: 'pointer', fontSize: '24px', color: 'red' }} /> */}
+                
+                {wishlist.map((car) => (
+                <WishListItem key={car.cNo}>
+                  <img src={`http://localhost:3333${car.image}`} alt={car.name} /> {/* 이 코드 의문.. */}
+                  <a href={`/car-details/${car.cNo}`}>{car.name}</a> 
+                  
+                  <FontAwesomeIcon 
+                    icon={faHeart} 
+                    onClick={() => toggleFavorite(car.cNo)}  // 하트를 누르면 해당 차량의 favorite 값만 0으로 변경
+                    style={{ cursor: 'pointer', fontSize: '24px', color: car.favorite === 1 ? 'red' : 'gray' }} 
+                  />
+                
                 </WishListItem>
               ))}
             </StyledWishList>

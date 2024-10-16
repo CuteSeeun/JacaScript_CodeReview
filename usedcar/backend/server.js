@@ -10,6 +10,9 @@ const mainRouter = require("./routes/mainRouter");
 const addRouter = require("./routes/addRouter");
 const editUserRouter = require("./routes/editUserRouter");
 const headerRouter = require("./routes/headerRouter");
+const wishRouter = require("./routes/wishRouter");
+const soldRouter = require("./routes/soldRouter");
+
 
 const app = express();
 app.use(express.json());
@@ -23,7 +26,8 @@ app.use("/login", loginRouter);
 app.use("/edituser", editUserRouter);
 app.use("/car", mainRouter);
 app.use("/addCar", addRouter);
-
+app.use("/wishList", wishRouter);
+app.use("/sold", soldRouter);
 
 const PORT = process.env.PORT || 3333;
 app.listen(PORT, () => {

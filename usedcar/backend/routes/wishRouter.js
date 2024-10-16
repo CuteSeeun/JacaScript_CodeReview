@@ -4,14 +4,21 @@ const db = require("../config/dbpools"); // MySQL 연결 설정
 const multer = require("multer");
 const path = require("path");
 
-//board테이블과 car 테이블을 조인한 데이터를 프론트엔드로 보내줘 차의 이미지랑 모델명을 뿌려준다.
+//board테이블과 car 테이블을 조인한 데이터를 프론트엔드로 보내줘 차의 이미지랑 모델명을 뿌려준다. favorite은 가져와 상태에 저장한다.
 router.get('/', async (req, res) => {
   const query = `
-    SELECT car.image, car.name
+    SELECT car.image, car.name, board.favorite, car.cNo
 FROM board 
 JOIN car 
 ON board.car_cno = car.cNo 
-WHERE board.user_uno = 10 AND board.favorite = 1`;
+WHERE board.user_uno = 10 AND board.favorite = 1 `;
+  // const query = `
+  //   SELECT car.image, car.name, board.favorite
+  //   FROM board 
+  //   JOIN car 
+  //   ON board.car_cno = car.cNo 
+  //   WHERE board.user_uno = 10`; 
+
 // const query = `
 //     SELECT CONCAT('/uploads/', car.image) AS image, car.name
 //     FROM board 
@@ -21,7 +28,7 @@ WHERE board.user_uno = 10 AND board.favorite = 1`;
 
   try {
     const [results] = await db.query(query); // Promise 사용
-    res.json(results); // 결과 반환
+    res.json(results); // 결과 반환(name, image, favorite)
     console.log(results);
   } catch (err) {
     res.status(500).send(err); // 에러 발생 시
