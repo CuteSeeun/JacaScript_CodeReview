@@ -44,6 +44,7 @@ const DetailUser = () => {
                     price: car.price,
                     sale:car.sale,
                 });
+                console.log(car.sale);
                 alert('차량 정보가 수정되었습니다!');
                 navigate(`/`);
             } catch (error) {
@@ -93,8 +94,8 @@ const DetailUser = () => {
                 <div className='sellState'>
                     <h3>판매 상태</h3>
                     <select name='sale' value={car.sale} onChange={inputChange}>
-                        <option value="1">판매중</option>
-                        <option value="0">판매완료</option>
+                        <option value="0">판매중</option>
+                        <option value="1">판매완료</option>
                     </select>
                 </div>
 

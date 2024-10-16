@@ -1,26 +1,29 @@
 // Header.js
 import React from "react";
-import "./HeaderStyle.css"; // CSS 파일을 임포트합니다.
 import logo from "../../assets/icons/logo.png";
+import { HeaderWrap } from "./headerStyle.js";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
+    <HeaderWrap>
     <header className="header">
-      <a href="/main.html" className="navbar-brand">
+      <Link to="" className="navbar-brand">
         <img src={logo} alt="KRCAR" style={{ height: "40px" }} />
-      </a>
+      </Link>
       <nav className="ms-auto">
-        <a href="/sell.html" className="sell-btn">
+       <Link to="/">
           판매하기
-        </a>
-        <a href="/login.html" className="me-3 text-decoration-none">
+       </Link> 
+       <Link to="/">
           로그인
-        </a>
-        <a href="/mypage.html" className="text-decoration-none">
+       </Link>
+       <Link to="/">
           마이페이지
-        </a>
+       </Link>
       </nav>
     </header>
+    </HeaderWrap>
   );
 };
 

@@ -23,22 +23,6 @@ const deleteCar = async (req, res) => {
     }
 };
 
-// const updateCar = async (req, res) => {
-//     const { id } = req.params;
-//     const { name, brand, year, mileage, fueltype, price } = req.body;
-//     const sql = `
-//         UPDATE car 
-//         SET name = ?, brand = ?, year = ?, mileage = ?, fueltype = ?, price = ?
-//         WHERE cNo = ?
-//     `;
-//     try {
-//         const result = await pool.query(sql, [name, brand, year, mileage, fueltype, price, id]);
-//         res.status(200).json({ message: '차량 정보가 성공적으로 업데이트되었습니다.' });
-//     } catch (error) {
-//         console.error('차량 정보 업데이트 중 오류 발생:', error);
-//         res.status(500).json({ message: '서버 오류' });
-//     }
-// };
 
 const updateCar = async (req, res) => {
     const { id } = req.params;
@@ -50,7 +34,7 @@ const updateCar = async (req, res) => {
         const carSql = `
             UPDATE car 
             SET name = ?, brand = ?, year = ?, mileage = ?, fueltype = ?, price = ?
-            WHERE cNo = ?
+            WHERE cNo = ?;
         `;
         await connection.query(carSql, [name, brand, year, mileage, fueltype, price, id]);
 
@@ -58,7 +42,7 @@ const updateCar = async (req, res) => {
         const boardSql = `
             UPDATE board 
             SET sale = ? 
-            WHERE car_cno = ?
+            WHERE car_cno = ?;
         `;
         await connection.query(boardSql, [sale, id]);
 
