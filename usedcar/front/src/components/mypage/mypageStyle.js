@@ -123,13 +123,13 @@ export const WishListItem = styled.li`
 
   .wish-icon {
     margin-left: auto;
-    color: #cac9c9;
+    color: #ff0000;
     font-size: 1.5rem;
     padding: 5px;
     cursor: pointer;
 
     &:hover {
-      color: #ff0000;
+      /* color: #ff0000; */
     }
   }
 `;

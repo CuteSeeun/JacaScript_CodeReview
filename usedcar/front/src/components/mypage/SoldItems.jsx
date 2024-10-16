@@ -1,13 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ListGroupItem, CollapseContent, WishListItem, StyledWishList } from './mypageStyle';
 
 const SoldItems = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [soldItems, setSoldItems] = useState([]); // soldItems 상태에 데이터를 저장
   
     const toggleCollapse = () => {
       setIsOpen(!isOpen);
     };
+
+    // useEffect로 데이터 가져오기
+  useEffect(() => {
+    const fetchSoldItems = async () => {
+      try {
+        const response = await axios.get('http://localhost:3333/sold'); // 백엔드 API 호출
+        setSoldItems(response.data); // 데이터를 상태에 저장
+        console.log('데이터 상태에 저장 성공');
+        console.log(response.data); // 데이터 출력
+      } catch (error) {
+        console.log('데이터 가져오기 실패: ' + error);
+      }
+    };
+    fetchSoldItems();
+  }, []);
 
     return (
       <>
@@ -22,35 +38,16 @@ const SoldItems = () => {
                   <i className="fas fa-plus"> 판매</i>
                 </a>
               </WishListItem>
-              <WishListItem>
-                <img src="/src/assets/images/car.jpg" alt="기아 더 뉴 카니발" />
-                <a href="/car-details/1.html">기아 더 뉴 카니발</a>
+
+            {/* soldItems 데이터를 map으로 렌더링 */}
+            {soldItems.map((item) => (
+              <WishListItem key={item.bNo}>  {/* bNo를 key로 설정 */}
+                <img src={`http://localhost:3333${item.image}`} alt={item.name} /> {/* car의 이미지 */}
+                <a href={`/car-details/${item.bNo}`}>{item.name}</a> {/* car의 이름 */}
+                {/* <img src="/src/assets/images/car.jpg" alt="기아 더 뉴 카니발" />
+                <a href="/car-details/1.html">기아 더 뉴 카니발</a> */}
               </WishListItem>
-              <WishListItem>
-                <img src="/src/assets/images/car.jpg" alt="기아 더 뉴 카니발" />
-                <a href="/car-details/1.html">기아 더 뉴 카니발</a>
-              </WishListItem>
-              <WishListItem>
-                <img src="/src/assets/images/car.jpg" alt="기아 더 뉴 카니발" />
-                <a href="/car-details/1.html">기아 더 뉴 카니발</a>
-              </WishListItem>
-              <WishListItem>
-                <img src="/src/assets/images/car.jpg" alt="기아 더 뉴 카니발" />
-                <a href="/car-details/1.html">기아 더 뉴 카니발</a>
-              </WishListItem>
-              <WishListItem>
-                <img src="/src/assets/images/car.jpg" alt="기아 더 뉴 카니발" />
-                <a href="/car-details/1.html">기아 더 뉴 카니발</a>
-              </WishListItem>
-              <WishListItem>
-                <img src="/src/assets/images/car.jpg" alt="기아 더 뉴 카니발" />
-                <a href="/car-details/1.html">기아 더 뉴 카니발</a>
-              </WishListItem>
-              <WishListItem>
-                <img src="/src/assets/images/car.jpg" alt="기아 더 뉴 카니발" />
-                <a href="/car-details/1.html">기아 더 뉴 카니발</a>
-              </WishListItem>
-              {/* 다른 항목들 */}
+            ))}
             </StyledWishList>
           </CollapseContent>
         )}
