@@ -5,15 +5,15 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
 
   body {
-    font-size: 16px;
-    line-height: 1.6;
-    font-family: 'Noto Sans KR', sans-serif;
-    color:#333;
+    font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
   }
 
 
-  li { list-style:none }
-  img { vertical-align: top; }
+  /* li { list-style:none }
+  img { vertical-align: top; } */
 
   /* 기본 inner 스타일 */
   .inner { 
