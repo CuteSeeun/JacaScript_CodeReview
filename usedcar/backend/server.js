@@ -5,6 +5,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require('path');
 const joinRouter = require("./routes/joinRouter");
+const loginRouter = require("./routes/loginRouter");
 const mainRouter = require("./routes/mainRouter");
 const addRouter = require("./routes/addRouter");
 
@@ -15,6 +16,7 @@ app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use("/user", joinRouter);
+app.use("/login", loginRouter);
 app.use("/car", mainRouter);
 app.use("/addCar", addRouter);
 

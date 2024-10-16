@@ -30,4 +30,19 @@ const verifyEmail = async (req, res) => {
     }
 };
 
-module.exports = { saveUser, verifyEmail };
+const loginUser = async (req, res) => {
+    const { userid, passwd } = req.body;
+    try {
+        const [rows] = await pool.query('SELECT uNo FROM user WHERE userid = ? AND passwd = ?', [userid, passwd]);
+        if (rows.length > 0) {
+            res.json({ success: true, uNo: rows[0].uNo });
+        } else {
+            res.json({ success: false, message: '아이디나 비밀번호가 일치하지 않습니다.' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error');
+    }
+};
+
+module.exports = { saveUser, verifyEmail, loginUser };
