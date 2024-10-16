@@ -6,7 +6,7 @@ export const CarListMainWrap = styled.div`
 `;
 
 export const ContentWrap = styled.div`
-   display: flex;
+  display: flex;
   justify-content: space-between;
   gap: 20px;
   box-sizing: border-box;
@@ -39,7 +39,7 @@ export const CarListBannerWrap = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
-}
+  }
 `;
 
 export const CarListOutputWrap = styled.div`
@@ -137,6 +137,33 @@ export const CarListOutputWrap = styled.div`
       }
     }
   }
+
+  /* 페이지네이션 스타일 */
+  .pagination {
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+    margin-top: 20px; /* 상단 여백 */
+  }
+
+  .pagination button {
+    background-color: #f0f0f0; /* 기본 배경색 */
+    border: none; /* 테두리 없애기 */
+    color: #333; /* 텍스트 색상 */
+    padding: 10px 15px; /* 여백 */
+    margin: 0 5px; /* 버튼 간 간격 */
+    cursor: pointer; /* 마우스 커서 포인터 */
+    border-radius: 5px; /* 둥근 모서리 */
+    transition: background-color 0.3s; /* 배경색 전환 효과 */
+  }
+
+  .pagination button:hover {
+    background-color: #e0e0e0; /* hover 시 배경색 변경 */
+  }
+
+  .pagination button.active {
+    background-color: #007bff; /* 현재 페이지 버튼 배경색 */
+    color: white; /* 현재 페이지 버튼 텍스트 색상 */
+  }
 `;
 
 export const CarListTopWrap = styled.div`
@@ -159,7 +186,7 @@ export const CarListTopWrap = styled.div`
       margin-bottom: 20px;
     }
 
-    input[type="text"] {
+    input[type='text'] {
       padding: 10px;
       font-size: 16px;
       border: 1px solid #ccc;
@@ -182,4 +209,3 @@ export const CarListTopWrap = styled.div`
     }
   }
 `;
-
