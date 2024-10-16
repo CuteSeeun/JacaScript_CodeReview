@@ -34,7 +34,7 @@ function Login() {
                 // 로컬 스토리지에 uNo 저장
                 localStorage.setItem('uNo', uNo);
                 // carListMain으로 이동
-                navigate('/carListMain');
+                navigate('/Header');// 테스트 해보려고 Header로 이어둠,원래는 carListMain
             } else {
                 setError('로그인 실패: ' + response.data.message);
             }
@@ -44,17 +44,14 @@ function Login() {
         }
     }
 
-
-
-    const ToMainBtn = () => {
-        <Link to="/carListMain" className="fas fa-arrow-left back-btn"></Link>
-    };
-
     return (
         <LoginStyle>
             <div className="login-container shadow-lg">
                 {/* 화살표 아이콘 */}
-                <i className="fas fa-arrow-left back-btn" onClick={ToMainBtn}></i>
+
+                <Link to="/Header"><i className="fas fa-arrow-left back-btn"></i></Link>
+                {/* 화살표 링크 다시 지정해줘야됨 테스트 해보려고 Header로 이어둠,원래는 carListMain */}
+
                 <h1>로그인</h1>
                 {/* 아이디 입력 */}
                 <div className="mb-3">

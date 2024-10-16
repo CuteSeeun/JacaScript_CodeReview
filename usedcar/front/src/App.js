@@ -9,6 +9,9 @@ import Add from "./components/add/Add";
 import CarListOutput from "./components/mainhj/CarListOutput";
 import Login from "./components/login/login";
 import Join from "./components/join/join";
+import MyPage from "./components/mypage/mypage";
+import Header from "./components/header/Header";
+import EditInfo from "./components/mypage/EditInfo";
 
 const App = () => {
   return (
@@ -22,8 +25,10 @@ const App = () => {
             <Route index element={<Login />} />
             <Route path="join" element={<Join />} />
             <Route path="login" element={<Login />} />
+            <Route path="Header" element={<Header />} />
             {/* <Route index element={<CarListOutput />} /> */}
-            <Route index element={<MyPage />} />
+            <Route path="mypage" element={<MyPage />} />
+            <Route path="EditInfo" element={<EditInfo />} />
           </Route>
         </Routes>
       </BrowserRouter>

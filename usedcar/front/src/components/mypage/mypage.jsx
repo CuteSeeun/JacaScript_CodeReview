@@ -1,10 +1,10 @@
 // MyPage.js
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ProfileInfo from './ProfileInfo';
 import OrderHistory from './OrderHistory';
-import WishList from './WishList';
+import WishList from './Wishlist';
 import SoldItems from './SoldItems';
-import EditInfoLink from './EditInfo';
 
 const MyPage = () => {
   return (
@@ -13,7 +13,7 @@ const MyPage = () => {
       <OrderHistory />
       <WishList />
       <SoldItems />
-      <EditInfoLink />
+      <Link to="/EditInfo">회원정보 수정</Link>
     </div>
   );
 };

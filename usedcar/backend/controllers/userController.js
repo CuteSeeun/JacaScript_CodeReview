@@ -45,4 +45,35 @@ const loginUser = async (req, res) => {
     }
 };
 
-module.exports = { saveUser, verifyEmail, loginUser };
+const editUser = async (req, res) => {
+    const { uNo } = req.params;
+    try {
+        const [rows] = await pool.query('SELECT name, userid, tel, email FROM user WHERE uNo = ?', [uNo]);
+        console.log(rows);
+        if (rows.length > 0) {
+            res.json(rows[0]);
+        } else {
+            res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error');
+    }
+};
+
+const showName = async (req, res) => {
+    const { uNo } = req.params;
+    try {
+        const [rows] = await pool.query('SELECT name FROM user WHERE uNo = ?', [uNo]);
+        if (rows.length > 0) {
+            res.json({ name: rows[0].name });
+        } else {
+            res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error');
+    }
+};
+
+module.exports = { saveUser, verifyEmail, loginUser, editUser, showName };
