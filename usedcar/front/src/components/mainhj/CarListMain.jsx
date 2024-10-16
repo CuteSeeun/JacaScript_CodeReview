@@ -15,7 +15,7 @@ const CarListMain = () => {
         mileage: '',
         fueltype: '',
         price: '',
-        color: ''
+        color: '',
     });
 
     useEffect(() => {

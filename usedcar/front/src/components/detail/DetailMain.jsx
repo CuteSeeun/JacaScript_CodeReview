@@ -7,7 +7,10 @@ const DetailMain = () => {
 
     const location = useLocation();
     const car = location.state;
+    console.log(car);
+    
     const navigate= useNavigate();
+   
 
     const deleteCar = async()=>{
         if(window.confirm("삭제하시겠습니까?")){
@@ -20,6 +23,10 @@ const DetailMain = () => {
                 alert("차량 삭제 중 오류가 발생했습니다.");
             }
         }
+    }
+    
+    const cone = () =>{
+        alert(`${car.seller_tel}로 연락 바랍니다.`)
     }
 
   return (
@@ -40,12 +47,12 @@ const DetailMain = () => {
         </div>
     </div>
     <div className="contact-buttons">
-        <button className="contact-call">전화 상담</button>
-        <button className="contact-message">문자 상담</button>
+        <button className="contact-call" onClick={cone}>전화 상담</button>
+        <button className="contact-message"  onClick={cone}>문자 상담</button>
     </div>
 </div>
             <div className="image-section">
-                <img src={require('../../assets/images/car.jpg')} alt={car.name} />
+                <img src={`http://localhost:3333${car.image}`} alt={car.name} />
             </div>
             <div className="info-section">
                 <div className="info-card">
@@ -59,9 +66,9 @@ const DetailMain = () => {
                 </div>
                 <div className="info-card">
                 <h3>판매자 정보</h3>
-                    <p>이름: 홍길동</p>
-                    <p>전화번호: 112</p>
-                    <p>이메일: eee@네이버</p>
+                <p>이름: {car.seller_name}</p> 
+                    <p>전화번호: {car.seller_tel}</p>
+                    <p>이메일: {car.seller_email}</p>
                 </div>
             </div>
             <div className="userBtn">
