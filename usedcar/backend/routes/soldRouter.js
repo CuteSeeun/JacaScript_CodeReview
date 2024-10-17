@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
       FROM board
       JOIN car
       ON board.car_cno = car.cNo
-      WHERE board.user_uno = 10
+      WHERE board.user_uno = ?
     `;
 
     try {

@@ -5,6 +5,7 @@ import { GoHeart, GoHeartFill } from "react-icons/go";
 import { IoCarSport } from "react-icons/io5";
 import { formatPrice } from "../../utils/formPrice";
 import { useNavigate } from "react-router-dom";
+import Jim from "../../models/Jim";
 
 const CarListOutput = ({carList,currentPage,setCurrentPage }) => {
   const navigate = useNavigate();
@@ -15,6 +16,24 @@ const CarListOutput = ({carList,currentPage,setCurrentPage }) => {
   const handleSortChange = (e) => {
     setSortOption(e.target.value);
   };
+ // -------------------------
+  const [zim, setZim] = useState(Array(carList.length).fill(false));
+  const [pop, setPop] = useState(false);
+  const [popmsg, setPopmsg] = useState('');
+
+  
+
+  const jimm = (idx) => {
+    const updateZim = [...zim];
+    updateZim[idx] = !updateZim[idx];
+    setZim(updateZim);
+    setPopmsg(updateZim[idx] ? "찜 목록에 추가되었습니다." : "찜 목록에서 삭제되었습니다.");
+    setPop(true);
+    setTimeout(() => setPop(false), 2000);
+};
+
+//--------------------------------
+
 
   const sortedCarList = [...carList].sort((a, b) => {
     switch (sortOption) {
@@ -57,7 +76,7 @@ const CarListOutput = ({carList,currentPage,setCurrentPage }) => {
         </select>
       </div>
       <ul>
-        {currentItems.map((car) => (
+        {currentItems.map((car,idx) => (
           <li
             key={car.cNo}
             onClick={() => {
@@ -77,12 +96,19 @@ const CarListOutput = ({carList,currentPage,setCurrentPage }) => {
               {car.fueltype} <IoCarSport /> {car.mileage}km
             </p>
             <p className="price">{formatPrice(car.price)}</p>
-            <button className="ZimBtn" onClick={e=> e.stopPropagation()}>
-              {car.cNo % 2 === 0 ? <GoHeartFill /> : <GoHeart />}
-            </button>
+
+
+            {/* ---------------------------------------- */}
+            <button className='ZimBtn' onClick={e => { e.stopPropagation(); jimm(idx) }}
+                style={zim[idx] ? { color: 'red' } : { color: '#000' }}
+            >{zim[idx] ? <GoHeartFill /> : <GoHeart />}</button>
+            {/* ------------------------------------------ */}
+
+
           </li>
         ))}
       </ul>
+      
       <div className="pagination">
         {Array.from({ length: totalPages }, (_, index) => (
           <button
@@ -94,6 +120,7 @@ const CarListOutput = ({carList,currentPage,setCurrentPage }) => {
           </button>
         ))}
       </div>
+      <Jim pop={pop} msg={popmsg}/>
     </CarListOutputWrap>
   );
 };
