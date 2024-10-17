@@ -4,12 +4,19 @@ import { ListGroupItem, CollapseContent, StyledWishList, WishListItem, WishListC
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 
 const WishList = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [wishlist, setWishlist] = useState([]); // wishlist 데이터를 저장할 상태
   const user_uno = localStorage.getItem('uNo');  // localStorage에서 uNo로 가져오기
+
+  const location = useLocation();
+    const car = location.state;
+    console.log(car);
+    
+    const navigate= useNavigate();
 
 
   const toggleCollapse = () => {
@@ -114,7 +121,10 @@ const WishList = () => {
               {wishlist.map((car) => (
                 <WishListItem key={car.cNo}>
                   <img src={`http://localhost:3333${car.image}`} alt={car.name} /> {/* 이 코드 의문.. */}
-                  <a href={`/car-details/${car.cNo}`}>{car.name}</a>
+                  {/* <a onClick ={() => navigate(`/detailmain/${car.cNo}`, { state: car })}> {car.name} </a> */}
+                  <Link to={`/detailmain/${car.cNo}`} state={car}>{car.name}</Link>
+                  {/* <a href={`/detailmain/${car.cNo}`}>{car.name}</a> */}
+                  {/* () => navigate(`/detailuser/${car.cNo}`, { state: car }) */}
 
                   <FontAwesomeIcon
                     icon={faHeart}

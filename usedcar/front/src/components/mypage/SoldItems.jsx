@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ListGroupItem, CollapseContent, WishListItem, StyledWishList } from './mypageStyle';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const SoldItems = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [soldItems, setSoldItems] = useState([]); // soldItems 상태에 데이터를 저장
+    // 로그인된 사용자의 user_uno를 localStorage에서 가져옴
+    const user_uno = localStorage.getItem('uNo');
   
+    
     const toggleCollapse = () => {
       setIsOpen(!isOpen);
     };
@@ -15,7 +18,9 @@ const SoldItems = () => {
   useEffect(() => {
     const fetchSoldItems = async () => {
       try {
-        const response = await axios.get('http://localhost:3333/sold'); // 백엔드 API 호출
+        const response = await axios.get('http://localhost:3333/sold', {
+          params: { user_uno }  // user_uno 값을 백엔드로 전송
+        }); // 백엔드 API 호출
         setSoldItems(response.data); // 데이터를 상태에 저장
         console.log('데이터 상태에 저장 성공');
         console.log(response.data); // 데이터 출력
@@ -24,7 +29,7 @@ const SoldItems = () => {
       }
     };
     fetchSoldItems();
-  }, []);
+  }, [user_uno]);  // user_uno가 변경될 때마다 데이터 가져오기
 
     return (
       <>

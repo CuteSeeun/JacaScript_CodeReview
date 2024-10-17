@@ -1,39 +1,38 @@
 // 정연
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CarListOutputWrap } from "./carListStyle";
 import { GoHeart, GoHeartFill } from "react-icons/go";
 import { IoCarSport } from "react-icons/io5";
 import { formatPrice } from "../../utils/formPrice";
 import { useNavigate } from "react-router-dom";
-import Jim from "../../models/Jim";
+import axios from 'axios';
 
-const CarListOutput = ({carList,currentPage,setCurrentPage }) => {
+
+const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
   const navigate = useNavigate();
   const [sortOption, setSortOption] = useState("최신순");
   // const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
+  const user_uno = localStorage.getItem('uNo');  // 로컬 스토리지에서 유저 번호 가져오기
+
+  console.log(carList);
+
+  const [favoriteStates, setFavoriteStates] = useState({}); // favorite 상태 관리
+
+  // useEffect를 사용하여 carList가 업데이트되었을 때 favoriteStates 초기화
+  useEffect(() => {
+    if (carList.length > 0) {
+      const initialFavoriteStates = carList.reduce((acc, car) => {
+        acc[car.cNo] = car.favorite;
+        return acc;
+      }, {});
+      setFavoriteStates(initialFavoriteStates);  // favorite 상태 초기화
+    }
+  }, [carList]);  // carList가 변경될 때마다 실행
 
   const handleSortChange = (e) => {
     setSortOption(e.target.value);
   };
- // -------------------------
-  const [zim, setZim] = useState(Array(carList.length).fill(false));
-  const [pop, setPop] = useState(false);
-  const [popmsg, setPopmsg] = useState('');
-
-  
-
-  const jimm = (idx) => {
-    const updateZim = [...zim];
-    updateZim[idx] = !updateZim[idx];
-    setZim(updateZim);
-    setPopmsg(updateZim[idx] ? "찜 목록에 추가되었습니다." : "찜 목록에서 삭제되었습니다.");
-    setPop(true);
-    setTimeout(() => setPop(false), 2000);
-};
-
-//--------------------------------
-
 
   const sortedCarList = [...carList].sort((a, b) => {
     switch (sortOption) {
@@ -54,13 +53,43 @@ const CarListOutput = ({carList,currentPage,setCurrentPage }) => {
   const indexofLastItem = currentPage * itemsPerPage;
   const indexofFirstItem = indexofLastItem - itemsPerPage;
   const currentItems = sortedCarList.slice(indexofFirstItem, indexofLastItem);
-  
+
   //페이지네이션 버튼 클릭 핸들러
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
   const totalPages = Math.ceil(sortedCarList.length / itemsPerPage);
+
+  // 찜하기 기능: favorite 값 토글
+  const toggleFavorite = async (cNo, currentFavorite) => {
+    console.log('토글 함수 들어옴');
+    console.log(cNo);
+    console.log(currentFavorite);//지금 이게 없으. 
+
+    // const newFavorite = currentFavorite === 1 ? 0 : 1;
+    console.log('하트 상태 바꿔주고');
+    console.log('Sending request to update favorite:');
+    console.log('Car ID (cNo):', cNo);
+    // console.log('New favorite status:', newFavorite);
+    console.log('User Number:', user_uno);
+  
+    try {
+      // 백엔드에 currentFavorite 값을 그대로 보내도록 수정
+      await axios.put(`http://localhost:3333/car/favorite/${cNo}`, {
+        favorite: currentFavorite, // currentFavorite 값을 그대로 전송
+        user_uno, // user_uno 값을 전송해 특정 사용자의 찜 목록을 업데이트
+      });
+
+      // 서버 업데이트 후 local 상태에서도 업데이트
+      setFavoriteStates((prevStates) => ({
+        ...prevStates,
+        [cNo]: currentFavorite,  // 상태를 그대로 유지
+      }));
+    } catch (error) {
+      console.error("Favorite 업데이트 오류:", error);
+    }
+  };
 
   return (
     <CarListOutputWrap>
@@ -74,15 +103,16 @@ const CarListOutput = ({carList,currentPage,setCurrentPage }) => {
           <option value="높은가격순">높은가격순</option>
           <option value="주행거리">주행거리짧은순</option>
         </select>
+
       </div>
       <ul>
-        {currentItems.map((car,idx) => (
+        {currentItems.map((car) => (
           <li
             key={car.cNo}
             onClick={() => {
               navigate(`/detailmain/${car.cNo}`, { state: car });
             }}
-            >
+          >
             <div className="img">
               <img
                 src={`http://localhost:3333${car.image}`}
@@ -97,18 +127,18 @@ const CarListOutput = ({carList,currentPage,setCurrentPage }) => {
             </p>
             <p className="price">{formatPrice(car.price)}</p>
 
-
-            {/* ---------------------------------------- */}
-            <button className='ZimBtn' onClick={e => { e.stopPropagation(); jimm(idx) }}
-                style={zim[idx] ? { color: 'red' } : { color: '#000' }}
-            >{zim[idx] ? <GoHeartFill /> : <GoHeart />}</button>
-            {/* ------------------------------------------ */}
-
+            <button className="ZimBtn" 
+                    onClick={e => { e.stopPropagation();
+                                    console.log('하트 클릭');
+                      toggleFavorite(car.cNo, favoriteStates[car.cNo]);
+                      console.log(car.cNo, favoriteStates[car.cNo]);
+            }}>
+            {favoriteStates[car.cNo] === 1 ? <GoHeartFill /> : <GoHeart />}
+            </button>
 
           </li>
         ))}
       </ul>
-      
       <div className="pagination">
         {Array.from({ length: totalPages }, (_, index) => (
           <button
@@ -120,7 +150,6 @@ const CarListOutput = ({carList,currentPage,setCurrentPage }) => {
           </button>
         ))}
       </div>
-      <Jim pop={pop} msg={popmsg}/>
     </CarListOutputWrap>
   );
 };
