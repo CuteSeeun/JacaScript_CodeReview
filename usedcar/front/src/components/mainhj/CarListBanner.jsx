@@ -9,6 +9,7 @@ const CarListBanner = ({ filters, setFilters,setSearch }) => {
             [name]: value
         }));
     };
+    
     const brandChange = e => {
         setFilters({
             brand: e.target.value,

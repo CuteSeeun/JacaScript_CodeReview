@@ -20,15 +20,12 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            {/* <Route index element={<Edit/>}/> */}
-            {/* <Route index element={<Detail/>}/> */}
-            {/* <Route index element={<Login />} /> */}
-            <Route index element={<MyPage />} />
-
+          <Route index element={<CarListMain />}/>
+            <Route path='/detailmain/:id' element={<DetailMain/>}/>
+            <Route path='/detailuser/:id' element={<DetailUser/>}/>
             <Route path="join" element={<Join />} />
             <Route path="login" element={<Login />} />
             <Route path="Header" element={<Header />} />
-            {/* <Route index element={<CarListOutput />} /> */}
             <Route path="mypage" element={<MyPage />} />
             <Route path="EditInfo" element={<EditInfo />} />
           </Route>
