@@ -94,7 +94,7 @@ function Login() {
                 </button>
                 {/* 기타 로그인 옵션 */}
                 <div className="text-center login-options mb-3">
-                    <Link to="/join">회원가입</Link> | <a href="#">아이디찾기</a> | <a href="#">비밀번호 찾기</a>
+                    <Link to="/join">회원가입</Link> | <Link to="/findId">아이디찾기</Link> | <Link to="findpw">비밀번호 찾기</Link>
                 </div>
                 {/* 구분선 */}
                 <div className="divider">
