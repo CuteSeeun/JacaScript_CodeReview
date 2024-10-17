@@ -10,6 +10,8 @@ const DetailUser = () => {
 
     const [car,setCar] = useState(location.state);
 
+    const [saleChange , setSaleChange] = useState(false);
+
     useEffect(()=>{
         if (!car) {
             const fetchCarData = async () => {
@@ -30,7 +32,12 @@ const DetailUser = () => {
             ...prevCar,
             [name]: value
         }));
+
+        if(name === 'sale'){
+            setSaleChange(true);
+        }
     }
+    
 
     const editUpdate = async()=>{
         if(window.confirm("수정하시겠습니까?")){
@@ -46,7 +53,13 @@ const DetailUser = () => {
                 });
                 console.log(car.sale);
                 alert('차량 정보가 수정되었습니다!');
-                navigate(`/`);
+              
+                if(saleChange){
+                    navigate('/')
+                }else{
+                    navigate(`/detailmain/${id}`,{ state: car })
+                }
+                
             } catch (error) {
                 console.error('car update error ',error)
             }
@@ -56,7 +69,7 @@ const DetailUser = () => {
     return (
         <DetailUserWrap>
              <div className="image-section">
-                {/* <img src={`http://localhost:3333${car.image}`} alt="" /> */}
+                <img src={`http://localhost:3333${car.image}`} alt="" />
                 <img src={car.image} alt="" />
             </div>
 

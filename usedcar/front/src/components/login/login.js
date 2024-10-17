@@ -38,6 +38,7 @@ function Login() {
             } else {
                 setError('로그인 실패: ' + response.data.message);
             }
+            // window.location.reload();
         } catch (error) {
             console.error('로그인 중 오류:', error);
             setError('로그인 중 오류가 발생했습니다.');

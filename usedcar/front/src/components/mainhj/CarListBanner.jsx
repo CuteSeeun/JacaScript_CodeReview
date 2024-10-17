@@ -1,6 +1,6 @@
 import { CarListBannerWrap } from './carListStyle';
 
-const CarListBanner = ({ filters, setFilters,setSearch }) => {
+const CarListBanner = ({ filters, setFilters,setSearch,setInput }) => {
 
     const filterChange = e => {
         const { name, value } = e.target;
@@ -20,6 +20,7 @@ const CarListBanner = ({ filters, setFilters,setSearch }) => {
             color: ''       
         });
         setSearch('');
+        setInput('');
     };
 
     return (

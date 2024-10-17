@@ -9,6 +9,9 @@ const CarListMain = () => {
     const [carList, setCarList] = useState([]);
     const [search, setSearch] = useState('');
     const [filteredCars, setFilteredCars] = useState([]);
+
+    const [input , setInput] = useState('');
+
     const [filters, setFilters] = useState({
         brand: '',
         year: '',
@@ -70,11 +73,25 @@ const CarListMain = () => {
         return carPrice >= minPrice && carPrice <= maxPrice;
     };
 
+    const searchValue = value =>{
+        setSearch(value);
+
+        const matchedCars = carList.filter(car => car.name.toLowerCase().includes(value.toLowerCase()));
+        
+        if(matchedCars.length > 0){
+            const carBrand = matchedCars[0].brand;
+            setFilters(prevCar =>({
+                ...prevCar,
+                brand:carBrand,
+            }))
+        }
+    }
+
     return (
         <CarListMainWrap>
-            <CarListTop setSearch={setSearch} />
+            <CarListTop setSearch={searchValue} input={input} setInput={setInput} />
             <ContentWrap>
-                <CarListBanner filters={filters} setFilters={setFilters} setSearch={setSearch}/>
+                <CarListBanner filters={filters} setFilters={setFilters} setSearch={setSearch} setInput={setInput} />
                 <CarListOutput carList={filteredCars} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             </ContentWrap>
         </CarListMainWrap>
