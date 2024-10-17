@@ -12,7 +12,7 @@ import MyPage from "./components/mypage/mypage";
 import Header from "./components/header/Header";
 import EditInfo from "./components/mypage/EditInfo";
 import NotPage from "./pages/NotPage";
-import FindId from "./components/login/findid";
+import FindId from "./components/login/findId";
 
 
 const App = () => {
