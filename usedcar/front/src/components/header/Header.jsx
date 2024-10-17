@@ -8,6 +8,7 @@ const Header = () => {
   const uNo = localStorage.getItem('uNo');
   const [name, setName] = useState('');
 
+
   useEffect(() => {
     const fetchUserName = async () => {
       if (uNo) {

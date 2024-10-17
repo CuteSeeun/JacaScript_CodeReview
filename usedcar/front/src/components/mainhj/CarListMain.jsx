@@ -18,6 +18,8 @@ const CarListMain = () => {
         color: '',
     });
 
+    const [currentPage , setCurrentPage] = useState(1);
+
     useEffect(() => {
         const carListData = async () => {
             try {
@@ -34,6 +36,7 @@ const CarListMain = () => {
     useEffect(() => {
         const filtered = filterCars(carList, filters, search);
         setFilteredCars(filtered);
+        setCurrentPage(1);
     }, [filters, search, carList]);
 
     const filterCars = (cars, filters, search) => {
@@ -72,7 +75,7 @@ const CarListMain = () => {
             <CarListTop setSearch={setSearch} />
             <ContentWrap>
                 <CarListBanner filters={filters} setFilters={setFilters} setSearch={setSearch}/>
-                <CarListOutput carList={filteredCars} />
+                <CarListOutput carList={filteredCars} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             </ContentWrap>
         </CarListMainWrap>
     );

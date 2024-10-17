@@ -6,10 +6,10 @@ import { IoCarSport } from "react-icons/io5";
 import { formatPrice } from "../../utils/formPrice";
 import { useNavigate } from "react-router-dom";
 
-const CarListOutput = ({ carList }) => {
+const CarListOutput = ({carList,currentPage,setCurrentPage }) => {
   const navigate = useNavigate();
   const [sortOption, setSortOption] = useState("최신순");
-  const [currentPage, setCurrentPage] = useState(1);
+  // const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
 
   const handleSortChange = (e) => {
@@ -77,7 +77,7 @@ const CarListOutput = ({ carList }) => {
               {car.fueltype} <IoCarSport /> {car.mileage}km
             </p>
             <p className="price">{formatPrice(car.price)}</p>
-            <button className="ZimBtn" onClick={e=> e.isPropagationStopped()}>
+            <button className="ZimBtn" onClick={e=> e.stopPropagation()}>
               {car.cNo % 2 === 0 ? <GoHeartFill /> : <GoHeart />}
             </button>
           </li>

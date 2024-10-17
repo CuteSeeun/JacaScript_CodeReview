@@ -71,7 +71,7 @@ const DetailMain = () => {
                     <p>이메일: {car.seller_email}</p>
                 </div>
             </div>
-            <div className="userBtn">
+            <div className="contact-buttons">
             <button onClick={() => navigate(`/detailuser/${car.cNo}`, { state: car })}>수정하기</button>
             <button onClick={deleteCar}>삭제하기</button>
             </div>
