@@ -5,11 +5,8 @@ import axios from 'axios';
 import logo from "../../assets/icons/logo.png";
 
 const Header = () => {
-  const uNo = localStorage.getItem('uNo');
+  const [uNo, setUNo] = useState(localStorage.getItem('uNo'));
   const [name, setName] = useState('');
-
-  // const logout = localStorage.removeItem('uNo');
-
 
   useEffect(() => {
     const fetchUserName = async () => {
@@ -23,9 +20,13 @@ const Header = () => {
         }
       }
     };
-
     fetchUserName();
   }, [uNo]);
+
+  const Logout = () => {
+    localStorage.removeItem('uNo');
+    setUNo(null);
+  };
 
   return (
     <header className="header">
@@ -36,9 +37,8 @@ const Header = () => {
         {uNo ? (
           <>
             <label>{name}님 어서오세요</label>
-            {/* <Link><button onClick={logout}>로그아웃</button></Link> */}
-            <button>로그아웃</button>
-            <Link to="/add">판매하기</Link>
+            <Link to="/" onClick={Logout}>로그아웃</Link>
+            <Link to="/sell">판매하기</Link>
             <Link to="/mypage">마이페이지</Link>
           </>
         ) : (
