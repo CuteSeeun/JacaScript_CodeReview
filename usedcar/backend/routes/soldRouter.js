@@ -7,13 +7,15 @@ const path = require("path");
 
 // user_uno = 10인 레코드 가져오기 (board와 car 조인)
 router.get('/', async (req, res) => {
+    const { user_uno } = req.query;  // 프론트엔드에서 전달한 user_uno 값을 받음
+
     const query = `
       SELECT car.image, car.name, board.bNo
       FROM board
-      JOIN car
+      JOIN car 
       ON board.car_cno = car.cNo
-      WHERE board.user_uno = 10
-    `;
+      WHERE board.user_uno = ? `; //동적으로 user_uno 값을 조건으로 사용
+      //JOIN car ON board.car_cno = car.cNo
 
     try {
         const [results] = await db.query(query); // 쿼리 실행

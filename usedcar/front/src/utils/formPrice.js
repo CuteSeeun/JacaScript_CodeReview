@@ -1,5 +1,9 @@
+export const formatPrice = (price) => {
+    // price가 undefined나 null일 때를 대비한 방어 코드 추가
+    if (price == null) {
+        return '가격 정보 없음'; // price가 없는 경우 기본 메시지 설정
+    }
 
-export const formatPrice = (price) =>{
     if (price >= 10000) {
         const billion = Math.floor(price / 10000);
         const remainder = price % 10000;

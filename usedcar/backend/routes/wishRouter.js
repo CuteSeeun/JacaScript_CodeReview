@@ -7,25 +7,26 @@ const path = require("path");
 //board테이블과 car 테이블을 조인한 데이터를 프론트엔드로 보내줘 차의 이미지랑 모델명을 뿌려준다. favorite은 가져와 상태에 저장한다.
 router.get('/', async (req, res) => {
   const { user_uno } = req.query; // 프론트에서 전달한 user_uno 값 받기
-  const query = `
-    SELECT car.image, car.name, board.favorite, car.cNo
-FROM board 
-JOIN car 
-ON board.car_cno = car.cNo 
-WHERE board.user_uno = 10 AND board.favorite = 1 `;
-  // const query = `
-  //   SELECT car.image, car.name, board.favorite
-  //   FROM board 
-  //   JOIN car 
-  //   ON board.car_cno = car.cNo 
-  //   WHERE board.user_uno = 10`; 
 
-// const query = `
-//     SELECT CONCAT('/uploads/', car.image) AS image, car.name
-//     FROM board 
-//     JOIN car 
-//     ON board.car_cno = car.cNo 
-//     WHERE board.user_uno = 10 AND board.favorite = 1`;
+
+
+  const query = `SELECT car.*,
+               user.name as seller_name, 
+               user.tel as seller_tel, 
+               user.email as seller_email,
+               board.sale
+    FROM car 
+    JOIN user on car.user_uno = user.uNo
+    Join board on car.cNo=board.car_cno
+    where board.sale=0`;
+
+
+//   const query = `
+//     SELECT car.image, car.name, board.favorite, car.cNo
+// FROM board 
+// JOIN car 
+// ON board.car_cno = car.cNo 
+// WHERE board.user_uno = ? AND board.favorite = 1 `;
 
   try {
     const [results] = await db.query(query, [user_uno]); // Promise 사용
