@@ -6,6 +6,7 @@ const path = require("path");
 
 //board테이블과 car 테이블을 조인한 데이터를 프론트엔드로 보내줘 차의 이미지랑 모델명을 뿌려준다. favorite은 가져와 상태에 저장한다.
 router.get('/', async (req, res) => {
+  const { user_uno } = req.query; // 프론트에서 전달한 user_uno 값 받기
   const query = `
     SELECT car.image, car.name, board.favorite, car.cNo
 FROM board 
@@ -27,19 +28,19 @@ WHERE board.user_uno = 10 AND board.favorite = 1 `;
 //     WHERE board.user_uno = 10 AND board.favorite = 1`;
 
   try {
-    const [results] = await db.query(query); // Promise 사용
+    const [results] = await db.query(query, [user_uno]); // Promise 사용
     res.json(results); // 결과 반환(name, image, favorite)
     console.log(results);
   } catch (err) {
     res.status(500).send(err); // 에러 발생 시
-    console.error(error);
+    console.error("Error fetching wishlist:", err);
   }
 }); 
 
 // PUT 요청을 처리하여 board 테이블의 favorite 값을 0으로 업데이트
 router.put('/:cNo', async (req, res) => {
   const { cNo } = req.params;  // URL에서 cNo 추출
-  const { user_uno } = req.body; // body에서 user_uno 추출 (여기서는 user_uno = 10으로 받음)
+  const { user_uno } = req.body; //프론트에서 전달한 user_uno 값 받기
 
   const query = `
     UPDATE board 
