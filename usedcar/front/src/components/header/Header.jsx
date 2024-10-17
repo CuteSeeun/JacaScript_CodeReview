@@ -8,6 +8,7 @@ const Header = () => {
   const { user, logout } = useAuth();
   const [name, setName] = useState('');
 
+
   useEffect(() => {
     const fetchUserName = async () => {
       if (user?.uNo) {
