@@ -40,7 +40,9 @@ const EditInfo = () => {
     try {
       const response = await axios.post('http://localhost:3333/editUser/editUser', {
         uNo,
-        ...inputData
+        passwd: inputData.newpasswd,
+        tel: inputData.tel,
+        email: inputData.email
       });
       console.log(response.data);
       navigate('/mypage'); // 성공적으로 저장된 후 마이 페이지로 이동
@@ -48,6 +50,7 @@ const EditInfo = () => {
       console.error(error);
     }
   };
+
 
 
   useEffect(() => {
