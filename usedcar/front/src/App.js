@@ -6,7 +6,6 @@ import GlobalStyle from "./styles/GlobalStyle";
 import DetailMain from "./components/detail/DetailMain";
 import DetailUser from "./components/detail/DetailUser";
 import Add from "./components/add/Add";
-import CarListOutput from "./components/mainhj/CarListOutput";
 import Login from "./components/login/login";
 import Join from "./components/join/join";
 import MyPage from "./components/mypage/mypage";
@@ -23,11 +22,12 @@ const App = () => {
           <Route index element={<CarListMain />}/>
             <Route path='/detailmain/:id' element={<DetailMain/>}/>
             <Route path='/detailuser/:id' element={<DetailUser/>}/>
-            <Route path="join" element={<Join />} />
-            <Route path="login" element={<Login />} />
-            <Route path="Header" element={<Header />} />
-            <Route path="mypage" element={<MyPage />} />
-            <Route path="EditInfo" element={<EditInfo />} />
+            <Route path="/join" element={<Join />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/Header" element={<Header />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/add" element={<Add />} />
+            <Route path="/EditInfo" element={<EditInfo />} />
           </Route>
         </Routes>
       </BrowserRouter>

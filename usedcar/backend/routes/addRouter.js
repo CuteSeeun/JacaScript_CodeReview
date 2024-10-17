@@ -55,6 +55,7 @@ router.post("/", upload.single("carImage"), async (req, res) => {
 
     // console.log(result); // 삽입 결과 로그 출력
     res.status(200).send("차량 데이터가 성공적으로 추가되었습니다.");
+    console.log(user_uno);
   } catch (err) {
     console.error("차량 데이터를 삽입하는 도중 오류 발생:", err);
     res.status(500).send("서버 오류");

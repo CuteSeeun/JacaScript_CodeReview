@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ListGroupItem, CollapseContent, WishListItem, StyledWishList } from './mypageStyle';
+import { Link } from 'react-router-dom';
 
 const SoldItems = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -34,9 +35,9 @@ const SoldItems = () => {
           <CollapseContent>
             <StyledWishList>
               <WishListItem>
-                <a href="/add-new-car.html" className="add-icon">
+                <Link to="/add" className="add-icon">
                   <i className="fas fa-plus"> 판매</i>
-                </a>
+                </Link>
               </WishListItem>
 
             {/* soldItems 데이터를 map으로 렌더링 */}

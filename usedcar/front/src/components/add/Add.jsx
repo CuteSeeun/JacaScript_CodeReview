@@ -129,9 +129,9 @@ const SellForm = () => {
       formData.append('price', price);
       formData.append('color', color);
       formData.append('carImage', carImage); // 파일 업로드
-      // 임시로 user_uno 값을 지정
-      const tempUserUno = 100; // 임시 user_uno 값, 123은 임의의 값
-      formData.append('user_uno', tempUserUno);  // user_uno 값 추가
+      // 로컬스토리지에서 user_uno 가져오기
+      const user_uno = localStorage.getItem('uNo');
+      formData.append('user_uno', user_uno);  // user_uno 값 추가
 
       // formData 내용을 로그로 출력
       // console.log([...formData.entries()]);
@@ -145,6 +145,7 @@ const SellForm = () => {
         .then((response) => {
           console.log(response);
           alert('차량이 성공적으로 등록되었습니다.');
+          console.log(user_uno);
         })
         .catch((error) => {
           console.error('차량 등록 오류:', error);
