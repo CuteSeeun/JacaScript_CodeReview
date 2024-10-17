@@ -1,8 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { MyPageContainer, MyPageHeader ,ProfileInfo as StyledProfileInfo } from './mypageStyle';
+import { MyPageContainer, MyPageHeader, ProfileInfo as StyledProfileInfo } from './mypageStyle';
 
-const ProfileInfo = ({ id }) => {
+const ProfileInfo = () => {
+  const [name, setName] = useState('');
+  const uNo = localStorage.getItem('uNo');
+
+  useEffect(() => {
+    const fetchUserName = async () => {
+      if (uNo) {
+        try {
+          const response = await axios.get(`http://localhost:3333/header/${uNo}`);
+          const userName = response.data.name;
+          setName(userName);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+    fetchUserName();
+  }, [uNo]);
   return (
     <MyPageContainer>
       <div>
@@ -11,7 +28,7 @@ const ProfileInfo = ({ id }) => {
 
       <StyledProfileInfo>
         <div>
-          <p>{`${id}님, 안녕하세요`}</p>
+          <p>{`${name}님, 안녕하세요`}</p>
         </div>
         <nav className="icons" aria-label="User actions">
           <a href="/main.html"><i className="fas fa-home"></i></a>
