@@ -77,13 +77,12 @@ const editUser = async (req, res) => {
 };
 
 
-
 const showName = async (req, res) => {
     const { uNo } = req.params;
     try {
-        const [rows] = await pool.query('SELECT name FROM user WHERE uNo = ?', [uNo]);
+        const [rows] = await pool.query('SELECT name, tel, email FROM user WHERE uNo = ?', [uNo]);
         if (rows.length > 0) {
-            res.json({ name: rows[0].name });
+            res.json(rows[0]);
         } else {
             res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
         }

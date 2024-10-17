@@ -2,15 +2,30 @@ import { DetailMainWrap } from './detailStyle';
 import { useLocation, useNavigate} from 'react-router-dom';
 import { formatPrice } from '../../utils/formPrice';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const DetailMain = () => {
 
     const location = useLocation();
     const car = location.state;
-    console.log(car);
-    
     const navigate= useNavigate();
+    
+    const [userInfo,setUserInfo] = useState(null);
+    const userId = localStorage.getItem('uNo');
    
+
+
+    useEffect(()=>{
+        const userInfo = async()=>{
+            try {
+                const response = await axios.get(`http://localhost:3333/header/${userId}`);
+                setUserInfo(response.data);
+            } catch (error) {
+                console.error('사용자 정보 오류 :',error);
+            }
+        }
+        userInfo();
+    },[userId,car])
 
     const deleteCar = async()=>{
         if(window.confirm("삭제하시겠습니까?")){
@@ -29,6 +44,12 @@ const DetailMain = () => {
         alert(`${car.seller_tel}로 연락 바랍니다.`)
     }
 
+    const likeSeller = 
+    userInfo &&
+    userInfo.name.trim() === car.seller_name.trim() &&
+    userInfo.tel.trim() === car.seller_tel.trim() &&
+    userInfo.email.trim().toLowerCase() === car.seller_email.trim().toLowerCase();
+   
   return (
     <DetailMainWrap>
 <div className="main-info">
@@ -41,10 +62,10 @@ const DetailMain = () => {
             <span>판매가격</span>
             <strong>{formatPrice(car.price)}</strong>
         </div>
-        <div className="monthly-payment">
+        {/* <div className="monthly-payment">
             <span>할부</span>
             <strong>{formatPrice(car.price)}</strong>
-        </div>
+        </div> */}
     </div>
     <div className="contact-buttons">
         <button className="contact-call" onClick={cone}>전화 상담</button>
@@ -71,10 +92,14 @@ const DetailMain = () => {
                     <p>이메일: {car.seller_email}</p>
                 </div>
             </div>
-            <div className="contact-buttons">
+
+            {likeSeller && (
+                <div className="contact-buttons">
             <button onClick={() => navigate(`/detailuser/${car.cNo}`, { state: car })}>수정하기</button>
             <button onClick={deleteCar}>삭제하기</button>
             </div>
+            )}
+            
     </DetailMainWrap>
   );
 };
