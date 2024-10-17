@@ -31,8 +31,8 @@ const App = () => {
             <Route path="*" element={<NotPage/>} />
           </Route>
         </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+      </BrowserRouter >
+    </>
   );
 };
 

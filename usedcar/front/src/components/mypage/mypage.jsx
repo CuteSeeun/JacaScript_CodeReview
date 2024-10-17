@@ -14,7 +14,7 @@ const MyPage = () => {
       <OrderHistory />
       <WishList />
       <SoldItems />
-      <Link to="/EditInfo">회원정보 수정</Link>
+      <Link to="EditInfo">회원정보 수정</Link>
     </div>
   );
 };
