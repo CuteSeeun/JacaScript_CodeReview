@@ -12,26 +12,27 @@ import Join from "./components/join/join";
 import MyPage from "./components/mypage/mypage";
 import Header from "./components/header/Header";
 import EditInfo from "./components/mypage/EditInfo";
+import { AuthProvider } from "./AuthContext";
 
 const App = () => {
   return (
-    <>
+    <AuthProvider>
       <GlobalStyle />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-          <Route index element={<CarListMain />}/>
-            <Route path='/detailmain/:id' element={<DetailMain/>}/>
-            <Route path='/detailuser/:id' element={<DetailUser/>}/>
+            <Route index element={<CarListMain />} />
+            <Route path='/detailmain/:id' element={<DetailMain />} />
+            <Route path='/detailuser/:id' element={<DetailUser />} />
             <Route path="join" element={<Join />} />
             <Route path="login" element={<Login />} />
-            <Route path="Header" element={<Header />} />
+            <Route path="header" element={<Header />} />
             <Route path="mypage" element={<MyPage />} />
-            <Route path="EditInfo" element={<EditInfo />} />
+            <Route path="editinfo" element={<EditInfo />} />
           </Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </AuthProvider>
   );
 };
 

@@ -1,18 +1,18 @@
-// Header.jsx
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import logo from "../../assets/icons/logo.png";
+import { useAuth } from '../../AuthContext';
 
 const Header = () => {
-  const uNo = localStorage.getItem('uNo');
+  const { user, logout } = useAuth();
   const [name, setName] = useState('');
 
   useEffect(() => {
     const fetchUserName = async () => {
-      if (uNo) {
+      if (user?.uNo) {
         try {
-          const response = await axios.get(`http://localhost:3333/header/${uNo}`);
+          const response = await axios.get(`http://localhost:3333/header/${user.uNo}`);
           const userName = response.data.name;
           setName(userName);
         } catch (error) {
@@ -22,7 +22,7 @@ const Header = () => {
     };
 
     fetchUserName();
-  }, [uNo]);
+  }, [user?.uNo]);
 
   return (
     <header className="header">
@@ -30,10 +30,10 @@ const Header = () => {
         <img src={logo} alt="KRCAR" style={{ height: "40px" }} />
       </Link>
       <nav className="ms-auto">
-        {uNo ? (
+        {user?.uNo ? (
           <>
             <label>{name}님 어서오세요</label>
-            <Link>로그아웃</Link>
+            <Link to="#" onClick={logout}>로그아웃</Link>
             <Link to="/sell">판매하기</Link>
             <Link to="/mypage">마이페이지</Link>
           </>
