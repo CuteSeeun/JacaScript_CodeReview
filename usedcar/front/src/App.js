@@ -16,23 +16,22 @@ import NotPage from "./pages/NotPage";
 const App = () => {
   return (
     <>
-      <GlobalStyle>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<CarListMain />} />
-              <Route path='/detailmain/:id' element={<DetailMain />} />
-              <Route path='/detailuser/:id' element={<DetailUser />} />
-              <Route path="join" element={<Join />} />
-              <Route path="login" element={<Login />} />
-              <Route path="header" element={<Header />} />
-              <Route path="mypage" element={<MyPage />} />
-              <Route path="EditInfo" element={<EditInfo />} />
-              <Route path="*" element={<NotPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter >
-      </GlobalStyle>
+      <GlobalStyle />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<CarListMain />} />
+            <Route path='/detailmain/:id' element={<DetailMain />} />
+            <Route path='/detailuser/:id' element={<DetailUser />} />
+            <Route path="join" element={<Join />} />
+            <Route path="login" element={<Login />} />
+            <Route path="Header" element={<Header />} />
+            <Route path="mypage" element={<MyPage />} />
+            <Route path="EditInfo" element={<EditInfo />} />
+            <Route path="*" element={<NotPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 };
