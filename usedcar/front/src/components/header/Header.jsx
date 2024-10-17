@@ -38,7 +38,7 @@ const Header = () => {
           <>
             <label>{name}님 어서오세요</label>
             <Link to="/" onClick={Logout}>로그아웃</Link>
-            <Link to="/sell">판매하기</Link>
+            <Link to="/add">판매하기</Link>
             <Link to="/mypage">마이페이지</Link>
           </>
         ) : (
