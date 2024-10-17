@@ -35,6 +35,7 @@ function Login() {
                 localStorage.setItem('uNo', uNo);
                 // carListMain으로 이동
                 navigate('/');// 테스트 해보려고 Header로 이어둠,원래는 carListMain
+                window.location.reload();
             } else {
                 setError('로그인 실패: ' + response.data.message);
             }
@@ -49,7 +50,7 @@ function Login() {
             <div className="login-container shadow-lg">
                 {/* 화살표 아이콘 */}
 
-                <Link to="/CarListMain"><i className="fas fa-arrow-left back-btn"></i></Link>
+                <Link to="/"><i className="fas fa-arrow-left back-btn"></i></Link>
                 {/* 화살표 링크 다시 지정해줘야됨 테스트 해보려고 Header로 이어둠,원래는 carListMain */}
 
                 <h1>로그인</h1>

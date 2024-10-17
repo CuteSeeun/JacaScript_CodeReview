@@ -45,7 +45,7 @@ const loginUser = async (req, res) => {
     }
 };
 
-const editUser = async (req, res) => {
+const setUser = async (req, res) => {
     const { uNo } = req.params;
     try {
         const [rows] = await pool.query('SELECT name, userid, tel, email FROM user WHERE uNo = ?', [uNo]);
@@ -60,6 +60,23 @@ const editUser = async (req, res) => {
         res.status(500).send('Error');
     }
 };
+
+const editUser = async (req, res) => {
+    const { uNo, passwd, tel, email } = req.body;
+    try {
+        const [result] = await pool.query('UPDATE user SET passwd = ?, tel = ?, email = ? WHERE uNo = ?', [passwd, tel, email, uNo]);
+        if (result.affectedRows > 0) {
+            res.json({ success: true, uNo, passwd, tel, email });
+        } else {
+            res.status(404).send('User not found');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error');
+    }
+};
+
+
 
 const showName = async (req, res) => {
     const { uNo } = req.params;
@@ -76,4 +93,4 @@ const showName = async (req, res) => {
     }
 };
 
-module.exports = { saveUser, verifyEmail, loginUser, editUser, showName };
+module.exports = { saveUser, verifyEmail, loginUser, setUser, editUser, showName };
