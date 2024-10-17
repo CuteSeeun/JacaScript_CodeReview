@@ -1,9 +1,9 @@
 import React, {  useState } from 'react';
 import { CarListTopWrap } from './carListStyle';
 
-const CarListTop = ({setSearch}) => {
+const CarListTop = ({setSearch , input , setInput}) => {
 
-    const [input , setInput] = useState('');
+    // const [input , setInput] = useState('');
 
 
         const carMain = ()=>{

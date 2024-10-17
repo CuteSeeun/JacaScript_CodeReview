@@ -4,7 +4,7 @@ import ProfileInfo from './ProfileInfo';
 import OrderHistory from './OrderHistory';
 import WishList from './Wish';
 import SoldItems from './SoldItems';
-import EditInfoLink from './EditInfo';
+import EditInfo from './EditInfo';
 import { Link } from 'react-router-dom';
 
 const MyPage = () => {

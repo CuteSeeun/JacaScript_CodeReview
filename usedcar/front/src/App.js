@@ -11,6 +11,7 @@ import Join from "./components/join/join";
 import MyPage from "./components/mypage/mypage";
 import Header from "./components/header/Header";
 import EditInfo from "./components/mypage/EditInfo";
+import NotPage from "./pages/NotPage";
 
 const App = () => {
   return (
@@ -23,11 +24,12 @@ const App = () => {
             <Route path='/detailmain/:id' element={<DetailMain/>}/>
             <Route path='/detailuser/:id' element={<DetailUser/>}/>
             <Route path="/join" element={<Join />} />
+            <Route path="/add" element={<Add/>}/>
             <Route path="/login" element={<Login />} />
             <Route path="/Header" element={<Header />} />
             <Route path="/mypage" element={<MyPage />} />
-            <Route path="/add" element={<Add />} />
             <Route path="/EditInfo" element={<EditInfo />} />
+            <Route path="*" element={<NotPage/>} />
           </Route>
         </Routes>
       </BrowserRouter>
