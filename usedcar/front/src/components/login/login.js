@@ -84,6 +84,7 @@ function Login() {
                         아이디 저장
                     </label>
                 </div>
+                {error && <p className="text-danger">{error}</p>}
                 {/* 로그인 버튼 */}
                 <button
                     className="btn btn-danger w-100 login-btn mb-3"

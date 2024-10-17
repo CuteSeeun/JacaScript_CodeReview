@@ -93,4 +93,20 @@ const showName = async (req, res) => {
     }
 };
 
-module.exports = { saveUser, verifyEmail, loginUser, setUser, editUser, showName };
+const findId = async (req, res) => {
+    const { name, email } = req.body;
+    try {
+        const [rows] = await pool.query('SELECT userid FROM user WHERE name = ? AND email = ?', [name, email]);
+        if (rows.length > 0) {
+            res.json(rows[0]);
+        } else {
+            res.status(404).json({ message: '사용자를 찾을 수 없습니다' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error');
+    }
+}
+
+
+module.exports = { saveUser, verifyEmail, loginUser, setUser, editUser, showName, findId };
