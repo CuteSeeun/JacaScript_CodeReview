@@ -8,6 +8,7 @@ import EditInfo from './EditInfo';
 import { Link } from 'react-router-dom';
 
 const MyPage = () => {
+  
   return (
     <div>
       <ProfileInfo id="user100" />
