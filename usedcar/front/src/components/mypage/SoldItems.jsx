@@ -8,6 +8,9 @@ const SoldItems = () => {
     const [soldItems, setSoldItems] = useState([]); // soldItems 상태에 데이터를 저장
     // 로그인된 사용자의 user_uno를 localStorage에서 가져옴
     const user_uno = localStorage.getItem('uNo');
+    const location = useLocation();
+    const item = location.state;
+    console.log(item);
   
     
     const toggleCollapse = () => {
@@ -22,10 +25,10 @@ const SoldItems = () => {
           params: { user_uno }  // user_uno 값을 백엔드로 전송
         }); // 백엔드 API 호출
         setSoldItems(response.data); // 데이터를 상태에 저장
-        console.log('데이터 상태에 저장 성공');
+        console.log('판매리스트 데이터 상태에 저장 성공');
         console.log(response.data); // 데이터 출력
       } catch (error) {
-        console.log('데이터 가져오기 실패: ' + error);
+        console.log('판매리스트 데이터 가져오기 실패: ' + error);
       }
     };
     fetchSoldItems();
@@ -47,11 +50,10 @@ const SoldItems = () => {
 
             {/* soldItems 데이터를 map으로 렌더링 */}
             {soldItems.map((item) => (
-              <WishListItem key={item.bNo}>  {/* bNo를 key로 설정 */}
-                <img src={`http://localhost:3333${item.image}`} alt={item.name} /> {/* car의 이미지 */}
-                <a href={`/car-details/${item.bNo}`}>{item.name}</a> {/* car의 이름 */}
-                {/* <img src="/src/assets/images/car.jpg" alt="기아 더 뉴 카니발" />
-                <a href="/car-details/1.html">기아 더 뉴 카니발</a> */}
+               <WishListItem key={item.cNo}>   {/*bNo를 key로 설정*/}
+                <img src={`http://localhost:3333${item.image}`} alt={item.name} /> 
+                <Link to={`/detailmain/${item.cNo}`} state={item}>{item.name}</Link> 
+                {/* <Link to={`/detailmain/${car.cNo}`} state={car}>{car.name}</Link> */}
               </WishListItem>
             ))}
             </StyledWishList>

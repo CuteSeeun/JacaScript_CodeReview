@@ -16,7 +16,7 @@ const WishList = () => {
     const car = location.state;
     console.log(car);
     
-    const navigate= useNavigate();
+    // const navigate= useNavigate();
 
 
   const toggleCollapse = () => {
@@ -31,12 +31,12 @@ const WishList = () => {
           params: { user_uno }
         });
         setWishlist(response.data);  // 데이터를 상태에 저장
-        console.log('데이터 상태에 저장 성공');
+        console.log('위시리스트 데이터 상태에 저장 성공');
         console.log(response.data);  // 데이터를 콘솔에 출력
-        console.log(user_uno);
+        console.log('위시리스트의 user_uno', user_uno);
       } catch (error) {
         // console.error('Failed to fetch wishlist:', error);
-        console.log('데이터 가져오기 실패 : ' + error);
+        console.log('위시리스트 데이터 가져오기 실패 : ' + error);
       }
     };
     fetchWishlist();
