@@ -15,7 +15,7 @@ const saveUser = async (req, res) => {
         await connection.beginTransaction();
 
         const [result] = await connection.query('INSERT INTO user (name, userid, passwd, tel, email) VALUES (?, ?, ?, ?, ?)', [name, userid, passwd, tel, email]);
-        res.json({ id: result.insertId, name, userid, passwd, tel, email });
+        // res.json({ id: result.insertId, name, userid, passwd, tel, email });
         const userId = result.insertId;
         // 차량 수 만큼 favorite 테이블 초기화
         const [carRows] = await connection.query('select cNo from car');
