@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { LoginStyle } from './loginStyle';
+import { Modal } from './loginModal';
 
 
 
@@ -14,6 +15,7 @@ function Login() {
     });
 
     const [error, setError] = useState('');
+    const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -33,11 +35,12 @@ function Login() {
                 const uNo = response.data.uNo; // 데이터베이스에서 가져온 uNo 값
                 // 로컬 스토리지에 uNo 저장
                 localStorage.setItem('uNo', uNo);
+                setShowModal(true);
                 // carListMain으로 이동
                 navigate('/');
                 window.location.reload();
             } else {
-                setError('로그인 실패: ' + response.data.message);
+                alert(`${response.data.message}`);
             }
         } catch (error) {
             console.error('로그인 중 오류:', error);
@@ -103,13 +106,15 @@ function Login() {
                     <hr />
                 </div>
                 {/* SNS 로그인 */}
-                <div className="sns-login text-center">
+                {/* <div className="sns-login text-center">
                     <p>3초 만에 로그인</p>
                     <a href="#"><img src="https://via.placeholder.com/40x40?text=N" alt="Naver 로그인" /></a>
                     <a href="#"><img src="https://via.placeholder.com/40x40?text=G" alt="Google 로그인" /></a>
                     <a href="#"><img src="https://via.placeholder.com/40x40?text=K" alt="Kakao 로그인" /></a>
-                </div>
+                </div> */}
             </div>
+            <Modal show={showModal} handleClose={() => setShowModal(false)}>
+            </Modal>
             {/* 모달 창 */}
             <div className="modal fade" id="loadingModal" tabIndex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered">
