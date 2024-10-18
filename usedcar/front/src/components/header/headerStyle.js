@@ -1,7 +1,7 @@
 /* Header.css */
 import styled from 'styled-components';
 
-export const HeaderWrap = styled.div`
+const HeaderWrap = styled.div`
 .header {
     display: flex;
     justify-content: space-between;
@@ -26,3 +26,4 @@ export const HeaderWrap = styled.div`
     color: #2767ff;
 }
 `
+export default HeaderWrap;

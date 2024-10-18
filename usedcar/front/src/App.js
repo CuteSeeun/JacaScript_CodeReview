@@ -13,6 +13,7 @@ import Header from "./components/header/Header";
 import EditInfo from "./components/mypage/EditInfo";
 import NotPage from "./pages/NotPage";
 import FindId from "./components/login/findId";
+import FindPw from "./components/login/findPw";
 
 
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/EditInfo" element={<EditInfo />} />
             <Route path="/findId" element={<FindId />} />
+            <Route path="/findPw" element={<FindPw />} />
             <Route path="*" element={<NotPage />} />
           </Route>
         </Routes>
