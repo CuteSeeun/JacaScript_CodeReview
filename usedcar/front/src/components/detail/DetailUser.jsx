@@ -30,7 +30,7 @@ const DetailUser = () => {
         const {name,value} = e.target;
         setCar(prevCar => ({
             ...prevCar,
-            [name]: value
+            [name]: name === 'sale' ? +value : value
         }));
 
         if(name === 'sale'){
@@ -42,6 +42,8 @@ const DetailUser = () => {
     const editUpdate = async()=>{
         if(window.confirm("수정하시겠습니까?")){
             try {
+                console.log('car',car);
+                
                 await axios.put(`http://localhost:3333/car/${id}`,{
                     name: car.name,
                     brand: car.brand,
@@ -59,7 +61,6 @@ const DetailUser = () => {
                 }else{
                     navigate(`/detailmain/${id}`,{ state: car })
                 }
-                
             } catch (error) {
                 console.error('car update error ',error)
             }

@@ -47,7 +47,7 @@ function Login() {
 
     return (
         <LoginStyle>
-            <div className="login-container shadow-lg">
+            <div className="login-container shadow-lg" >
                 {/* 화살표 아이콘 */}
 
                 <Link to="/"><i className="fas fa-arrow-left back-btn"></i></Link>

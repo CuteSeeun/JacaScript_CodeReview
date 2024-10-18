@@ -27,16 +27,25 @@ const deleteCar = async (req, res) => {
 const updateCar = async (req, res) => {
     const { id } = req.params;
     const { name, brand, year, mileage, fueltype, price, sale } = req.body; // sale 추가
+
+
+  console.log("Received update request for ID:", id); // 로그 추가
+  console.log("Update data:", req.body); // 전달된 데이터 확인
+
     const connection = await pool.getConnection();
 
+    console.log("Received data for update:", req.body);
     try {
+        await connection.beginTransaction();
         // car 테이블 업데이트
         const carSql = `
             UPDATE car 
-            SET name = ?, brand = ?, year = ?, mileage = ?, fueltype = ?, price = ?
+            SET name = ?, brand = ?, year = ?, mileage = ?, fueltype = ?, price = ? 
             WHERE cNo = ?;
         `;
         await connection.query(carSql, [name, brand, year, mileage, fueltype, price, id]);
+
+        const saleValue = sale !== undefined ? sale : 0;
 
         // board 테이블의 sale 상태 업데이트
         const boardSql = `
@@ -44,10 +53,13 @@ const updateCar = async (req, res) => {
             SET sale = ? 
             WHERE car_cno = ?;
         `;
-        await connection.query(boardSql, [sale, id]);
+        await connection.query(boardSql, [saleValue, id]);
+
+        await connection.commit();
 
         res.status(200).json({ message: '차량 정보 및 판매 상태가 성공적으로 업데이트되었습니다.' });
     } catch (error) {
+        await connection.rollback();
         console.error('차량 정보 업데이트 중 오류 발생:', error);
         res.status(500).json({ message: '서버 오류' });
     } finally {
