@@ -9,7 +9,7 @@ const path = require("path");
 router.get('/', async (req, res) => {
   console.log('백엔드 get요청 들어옴');
   const { user_uno } = req.query; // 프론트에서 전달한 user_uno 값 받기
-  console.log('유저번호 :', user_uno );
+  console.log('유저번호 :', user_uno);
 
   if (!user_uno) {
     console.log('유저 번호가 없음!', user_uno);
@@ -56,7 +56,7 @@ AND
     console.error("Error fetching car list:", err);
     console.log('해당 사용자의 찜목록과 찜한 차량 정보 못 가져옴');
   }
-}); 
+});
 
 // PUT 요청을 처리하여 board 테이블의 favorite 값을 0으로 업데이트
 router.put('/:cNo', async (req, res) => {
@@ -65,25 +65,35 @@ router.put('/:cNo', async (req, res) => {
   const { user_uno, favorite } = req.body; // 프론트엔드에서 전달된 user_uno와 favorite 값
 
   if (!user_uno || favorite === undefined) {
-      console.log('user_uno', user_uno);
-      console.log('favorite', favorite);
+    console.log('user_uno', user_uno);
+    console.log('favorite', favorite);
   }
 
+  // const query = `
+  //   INSERT INTO favorite (user_uNo, car_cNo, favorite)
+  //   VALUES (?, ?, ?)
+  //   ON DUPLICATE KEY UPDATE favorite = ?`; // favorite 테이블에 삽입하거나 업데이트
+
   const query = `
-    INSERT INTO favorite (user_uNo, car_cNo, favorite)
-    VALUES (?, ?, ?)
-    ON DUPLICATE KEY UPDATE favorite = ?`; // favorite 테이블에 삽입하거나 업데이트
+    UPDATE favorite
+    SET favorite = 0
+    WHERE user_uNo = ? AND car_cNo = ?`; // user_uNo와 car_cNo로 해당 레코드의 favorite 값을 0으로 수정
 
-    try {
-      const [results] = await db.query(query, [user_uno, cNo, favorite, favorite]);
-      res.json(results); // 결과 반환
-      res.json({ message: "Favorite updated successfully" });
-      console.log(`Car with cNo ${cNo} and user_uno ${user_uno} updated to favorite status: ${favorite}`);
 
-    } catch (err) {
-      res.status(500).send(err); // 에러 발생 시
-      console.error("Error updating favorite:", err);
+  try {
+    const [results] = await db.query(query, [user_uno, cNo]);
+    res.json(results); // 결과 반환
+    if (results.affectedRows === 0) {
+      // return res.status(404).json({ message: "No record found for the given user_uNo and car_cNo" });
+      console.log('찜하기에서 favorite값 수정 실패 : user_uNo랑 car_cNo를 찾을 수 없다', error);
     }
+    // res.json({ message: "Favorite updated to 0" });
+    console.log('favorited값 0으로 수정 완.');
+    console.log(`Car with cNo ${cNo} and user_uNo ${user_uno} updated to favorite status: 0`);
+  } catch (err) {
+    res.status(500).send(err); // 에러 발생 시
+    console.error("에러 발생:", err);
+  }
 
   // const query = `
   //   UPDATE board 

@@ -13,10 +13,10 @@ const WishList = () => {
   const user_uno = localStorage.getItem('uNo');  // localStorage에서 uNo로 가져오기
 
   const location = useLocation();
-    const car = location.state;
-    console.log(car);
-    
-    // const navigate= useNavigate();
+  const car = location.state;
+  console.log(car);
+
+  // const navigate= useNavigate();
 
 
   const toggleCollapse = () => {
@@ -44,18 +44,22 @@ const WishList = () => {
   }, [user_uno]);
 
   // 하트를 눌렀을 때 리스트에서 제거하지 않고 favorite 값을 0으로만 설정
-  const toggleFavorite = async (cNo) => {
+  const toggleFavorite = async (cNo, currentFavorite) => {
+    // 1. favorite 값을 토글 (0 또는 1로 설정)
+    const newFavorite = currentFavorite === 1 ? 0 : 1;  // 현재 값에 따라 0과 1로 토글
+
     try {
       // 1. 클릭한 항목의 favorite 값을 0으로 설정하여 즉시 색상이 회색으로 바뀌도록 함
       setWishlist((prevWishlist) =>
         prevWishlist.map((car) =>
-          car.cNo === cNo ? { ...car, favorite: 0 } : car  // 클릭한 항목의 favorite 값만 0으로 바꿈
+          car.cNo === cNo ? { ...car, favorite: newFavorite } : car  // 해당 차량의 favorite 값을 새 값으로 변경
+          // car.cNo === cNo ? { ...car, favorite: 0 } : car  // 클릭한 항목의 favorite 값만 0으로 바꿈
         )
       );
       console.log('favorite 값이 0으로 설정됨');
 
       // 2. favorite 값을 0으로 변경하는 요청을 백엔드에 보냄
-      await axios.put(`http://localhost:3333/wishList/${cNo}`, { user_uno });
+      await axios.put(`http://localhost:3333/wishList/${cNo}`, { user_uno, favorite: newFavorite });
       console.log('백엔드에 favorite 값 업데이트 요청 성공');
     } catch (error) {
       console.log('favorite 값 업데이트 실패: ' + error);
@@ -128,7 +132,7 @@ const WishList = () => {
 
                   <FontAwesomeIcon
                     icon={faHeart}
-                    onClick={() => toggleFavorite(car.cNo)}  // 하트를 누르면 해당 차량의 favorite 값만 0으로 변경
+                    onClick={() => toggleFavorite(car.cNo, car.favorite)}  // 하트를 누르면 해당 차량의 favorite 값만 0으로 변경
                     style={{ cursor: 'pointer', fontSize: '24px', color: car.favorite === 1 ? 'red' : 'gray' }}
                   />
 
