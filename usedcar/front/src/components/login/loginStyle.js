@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const LoginStyle = styled.div`
-        margin: 50px 0 50px;
+        margin: 200px 0 200px;
 
         display: flex;
         justify-content: center;
