@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const FooterWrap = styled.div`
+border-top: 1px solid #999;
   footer {
     background-color: #f8f9fa;
     padding: 60px 20px;

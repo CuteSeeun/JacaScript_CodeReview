@@ -12,6 +12,9 @@ const DetailMain = () => {
     
     const [userInfo,setUserInfo] = useState(null);
     const userId = localStorage.getItem('uNo');
+
+    console.log(car);
+    
    
 
 
@@ -38,7 +41,7 @@ const DetailMain = () => {
                 alert("차량 삭제 중 오류가 발생했습니다.");
             }
         }else{
-            alert('취소되었습니다.')
+            alert('취소되었습니다.');
         }
     }
     

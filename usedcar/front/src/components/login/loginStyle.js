@@ -1,18 +1,16 @@
 import styled from "styled-components";
 
 export const LoginStyle = styled.div`
-        body {
-            background-color: #ffffff;
-            font-family: 'Arial', sans-serif;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-        }
+        margin: 50px 0 50px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
 
         /* main */
         .login-container {
+
             width: 100%;
             max-width: 400px;
             padding: 20px;

@@ -31,7 +31,7 @@ const ProfileInfo = () => {
           <p>{`${name}님, 안녕하세요`}</p>
         </div>
         <nav className="icons" aria-label="User actions">
-          <a href="/main.html"><i className="fas fa-home"></i></a>
+          <a href="/"><i className="fas fa-home"></i></a>
           <i className="fas fa-bell"></i>
         </nav>
       </StyledProfileInfo>

@@ -98,6 +98,8 @@ export const CarListOutputWrap = styled.div`
         object-fit: cover;
 
         img {
+          border-top-right-radius: 6px;
+          border-top-left-radius:6px ;
           width: 100%;
           height: 100%;
         }

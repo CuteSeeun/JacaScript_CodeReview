@@ -146,6 +146,7 @@ const SellForm = () => {
           console.log(response);
           alert('차량이 성공적으로 등록되었습니다.');
           console.log(user_uno);
+          window.history.back();
         })
         .catch((error) => {
           console.error('차량 등록 오류:', error);
@@ -294,34 +295,34 @@ const SellForm = () => {
           <Label htmlFor="price">차량 판매 가격</Label>
           <Select id="price" value={price} onChange={(e) => setPrice(e.target.value)}>
             <option selected>판매가격 선택</option>
-            <option value="1000000">100만원</option>
-            <option value="2000000">200만원</option>
-            <option value="3000000">300만원</option>
-            <option value="4000000">400만원</option>
-            <option value="5000000">500만원</option>
-            <option value="6000000">600만원</option>
-            <option value="7000000">700만원</option>
-            <option value="8000000">800만원</option>
-            <option value="9000000">900만원</option>
-            <option value="10000000">1,000만원</option>
-            <option value="11000000">1,100만원</option>
-            <option value="12000000">1,200만원</option>
-            <option value="13000000">1,300만원</option>
-            <option value="14000000">1,400만원</option>
-            <option value="15000000">1,500만원</option>
-            <option value="16000000">1,600만원</option>
-            <option value="17000000">1,700만원</option>
-            <option value="18000000">1,800만원</option>
-            <option value="19000000">1,900만원</option>
-            <option value="20000000">2,000만원</option>
-            <option value="30000000">3,000만원</option>
-            <option value="40000000">4,000만원</option>
-            <option value="50000000">5,000만원</option>
-            <option value="60000000">6,000만원</option>
-            <option value="70000000">7,000만원</option>
-            <option value="80000000">8,000만원</option>
-            <option value="90000000">9,000만원</option>
-            <option value="100000000">1억 이상</option>
+            <option value="100">100만원</option>
+            <option value="200">200만원</option>
+            <option value="300">300만원</option>
+            <option value="400">400만원</option>
+            <option value="500">500만원</option>
+            <option value="600">600만원</option>
+            <option value="700">700만원</option>
+            <option value="800">800만원</option>
+            <option value="900">900만원</option>
+            <option value="1000">1,000만원</option>
+            <option value="1100">1,100만원</option>
+            <option value="1200">1,200만원</option>
+            <option value="1300">1,300만원</option>
+            <option value="1400">1,400만원</option>
+            <option value="1500">1,500만원</option>
+            <option value="1600">1,600만원</option>
+            <option value="1700">1,700만원</option>
+            <option value="1800">1,800만원</option>
+            <option value="1900">1,900만원</option>
+            <option value="2000">2,000만원</option>
+            <option value="3000">3,000만원</option>
+            <option value="4000">4,000만원</option>
+            <option value="5000">5,000만원</option>
+            <option value="6000">6,000만원</option>
+            <option value="7000">7,000만원</option>
+            <option value="8000">8,000만원</option>
+            <option value="9000">9,000만원</option>
+            <option value="10000">1억 이상</option>
           </Select>
         </div>
 
