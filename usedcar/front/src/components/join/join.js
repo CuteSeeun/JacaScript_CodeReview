@@ -80,7 +80,7 @@ function Join() {
     return (
         <JoinStyle>
             <div className="signup-container shadow-lg">
-                <Link to="/"><i className="fas fa-arrow-left back-btn"></i></Link>
+                <Link to="/login"><i className="fas fa-arrow-left back-btn"></i></Link>
 
                 <h1>회원가입</h1>
                 <form onSubmit={handleSubmit}>

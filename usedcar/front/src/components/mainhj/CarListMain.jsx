@@ -25,9 +25,9 @@ const CarListMain = () => {
 
     useEffect(() => {
         const carListData = async () => {
+            const user_uno = localStorage.getItem('uNo');  // 유저 번호 가져오기
             try {
-                const response = await axios.get('http://localhost:3333/car');
-                console.log(response.data);
+                const response = await axios.get(`http://localhost:3333/car?user_uno=${user_uno}`);
                 setCarList(response.data);
                 setFilteredCars(response.data);
             } catch (error) {

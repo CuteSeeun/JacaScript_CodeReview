@@ -15,16 +15,17 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
   const itemsPerPage = 20;
   const user_uno = localStorage.getItem('uNo');  // 로컬 스토리지에서 유저 번호 가져오기
 
-  console.log(carList);//이미 carList에 각 차량에 대한 유저의 favorite 상태가 포함되어 있다. 
-
   const [favoriteStates, setFavoriteStates] = useState({}); // favorite 상태 관리
-  //처음에 favorite 값들을 빈 객체로 초기화. 이는 아마 쿼리에서 요청했을 때 온 값들인가? 
+  console.log(favoriteStates);
+  console.log(user_uno);
+  console.log(carList);
+  
 
-  // carList에 있는 차량의 favorite 상태를 가져와서 favoriteStataes로 설정하는 부분
+  // useEffect를 사용하여 carList가 업데이트되었을 때 favoriteStates 초기화
   useEffect(() => {
     if (carList.length > 0) {
       const initialFavoriteStates = carList.reduce((acc, car) => {
-        acc[car.cNo] = car.favorite; // 백엔드에서 특정 유저의 favorite 값이 들어옴
+        acc[car.cNo] = car.favorite;
         return acc;
       }, {});
       setFavoriteStates(initialFavoriteStates);  // favorite 상태 초기화
@@ -64,29 +65,26 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
 
   // 찜하기 기능: favorite 값 토글
   const toggleFavorite = async (cNo, currentFavorite) => {
-    console.log('토글 함수 들어옴');
-    console.log(cNo);
-    console.log(currentFavorite);//지금 이게 없으. 
-
-    // const newFavorite = currentFavorite === 1 ? 0 : 1;
-    console.log('하트 상태 바꿔주고');
-    console.log('Sending request to update favorite:');
-    console.log('Car ID (cNo):', cNo);
-    // console.log('New favorite status:', newFavorite);
-    console.log('User Number:', user_uno);
-
+    console.log('차번호' + cNo);
+    console.log('하트 상태', currentFavorite);
+    console.log('유저 번호' , user_uno);
+    const newFavorite = currentFavorite === 1 ? 0 : 1;  // 값 토글
     try {
+      if(user_uno !== null){
       // 백엔드에 currentFavorite 값을 그대로 보내도록 수정
       await axios.put(`http://localhost:3333/car/favorite/${cNo}`, {
-        favorite: currentFavorite, // currentFavorite 값을 그대로 전송
+        favorite: newFavorite, // currentFavorite 값을 그대로 전송
         user_uno, // user_uno 값을 전송해 특정 사용자의 찜 목록을 업데이트
       });
 
       // 서버 업데이트 후 local 상태에서도 업데이트
       setFavoriteStates((prevStates) => ({
         ...prevStates,
-        [cNo]: currentFavorite,  // 상태를 그대로 유지
+        [cNo]: newFavorite,  // 상태를 그대로 유지
       }));
+    }else{
+      alert('로그인 사용 후 가능한 서비스입니다.');
+    }
     } catch (error) {
       console.error("Favorite 업데이트 오류:", error);
     }
@@ -107,7 +105,7 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
 
       </div>
       <ul>
-        {currentItems.map((car) => (
+        {currentItems.map((car,idx) => (
           <li
             key={car.cNo}
             onClick={() => {
@@ -128,33 +126,13 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
             </p>
             <p className="price">{formatPrice(car.price)}</p>
 
-            <button className="ZimBtn"
-              onClick={e => {
-                e.stopPropagation(); //부모 요소 클릭 이벤트 방지
-                console.log('하트 클릭');
+            <button className="ZimBtn" 
+                    onClick={e => { e.stopPropagation();
+                                    console.log('하트 클릭');
 
-                // const user_uno = localStorage.getItem('uNo'); // 로그인 여부 확인
-                if (user_uno) {
-                  // 로그인이 되어 있을 때
-                  console.log('로그인 되어 있음, 찜하기 상태 활성화');
-                  toggleFavorite(car.cNo, favoriteStates[car.cNo]); // 찜하기 상태 토글
-                } else {
-                  // 로그인이 되어 있지 않을 때
-                  alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
-                  // navigate('/login'); // 로그인 페이지로 리디렉션 (필요에 따라 경로 설정)
-                }
-                // toggleFavorite(car.cNo, favoriteStates[car.cNo]);
-                // console.log(car.cNo, favoriteStates[car.cNo]);
-              }}>
-              {/* 로그인 여부에 따라 하트 상태 표시 */}
-              {/* {user_uno
-                ? (favoriteStates[car.cNo] === 1 ? <GoHeartFill style={{ color: 'red' }}/> : <GoHeartFill style={{ color: 'gray' }}/>)
-                : <GoHeartFill style={{ color: 'gray' }}/>} */}
-              {user_uno && favoriteStates[car.cNo] !== null
-                ? (favoriteStates[car.cNo] === 1
-                  ? <GoHeartFill style={{ color: 'red' }} />  // favorite가 1일 때 빨간색 하트
-                  : <GoHeartFill style={{ color: 'gray' }} />)    // favorite가 0일 때 회색 하트
-                : <GoHeartFill style={{ color: 'gray' }} />}   {/* 로그인하지 않았거나 favorite가 null일 때 회색 하트*/}
+                      toggleFavorite(car.cNo, favoriteStates[car.cNo])
+            }}>
+            {favoriteStates[car.cNo] === 1 ? <GoHeartFill style={{color : 'red'}} /> : <GoHeartFill style={{color : 'gray'}}/>}
             </button>
 
           </li>

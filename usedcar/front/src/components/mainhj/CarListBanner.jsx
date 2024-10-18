@@ -32,7 +32,7 @@ const CarListBanner = ({ filters, setFilters,setSearch,setInput }) => {
                     <option value="현대">현대</option>
                     <option value="제네시스">제네시스</option>
                     <option value="기아">기아</option>
-                    <option value="쉐보레">쉐보레(GM대우)</option>
+                    <option value="쉐보레(GM대우)">쉐보레(GM대우)</option>
                     <option value="르노코리아">르노코리아(삼성)</option>
                     <option value="KG모빌리티">KG모빌리티(쌍용)</option>
                     <option value="벤츠">벤츠</option>

@@ -34,12 +34,11 @@ function Login() {
                 // 로컬 스토리지에 uNo 저장
                 localStorage.setItem('uNo', uNo);
                 // carListMain으로 이동
-                navigate('/');// 테스트 해보려고 Header로 이어둠,원래는 carListMain
+                navigate('/');
                 window.location.reload();
             } else {
                 setError('로그인 실패: ' + response.data.message);
             }
-            // window.location.reload();
         } catch (error) {
             console.error('로그인 중 오류:', error);
             setError('로그인 중 오류가 발생했습니다.');
@@ -90,12 +89,14 @@ function Login() {
                     className="btn btn-danger w-100 login-btn mb-3"
                     type="submit"
                     onClick={handleSubmit}
+                    data-bs-toggle="modal"
+                    data-bs-target="#loadingModal"
                 >
                     로그인
                 </button>
                 {/* 기타 로그인 옵션 */}
                 <div className="text-center login-options mb-3">
-                    <Link to="/join">회원가입</Link> | <Link to="/findId">아이디찾기</Link> | <Link to="findpw">비밀번호 찾기</Link>
+                    <Link to="/join">회원가입</Link> | <Link to="/findId">아이디찾기</Link> | <Link to="/findPw">비밀번호 찾기</Link>
                 </div>
                 {/* 구분선 */}
                 <div className="divider">
