@@ -19,7 +19,7 @@ function FindPw() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Submitting form data:', formData);
+        // console.log('Submitting form data:', formData);
         try {
             const response = await axios.post('http://localhost:3333/login/findPw', formData);
             // console.log('Response data:', response.data);
@@ -44,6 +44,10 @@ function FindPw() {
 
     const changePasswd = async (e) => {
         e.preventDefault();
+        if (!formData.newpasswd || formData.newpasswd.trim() === '') {
+            alert('비밀번호를 입력해 주세요.');
+            return;
+        }
         if (formData.newpasswd === passWd) {
             alert('새 비밀번호는 기존 비밀번호와 다르게 설정해야 합니다.');
             return;

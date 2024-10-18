@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FindIdStyle } from "./findIdStyle";
 
 function FindId() {
@@ -8,6 +8,7 @@ function FindId() {
         passwd: '',
         email: ''
     });
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,6 +16,7 @@ function FindId() {
             const response = await axios.post('http://localhost:3333/login/findId', formData);
             if (response.data.userid) {
                 alert(`${formData.name}님의 아이디는 ${response.data.userid}`)
+                navigate('/login');
             }
         } catch (error) {
             console.error(error);
