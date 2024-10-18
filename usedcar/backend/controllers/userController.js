@@ -72,11 +72,10 @@ const setUser = async (req, res) => {
     const { uNo } = req.params;
     try {
         const [rows] = await pool.query('SELECT name, userid, tel, email FROM user WHERE uNo = ?', [uNo]);
-        console.log(rows);
         if (rows.length > 0) {
             res.json(rows[0]);
         } else {
-            res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+            res.status(404).send('User not found');
         }
     } catch (error) {
         console.error(error);
@@ -107,7 +106,7 @@ const showName = async (req, res) => {
         if (rows.length > 0) {
             res.json(rows[0]);
         } else {
-            res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+            res.status(404).send('User not found');
         }
     } catch (error) {
         console.error(error);
@@ -122,13 +121,37 @@ const findId = async (req, res) => {
         if (rows.length > 0) {
             res.json(rows[0]);
         } else {
-            res.status(404).json({ message: '사용자를 찾을 수 없습니다' });
+            res.status(404).send('User not found');
         }
     } catch (error) {
         console.error(error);
         res.status(500).send('Error');
     }
+};
+
+const findPw = async (req, res) => {
+    const { name, userid, email } = req.body;
+    console.log(`Received data: name=${name}, userid=${userid}, email=${email}`); // 로그 추가
+    try {
+        const [rows] = await pool.query('SELECT * FROM user WHERE name = ? AND userid = ? AND email = ?', [name, userid, email]);
+        if (rows.length > 0) {
+            res.json(rows[0]);
+        }
+    } catch (error) {
+        res.status(500).send('Error');
+    }
+}
+
+const changePw = async (req, res) => {
+    const { newpasswd, name, userid, email } = req.body;
+    try {
+        const [result] = await pool.query('UPDATE user SET passwd = ? WHERE name = ? AND userid = ? AND email = ?', [newpasswd, name, userid, email]);
+        res.json({ success: true });
+    } catch (error) {
+        res.status(500).send('Error');
+    }
 }
 
 
-module.exports = { saveUser, verifyEmail, loginUser, setUser, editUser, showName, findId };
+
+module.exports = { saveUser, verifyEmail, loginUser, setUser, editUser, showName, findId, findPw, changePw };
