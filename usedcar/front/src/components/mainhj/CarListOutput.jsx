@@ -15,15 +15,16 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
   const itemsPerPage = 20;
   const user_uno = localStorage.getItem('uNo');  // 로컬 스토리지에서 유저 번호 가져오기
 
-  console.log(carList);
+  console.log(carList);//이미 carList에 각 차량에 대한 유저의 favorite 상태가 포함되어 있다. 
 
   const [favoriteStates, setFavoriteStates] = useState({}); // favorite 상태 관리
+  //처음에 favorite 값들을 빈 객체로 초기화. 이는 아마 쿼리에서 요청했을 때 온 값들인가? 
 
-  // useEffect를 사용하여 carList가 업데이트되었을 때 favoriteStates 초기화
+  // carList에 있는 차량의 favorite 상태를 가져와서 favoriteStataes로 설정하는 부분
   useEffect(() => {
     if (carList.length > 0) {
       const initialFavoriteStates = carList.reduce((acc, car) => {
-        acc[car.cNo] = car.favorite;
+        acc[car.cNo] = car.favorite; // 백엔드에서 특정 유저의 favorite 값이 들어옴
         return acc;
       }, {});
       setFavoriteStates(initialFavoriteStates);  // favorite 상태 초기화
@@ -73,7 +74,7 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
     console.log('Car ID (cNo):', cNo);
     // console.log('New favorite status:', newFavorite);
     console.log('User Number:', user_uno);
-  
+
     try {
       // 백엔드에 currentFavorite 값을 그대로 보내도록 수정
       await axios.put(`http://localhost:3333/car/favorite/${cNo}`, {
@@ -127,13 +128,33 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
             </p>
             <p className="price">{formatPrice(car.price)}</p>
 
-            <button className="ZimBtn" 
-                    onClick={e => { e.stopPropagation();
-                                    console.log('하트 클릭');
-                      toggleFavorite(car.cNo, favoriteStates[car.cNo]);
-                      console.log(car.cNo, favoriteStates[car.cNo]);
-            }}>
-            {favoriteStates[car.cNo] === 1 ? <GoHeartFill /> : <GoHeart />}
+            <button className="ZimBtn"
+              onClick={e => {
+                e.stopPropagation(); //부모 요소 클릭 이벤트 방지
+                console.log('하트 클릭');
+
+                // const user_uno = localStorage.getItem('uNo'); // 로그인 여부 확인
+                if (user_uno) {
+                  // 로그인이 되어 있을 때
+                  console.log('로그인 되어 있음, 찜하기 상태 활성화');
+                  toggleFavorite(car.cNo, favoriteStates[car.cNo]); // 찜하기 상태 토글
+                } else {
+                  // 로그인이 되어 있지 않을 때
+                  alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
+                  // navigate('/login'); // 로그인 페이지로 리디렉션 (필요에 따라 경로 설정)
+                }
+                // toggleFavorite(car.cNo, favoriteStates[car.cNo]);
+                // console.log(car.cNo, favoriteStates[car.cNo]);
+              }}>
+              {/* 로그인 여부에 따라 하트 상태 표시 */}
+              {/* {user_uno
+                ? (favoriteStates[car.cNo] === 1 ? <GoHeartFill style={{ color: 'red' }}/> : <GoHeartFill style={{ color: 'gray' }}/>)
+                : <GoHeartFill style={{ color: 'gray' }}/>} */}
+              {user_uno && favoriteStates[car.cNo] !== null
+                ? (favoriteStates[car.cNo] === 1
+                  ? <GoHeartFill style={{ color: 'red' }} />  // favorite가 1일 때 빨간색 하트
+                  : <GoHeartFill style={{ color: 'gray' }} />)    // favorite가 0일 때 회색 하트
+                : <GoHeartFill style={{ color: 'gray' }} />}   {/* 로그인하지 않았거나 favorite가 null일 때 회색 하트*/}
             </button>
 
           </li>

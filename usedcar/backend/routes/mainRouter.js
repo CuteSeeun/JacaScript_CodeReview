@@ -24,11 +24,24 @@ router.put('/favorite/:id', async (req, res) => {
     //   SET favorite = ?
     //   WHERE car_cno = ?
     // `;
+
+    // 만약 user_uno가 없으면 로그인이 안된 상태이므로 favorite를 null로 설정
+    if (!user_uno) {
+        return res.status(200).json({ favorite: null });  // 로그인이 안된 상태에서 favorite는 null
+    }
+
+    // 쿼리문: favorite 테이블에서 user_uno와 car_cNo가 일치하는 레코드의 favorite 값을 수정
     const query = `
-    UPDATE board
+    UPDATE favorite
     SET favorite = ?
-    WHERE car_cno = ? AND user_uno = ?  
-  `; // 특정 차량과 사용자에 대한 favorite 값 업데이트
+    WHERE car_cNo = ? AND user_uNo = ?
+  `;
+
+//     const query = `
+//     UPDATE board
+//     SET favorite = ?
+//     WHERE car_cno = ? AND user_uno = ?  
+//   `; // 특정 차량과 사용자에 대한 favorite 값 업데이트
 
     try {
         const [result] = await db.query(query, [favorite, id, user_uno]);
@@ -40,7 +53,7 @@ router.put('/favorite/:id', async (req, res) => {
         }
     } catch (error) {
         res.status(500).send(error.message);
-        console.error("데이터 수정 실패 :", err);
+        console.error("데이터 수정 실패 :", error);
     }
 });
 
