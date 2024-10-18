@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LoginModal = ({ show, handleClose, children }) => {
+const Modal = ({ show, handleClose, children }) => {
     if (!show) {
         return null;
     }
@@ -28,4 +28,4 @@ const LoginModal = ({ show, handleClose, children }) => {
     );
 };
 
-export default LoginModal;
+export default Modal;
