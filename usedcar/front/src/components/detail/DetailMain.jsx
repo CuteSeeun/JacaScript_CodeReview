@@ -16,8 +16,6 @@ const DetailMain = () => {
     console.log(car);
     
    
-
-
     useEffect(()=>{
         const userInfo = async()=>{
             try {
@@ -34,9 +32,12 @@ const DetailMain = () => {
         if(window.confirm("삭제하시겠습니까?")){
             try {
                 await axios.delete(`http://localhost:3333/car/${car.cNo}`);
+                console.log(`차량 id : ${car.cNo}`);
+                
                 alert('삭제되었습니다.');
                 navigate('/');
             } catch (error) {
+                console.log(`차량 id : ${car.cNo}`);
                 console.error("차량 삭제 중 오류 발생: ", error);
                 alert("차량 삭제 중 오류가 발생했습니다.");
             }
@@ -67,10 +68,6 @@ const DetailMain = () => {
             <span>판매가격</span>
             <strong>{formatPrice(car.price)}</strong>
         </div>
-        {/* <div className="monthly-payment">
-            <span>할부</span>
-            <strong>{formatPrice(car.price)}</strong>
-        </div> */}
     </div>
     <div className="contact-buttons">
         <button className="contact-call" onClick={cone}>전화 상담</button>

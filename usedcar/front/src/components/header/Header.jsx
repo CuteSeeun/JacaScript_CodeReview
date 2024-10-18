@@ -1,5 +1,5 @@
 // Header.jsx
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import logo from "../../assets/icons/logo.png";
@@ -8,6 +8,7 @@ import HeaderWrap from "./headerStyle";
 const Header = () => {
   const [uNo, setUNo] = useState(localStorage.getItem('uNo'));
   const [name, setName] = useState('');
+  const navi = useNavigate();
 
   useEffect(() => {
     const fetchUserName = async () => {
@@ -27,6 +28,7 @@ const Header = () => {
   const Logout = () => {
     localStorage.removeItem('uNo');
     setUNo(null);
+    navi('/')
     window.location.reload();
   };
 

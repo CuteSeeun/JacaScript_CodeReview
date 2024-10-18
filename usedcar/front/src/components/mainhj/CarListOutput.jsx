@@ -12,7 +12,7 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
   const navigate = useNavigate();
   const [sortOption, setSortOption] = useState("최신순");
   // const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 20;
+  const itemsPerPage = 15;
   const user_uno = localStorage.getItem('uNo');  // 로컬 스토리지에서 유저 번호 가져오기
 
   const [favoriteStates, setFavoriteStates] = useState({}); // favorite 상태 관리

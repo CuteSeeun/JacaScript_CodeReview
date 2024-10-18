@@ -1,6 +1,10 @@
 // mypageStyle.js
 import styled from 'styled-components';
 
+export const MyPageWrap = styled.div`
+
+`
+
 export const MyPageContainer = styled.main`
   max-width: 600px;
   margin: 0 auto;
