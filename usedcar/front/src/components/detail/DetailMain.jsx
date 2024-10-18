@@ -37,6 +37,8 @@ const DetailMain = () => {
                 console.error("차량 삭제 중 오류 발생: ", error);
                 alert("차량 삭제 중 오류가 발생했습니다.");
             }
+        }else{
+            alert('취소되었습니다.')
         }
     }
     
@@ -55,7 +57,7 @@ const DetailMain = () => {
 <div className="main-info">
     <div className="info-text">
         <h1>{car.name}</h1>
-        <p>{car.year} · {car.mileage} · {car.fueltype}</p>
+        <p>{car.year} · {car.mileage}km · {car.fueltype}</p>
     </div>
     <div className="price-details">
         <div className="price">
@@ -95,8 +97,8 @@ const DetailMain = () => {
 
             {likeSeller && (
                 <div className="contact-buttons">
-            <button onClick={() => navigate(`/detailuser/${car.cNo}`, { state: car })}>수정하기</button>
-            <button onClick={deleteCar}>삭제하기</button>
+            <button className='onBtn' onClick={() => navigate(`/detailuser/${car.cNo}`, { state: car })}>수정하기</button>
+            <button className='onBtn' onClick={deleteCar}>삭제하기</button>
             </div>
             )}
             

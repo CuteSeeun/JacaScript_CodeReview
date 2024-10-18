@@ -9,12 +9,35 @@ const saveUser = async (req, res) => {
         return res.status(400).json({ message: 'Feild Error' });
     }
 
+    const connection = await pool.getConnection();
+
     try {
-        const [result] = await pool.query('INSERT INTO user (name, userid, passwd, tel, email) VALUES (?, ?, ?, ?, ?)', [name, userid, passwd, tel, email]);
+        await connection.beginTransaction();
+
+        const [result] = await connection.query('INSERT INTO user (name, userid, passwd, tel, email) VALUES (?, ?, ?, ?, ?)', [name, userid, passwd, tel, email]);
         res.json({ id: result.insertId, name, userid, passwd, tel, email });
+        const userId = result.insertId;
+        // 차량 수 만큼 favorite 테이블 초기화
+        const [carRows] = await connection.query('select cNo from car');
+        const carList = carRows // 차 목록
+
+        const favoriteData = carList.map((car) => [0,userId,car.cNo]);
+
+        await connection.query(
+            'insert into favorite (favorite,user_uNo,car_cNo) values ?',
+            [favoriteData]
+        );
+
+        await connection.commit();
+
+       return res.status(201).json({id:userId,name,userid,passwd,tel,email});
+
     } catch (error) {
         console.error(error);
+        connection.rollback(); // 에러시 롤백
         res.status(500).send('Error');
+    }finally{
+        connection.release(); // 연결 해제
     }
 };
 

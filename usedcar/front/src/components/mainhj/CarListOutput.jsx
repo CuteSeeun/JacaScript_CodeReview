@@ -15,9 +15,11 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
   const itemsPerPage = 20;
   const user_uno = localStorage.getItem('uNo');  // 로컬 스토리지에서 유저 번호 가져오기
 
-  console.log(carList);
-
   const [favoriteStates, setFavoriteStates] = useState({}); // favorite 상태 관리
+  console.log(favoriteStates);
+  console.log(user_uno);
+  console.log(carList);
+  
 
   // useEffect를 사용하여 carList가 업데이트되었을 때 favoriteStates 초기화
   useEffect(() => {
@@ -63,29 +65,26 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
 
   // 찜하기 기능: favorite 값 토글
   const toggleFavorite = async (cNo, currentFavorite) => {
-    console.log('토글 함수 들어옴');
-    console.log(cNo);
-    console.log(currentFavorite);//지금 이게 없으. 
-
-    // const newFavorite = currentFavorite === 1 ? 0 : 1;
-    console.log('하트 상태 바꿔주고');
-    console.log('Sending request to update favorite:');
-    console.log('Car ID (cNo):', cNo);
-    // console.log('New favorite status:', newFavorite);
-    console.log('User Number:', user_uno);
-  
+    console.log('차번호' + cNo);
+    console.log('하트 상태', currentFavorite);
+    console.log('유저 번호' , user_uno);
+    const newFavorite = currentFavorite === 1 ? 0 : 1;  // 값 토글
     try {
+      if(user_uno !== null){
       // 백엔드에 currentFavorite 값을 그대로 보내도록 수정
       await axios.put(`http://localhost:3333/car/favorite/${cNo}`, {
-        favorite: currentFavorite, // currentFavorite 값을 그대로 전송
+        favorite: newFavorite, // currentFavorite 값을 그대로 전송
         user_uno, // user_uno 값을 전송해 특정 사용자의 찜 목록을 업데이트
       });
 
       // 서버 업데이트 후 local 상태에서도 업데이트
       setFavoriteStates((prevStates) => ({
         ...prevStates,
-        [cNo]: currentFavorite,  // 상태를 그대로 유지
+        [cNo]: newFavorite,  // 상태를 그대로 유지
       }));
+    }else{
+      alert('로그인 사용 후 가능한 서비스입니다.');
+    }
     } catch (error) {
       console.error("Favorite 업데이트 오류:", error);
     }
@@ -106,7 +105,7 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
 
       </div>
       <ul>
-        {currentItems.map((car) => (
+        {currentItems.map((car,idx) => (
           <li
             key={car.cNo}
             onClick={() => {
@@ -130,10 +129,10 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
             <button className="ZimBtn" 
                     onClick={e => { e.stopPropagation();
                                     console.log('하트 클릭');
-                      toggleFavorite(car.cNo, favoriteStates[car.cNo]);
-                      console.log(car.cNo, favoriteStates[car.cNo]);
+
+                      toggleFavorite(car.cNo, favoriteStates[car.cNo])
             }}>
-            {favoriteStates[car.cNo] === 1 ? <GoHeartFill /> : <GoHeart />}
+            {favoriteStates[car.cNo] === 1 ? <GoHeartFill style={{color : 'red'}} /> : <GoHeartFill style={{color : 'gray'}}/>}
             </button>
 
           </li>

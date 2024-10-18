@@ -58,14 +58,13 @@ export const DetailMainWrap = styled.div`
         display: flex;
         gap: 10px;
         margin-left: 20px;
-
         button {
             background-color: #fff;
             border: 1px solid #007bff;
             color: #007bff;
             padding: 10px 20px;
             border-radius: 5px;
-            font-size: 14px;
+            font-size: 15px;
             cursor: pointer;
 
             &:hover {
@@ -73,6 +72,7 @@ export const DetailMainWrap = styled.div`
                 color: #fff;
             }
         }
+        .onBtn{width:400px; font-size:20px;}
     }
 
     .image-section {

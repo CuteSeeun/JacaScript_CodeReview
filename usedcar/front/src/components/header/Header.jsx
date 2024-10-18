@@ -26,6 +26,7 @@ const Header = () => {
   const Logout = () => {
     localStorage.removeItem('uNo');
     setUNo(null);
+    window.location.reload();
   };
 
   return (

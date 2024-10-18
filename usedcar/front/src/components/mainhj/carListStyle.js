@@ -131,9 +131,9 @@ export const CarListOutputWrap = styled.div`
         font-size: 24px;
         color: #888;
 
-        &:hover {
+        /* &:hover {
           color: red;
-        }
+        } */
       }
     }
   }
