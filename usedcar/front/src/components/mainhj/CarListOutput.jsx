@@ -19,6 +19,9 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
   console.log(favoriteStates);
   console.log(user_uno);
   console.log(carList);
+
+  const [popMsg , setPopMsg] = useState(''); // 팝업 메시지 
+  const [show , setShow] = useState(false) // 팝업 보여주기 토글
   
 
   // useEffect를 사용하여 carList가 업데이트되었을 때 favoriteStates 초기화
@@ -82,6 +85,9 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
         ...prevStates,
         [cNo]: newFavorite,  // 상태를 그대로 유지
       }));
+
+      const message = newFavorite === 1 ? "찜 목록에 추가되었습니다!" : "찜 목록에서 삭제되었습니다!";
+      showPop(message);
     }else{
       alert('로그인 사용 후 가능한 서비스입니다.');
     }
@@ -90,8 +96,17 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
     }
   };
 
+  const showPop = message =>{
+    setPopMsg(message);
+    setShow(true);
+    setTimeout(()=>{
+      setShow(false);
+    },2000);
+  }
+
   return (
     <CarListOutputWrap>
+      {show && <div className="popup">{popMsg}</div> }
       <div className="outTop">
         <strong>전체 {carList.length}</strong>
 

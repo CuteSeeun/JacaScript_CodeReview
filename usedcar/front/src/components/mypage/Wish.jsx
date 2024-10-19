@@ -4,6 +4,7 @@ import { ListGroupItem, CollapseContent, StyledWishList, WishListItem, WishListC
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { formatPrice } from '../../utils/formPrice';
 
@@ -21,7 +22,10 @@ const WishList = () => {
 
 
   const toggleCollapse = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => {
+      console.log('isOpen 상태 변경:', !prev); // 상태 변경 확인
+      return !prev;
+    });
   };
 
   // useEffect로 데이터 가져오기
@@ -73,7 +77,9 @@ const WishList = () => {
     <>
       {console.log(wishlist)} {/* 렌더링 전에 데이터를 출력 */}
       <ListGroupItem onClick={toggleCollapse}>
-        찜한 차 <i className="fas fa-chevron-down action-icon"></i>
+        찜한 차  <i
+   className={`fas ${isOpen ? 'fa-chevron-up' : 'fa-chevron-down'} action-icon`}
+  ></i>
       </ListGroupItem>
       {isOpen && (
         <CollapseContent>
