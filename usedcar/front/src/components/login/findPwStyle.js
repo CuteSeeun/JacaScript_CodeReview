@@ -1,15 +1,13 @@
 import styled from "styled-components";
 
 export const FindPwStyle = styled.div`
-body {
             background-color: #ffffff;
             font-family: 'Arial', sans-serif;
-            height: 100vh;
+            height: 90vh;
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 0;
-        }
 
         /* main */
         .login-container {

@@ -2,11 +2,28 @@
 import styled from 'styled-components';
 
 export const MyPageWrap = styled.div`
+width: 100%;
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
+  .modify{margin-top:50px;
+    border: 1px solid #007bff;
+    color: #007bff;
+    background: #fff;
+    border-radius: 8px;
+    width: 200px; height: 50px;
+    &:hover{
+      color: #fff;
+      background: #007bff;
+    }
+  }
 `
 
 export const MyPageContainer = styled.main`
-  max-width: 600px;
   margin: 0 auto;
   margin-top: 50px;
 `;
@@ -27,20 +44,19 @@ export const ProfileInfo = styled.section`
   margin-bottom: 20px;
 
   div {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     font-size: 1rem;
   }
 
   .icons {
+    display: flex;
+    gap: 15px;
     font-size: 1.5rem;
-
+    
     i {
-      margin-left: 15px;
-      cursor: pointer;
-      color: #000000;
-
       &:hover {
+        cursor: pointer;
         color: #007bff;
       }
     }
@@ -75,6 +91,8 @@ export const ListGroupItem = styled.li`
 `;
 
 export const CollapseContent = styled.div`
+width: 100%;
+max-width: 1000px;
   max-height: 200px;
   overflow-y: auto;
   border: 1px solid #ddd;
@@ -105,36 +123,48 @@ export const StyledWishList = styled.ul`
 export const WishListItem = styled.li`
   display: flex;
   align-items: center;
-  padding: 15px;
+  justify-content: space-between;
+  padding: 15px 20px;
   border-bottom: 1px solid #ddd;
 
   img {
-    width: 100px;
-    height: auto;
+    width: 120px;
+    height: 80px;
     margin-right: 20px;
-    border-radius: 5px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column; /* 텍스트를 세로로 정렬 */
+    justify-content: center;
+    flex-grow: 1; /* 남은 공간을 차지하도록 설정 */
+    gap: 5px; /* 텍스트 간격 */
   }
 
   a {
-    text-decoration: none;
-    color: #333;
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 부모 요소의 색상 상속 */
     font-weight: bold;
 
     &:hover {
-      color: #007bff;
+      color: #007bff; /* 호버 시 파란색 */
     }
   }
 
   .wish-icon {
-    margin-left: auto;
-    color: #ff0000;
-    font-size: 1.5rem;
-    padding: 5px;
+    font-size: 1.8rem;
     cursor: pointer;
+    margin-left: 20px;
+    color: ${(props) => (props.favorite ? 'red' : 'gray')};
+  }
 
-    &:hover {
-      /* color: #ff0000; */
-    }
+  .car-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
 `;
 

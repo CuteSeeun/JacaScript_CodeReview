@@ -168,9 +168,14 @@ const SellForm = () => {
         <div>
           <Label htmlFor="carModel">모델명</Label>
           <Input type="text" id="carModel"
-            placeholder="ex) 기아 k5"
+            placeholder="ex) 기아 K5"
             value={carModel}
-            onChange={(e) => setCarModel(e.target.value)}
+            // onChange={(e) => setCarModel(e.target.value)} 이전버전
+            onChange={(e) => {
+              const value = e.target.value;
+              setCarModel(value.charAt(0).toUpperCase() + value.slice(1))
+            }}
+            //첫글자 무조건 대문자로 입력받게함 소문자로 입력해도 첫글자는 대문자시작
           />
           {/* {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>} */}
         </div>

@@ -1,7 +1,7 @@
 // 정연
 import React, { useState, useEffect } from "react";
 import { CarListOutputWrap } from "./carListStyle";
-import { GoHeart, GoHeartFill } from "react-icons/go";
+import { GoHeartFill } from "react-icons/go";
 import { IoCarSport } from "react-icons/io5";
 import { formatPrice } from "../../utils/formPrice";
 import { useNavigate } from "react-router-dom";

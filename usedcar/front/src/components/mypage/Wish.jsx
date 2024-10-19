@@ -5,6 +5,7 @@ import { ListGroupItem, CollapseContent, StyledWishList, WishListItem, WishListC
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { formatPrice } from '../../utils/formPrice';
 
 
 const WishList = () => {
@@ -124,9 +125,13 @@ const WishList = () => {
 
               {wishlist.map((car) => (
                 <WishListItem key={car.cNo}>
+                  <Link to={`/detailmain/${car.cNo}`} state={car}>
                   <img src={`http://localhost:3333${car.image}`} alt={car.name} /> {/* 이 코드 의문.. */}
+                  </Link>
                   {/* <a onClick ={() => navigate(`/detailmain/${car.cNo}`, { state: car })}> {car.name} </a> */}
                   <Link to={`/detailmain/${car.cNo}`} state={car}>{car.name}</Link>
+                  <p>주행거리:{car.mileage}km</p>
+                  <p>가격:{formatPrice(car.price)}</p>
                   {/* <a href={`/detailmain/${car.cNo}`}>{car.name}</a> */}
                   {/* () => navigate(`/detailuser/${car.cNo}`, { state: car }) */}
 

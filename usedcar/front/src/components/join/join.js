@@ -123,7 +123,7 @@ function Join() {
                     {/* 이메일 인증 버튼 (초기에는 숨겨져 있음) */}
                     <button onClick={handleEmail} ref={btnRef} className="btn btn-success w-100 email-verify-btn" style={{ display: 'none', marginBottom: '15px' }}>이메일 인증하기</button>
                     {/* 완료 버튼 */}
-                    <button type="submit" className="btn btn-danger w-100 signup-btn" disabled={!formCheck || !emailCheck}>완료</button>
+                    <button type="submit" className="btn btn-danger w-100 signup-btn mb-3" disabled={!formCheck || !emailCheck}>완료</button>
                     {error && <p className="text-danger">{error}</p>} {/* 이메일 관련 오류 메시지 */}
                 </form>
             </div>

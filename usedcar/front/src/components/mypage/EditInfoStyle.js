@@ -1,16 +1,13 @@
 import styled from "styled-components";
 
 export const EditInfoStyle = styled.div`
-body {
             background-color: #ffffff;
             font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            height: 100vh;
-            margin: 0;
+            margin: 100px 0 100px;
             padding: 20px;
-        }
 
         .container {
             width: 100%;
@@ -19,7 +16,7 @@ body {
             border-radius: 10px;
             background-color: rgb(255, 255, 255);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            /* margin-bottom: 20px; */
         }
 
         h1 {
@@ -46,12 +43,7 @@ body {
             background-color: #ccc;
         }
 
-        /* .change-password {
-            color: #28a745;
-            cursor: pointer;
-            font-size: 0.9rem;
-        } */
-
+     
         
         .modify {
             /* background-color: #007bff;

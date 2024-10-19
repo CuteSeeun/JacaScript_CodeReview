@@ -29,6 +29,8 @@ const CarListMain = () => {
             try {
                 const response = await axios.get(`http://localhost:3333/car?user_uno=${user_uno}`);
                 setCarList(response.data);
+                console.log('이펙트 :',response.data);
+                
                 setFilteredCars(response.data);
             } catch (error) {
                 console.error('carList error', error);

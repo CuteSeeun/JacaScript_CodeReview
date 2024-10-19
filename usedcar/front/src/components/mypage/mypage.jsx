@@ -15,7 +15,7 @@ const MyPage = () => {
       <OrderHistory />
       <WishList />
       <SoldItems />
-      <Link to="/EditInfo"><button className="modify btn btn-primary">회원정보 수정</button></Link>
+      <Link to="/EditInfo"><button className="modify">회원정보 수정</button></Link>
     </MyPageWrap>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ListGroupItem, CollapseContent, WishListItem, StyledWishList } from './mypageStyle';
 import { Link, useLocation } from 'react-router-dom';
+import { formatPrice } from '../../utils/formPrice';
 
 const SoldItems = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -51,8 +52,12 @@ const SoldItems = () => {
             {/* soldItems 데이터를 map으로 렌더링 */}
             {soldItems.map((item) => (
                <WishListItem key={item.cNo}>   {/*bNo를 key로 설정*/}
+               <Link to={`/detailmain/${item.cNo}`} state={item}>
                 <img src={`http://localhost:3333${item.image}`} alt={item.name} /> 
+               </Link>
                 <Link to={`/detailmain/${item.cNo}`} state={item}>{item.name}</Link> 
+                <p>주행거리:{item.mileage}km</p>
+                <p>가격:{formatPrice(item.price)}</p>
                 {/* <Link to={`/detailmain/${car.cNo}`} state={car}>{car.name}</Link> */}
               </WishListItem>
             ))}
