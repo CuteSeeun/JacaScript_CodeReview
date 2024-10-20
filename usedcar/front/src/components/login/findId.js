@@ -5,7 +5,7 @@ import { FindIdStyle } from "./findIdStyle";
 
 function FindId() {
     const [formData, setFormData] = useState({
-        passwd: '',
+        name: '',
         email: ''
     });
     const navigate = useNavigate();

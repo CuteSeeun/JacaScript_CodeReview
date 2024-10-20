@@ -12,7 +12,7 @@ const Footer = () => {
                             <h6>국산</h6>
                             <ul>
                                 {/* <li><Link to="/">국산차검색</Link></li> */}
-                                <li><a href="#">국산차검색</a></li>
+                                <li><a href="/">국산차검색</a></li>
                             </ul>
                         </div>
                         <div>
