@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ListGroupItem, CollapseContent, WishListItem, StyledWishList } from './mypageStyle';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { formatPrice } from '../../utils/formPrice';
 
 const SoldItems = () => {
@@ -9,11 +9,11 @@ const SoldItems = () => {
     const [soldItems, setSoldItems] = useState([]); // soldItems 상태에 데이터를 저장
     // 로그인된 사용자의 user_uno를 localStorage에서 가져옴
     const user_uno = localStorage.getItem('uNo');
-    const location = useLocation();
-    const item = location.state;
-    console.log(item);
+
+    // const location = useLocation();
+    // const item = location.state;
+    // console.log(item);
   
-    
     const toggleCollapse = () => {
       setIsOpen(!isOpen);
     };

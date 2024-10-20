@@ -2,7 +2,6 @@
 
 const pool = require("../config/dbpools");
 
-//
 const carinfo = async (req, res) => {
   const { user_uno } = req.query;  // 유저 번호를 쿼리로 받기
 

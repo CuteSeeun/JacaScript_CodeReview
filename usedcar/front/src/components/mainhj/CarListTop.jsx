@@ -1,15 +1,9 @@
-import React, {  useState } from 'react';
 import { CarListTopWrap } from './carListStyle';
 
 const CarListTop = ({setSearch , input , setInput}) => {
-
-    // const [input , setInput] = useState('');
-
-
         const carMain = ()=>{
             setSearch(input.trim());
         }
-    
          const keyEnter = e=>{
              if(e.key === 'Enter'){
              setSearch(input.trim());

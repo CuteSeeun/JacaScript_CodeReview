@@ -22,6 +22,7 @@ router.get('/', async (req, res) => {
           car.image, 
           car.user_uno,
           board.bNo, 
+          board.sale, 
           user.name AS seller_name, 
           user.tel AS seller_tel, 
           user.email AS seller_email

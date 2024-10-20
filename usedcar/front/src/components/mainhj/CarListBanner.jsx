@@ -9,7 +9,6 @@ const CarListBanner = ({ filters, setFilters,setSearch,setInput }) => {
             [name]: value
         }));
     };
-    
     const brandChange = e => {
         setFilters({
             brand: e.target.value,
@@ -22,7 +21,6 @@ const CarListBanner = ({ filters, setFilters,setSearch,setInput }) => {
         setSearch('');
         setInput('');
     };
-
     return (
         <CarListBannerWrap>
             <div>
