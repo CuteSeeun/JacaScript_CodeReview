@@ -21,7 +21,7 @@ const saveUser = async (req, res) => {
         const [carRows] = await connection.query('select cNo from car');
         const carList = carRows // 차 목록
 
-        const favoriteData = carList.map((car) => [0,userId,car.cNo]);
+        const favoriteData = carList.map((car) => [0, userId, car.cNo]);
 
         await connection.query(
             'insert into favorite (favorite,user_uNo,car_cNo) values ?',
@@ -30,13 +30,13 @@ const saveUser = async (req, res) => {
 
         await connection.commit();
 
-       return res.status(201).json({id:userId,name,userid,passwd,tel,email});
+        return res.status(201).json({ id: userId, name, userid, passwd, tel, email });
 
     } catch (error) {
         console.error(error);
         connection.rollback(); // 에러시 롤백
         res.status(500).send('Error');
-    }finally{
+    } finally {
         connection.release(); // 연결 해제
     }
 };
@@ -71,7 +71,8 @@ const loginUser = async (req, res) => {
 const setUser = async (req, res) => {
     const { uNo } = req.params;
     try {
-        const [rows] = await pool.query('SELECT name, userid, tel, email FROM user WHERE uNo = ?', [uNo]);
+        const [rows] = await pool.query('SELECT name, userid, tel, email, passwd FROM user WHERE uNo = ?', [uNo]);
+        console.log([rows]);
         if (rows.length > 0) {
             res.json(rows[0]);
         } else {
