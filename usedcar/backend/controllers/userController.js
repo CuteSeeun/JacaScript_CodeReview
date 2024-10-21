@@ -1,24 +1,28 @@
 // userController.js
 const pool = require('../config/dbpools');
+const bcrypt = require('bcrypt');
 
 const saveUser = async (req, res) => {
     const { name, userid, passwd, tel, email } = req.body;
-
-    // 빈 문자열 확인
     if (!name || !userid || !passwd || !tel || !email) {
         return res.status(400).json({ message: 'Feild Error' });
     }
 
     const connection = await pool.getConnection();
-
     try {
         await connection.beginTransaction();
 
-        const [result] = await connection.query('INSERT INTO user (name, userid, passwd, tel, email) VALUES (?, ?, ?, ?, ?)', [name, userid, passwd, tel, email]);
-        // res.json({ id: result.insertId, name, userid, passwd, tel, email });
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(passwd, saltRounds);
+        console.log('Generated Hashed Password:', hashedPassword);
+
+        const [result] = await connection.query(
+            'INSERT INTO user (name, userid, passwd, tel, email) VALUES (?, ?, ?, ?, ?)',
+            [name, userid, hashedPassword, tel, email]
+        );
+
         const userId = result.insertId;
 
-        // 차량 수 만큼 favorite 테이블 초기화
         const [carRows] = await connection.query('select cNo from car');
 
         if (carRows.length > 0) {
@@ -30,19 +34,17 @@ const saveUser = async (req, res) => {
             );
         }
 
-
         await connection.commit();
-
-       return res.status(201).json({id:userId,name,userid,passwd,tel,email});
-
+        return res.status(201).json({ id: userId, name, userid, passwd: hashedPassword, tel, email });
     } catch (error) {
         console.error(error);
-        connection.rollback(); // 에러시 롤백
+        await connection.rollback();
         res.status(500).send('Error');
-    }finally{
-        connection.release(); // 연결 해제
+    } finally {
+        connection.release();
     }
 };
+
 
 const verifyEmail = async (req, res) => {
     const { email } = req.body;
@@ -59,22 +61,33 @@ const verifyEmail = async (req, res) => {
 const loginUser = async (req, res) => {
     const { userid, passwd } = req.body;
     try {
-        const [rows] = await pool.query('SELECT uNo FROM user WHERE userid = ? AND passwd = ?', [userid, passwd]);
+        const [rows] = await pool.query('SELECT * FROM user WHERE userid = ?', [userid]);
+
         if (rows.length > 0) {
-            res.json({ success: true, uNo: rows[0].uNo });
+            const user = rows[0];
+            const match = await bcrypt.compare(passwd, user.passwd);
+
+            if (match) {
+                res.json({ success: true, uNo: user.uNo });
+            } else {
+                res.json({ success: false, message: '비밀번호가 일치하지 않습니다' });
+            }
         } else {
-            res.json({ success: false, message: '아이디나 비밀번호가 일치하지 않습니다.' });
+            res.json({ success: false, message: '사용자를 찾을 수 없습니다' });
         }
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Error');
+        console.error('로그인 중 오류:', error);
+        res.status(500).send('서버 오류');
     }
 };
+
+
+
 
 const setUser = async (req, res) => {
     const { uNo } = req.params;
     try {
-        const [rows] = await pool.query('SELECT name, userid, tel, email FROM user WHERE uNo = ?', [uNo]);
+        const [rows] = await pool.query('SELECT name, userid, tel, email, passwd FROM user WHERE uNo = ?', [uNo]);
         if (rows.length > 0) {
             res.json(rows[0]);
         } else {
@@ -86,12 +99,39 @@ const setUser = async (req, res) => {
     }
 };
 
+
+
 const editUser = async (req, res) => {
-    const { uNo, passwd, tel, email } = req.body;
+    const { uNo, currentPasswd, tel, email, newpassword } = req.body;
+
+    if (!uNo || !currentPasswd || !newpassword) {
+        return res.status(400).send('All fields are required');
+    }
+
     try {
-        const [result] = await pool.query('UPDATE user SET passwd = ?, tel = ?, email = ? WHERE uNo = ?', [passwd, tel, email, uNo]);
+        // DB에서 기존 유저 정보 가져오기
+        const [rows] = await pool.query('SELECT passwd FROM user WHERE uNo = ?', [uNo]);
+
+        if (rows.length === 0) {
+            return res.status(404).send('User not found');
+        }
+
+        const user = rows[0];
+
+        // 현재 비밀번호와 저장된 비밀번호 비교
+        const isMatch = await bcrypt.compare(currentPasswd, user.passwd);
+        if (!isMatch) {
+            return res.status(400).send('Current password is incorrect');
+        }
+
+        // 새로운 비밀번호 해시
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newpassword, salt);
+
+        const [result] = await pool.query('UPDATE user SET passwd = ?, tel = ?, email = ? WHERE uNo = ?', [hashedPassword, tel, email, uNo]);
+
         if (result.affectedRows > 0) {
-            res.json({ success: true, uNo, passwd, tel, email });
+            res.json({ success: true, uNo, passwd: hashedPassword, tel, email });
         } else {
             res.status(404).send('User not found');
         }
@@ -100,7 +140,6 @@ const editUser = async (req, res) => {
         res.status(500).send('Error');
     }
 };
-
 
 const showName = async (req, res) => {
     const { uNo } = req.params;
@@ -134,12 +173,11 @@ const findId = async (req, res) => {
 
 const findPw = async (req, res) => {
     const { name, userid, email } = req.body;
-    console.log(`Received data: name=${name}, userid=${userid}, email=${email}`); // 로그 추가
     try {
         const [rows] = await pool.query('SELECT * FROM user WHERE name = ? AND userid = ? AND email = ?', [name, userid, email]);
         if (rows.length > 0) {
             res.json(rows[0]);
-        }else{
+        } else {
             res.status(500).send('Error');
         }
     } catch (error) {
@@ -150,7 +188,9 @@ const findPw = async (req, res) => {
 const changePw = async (req, res) => {
     const { newpasswd, name, userid, email } = req.body;
     try {
-        const [result] = await pool.query('UPDATE user SET passwd = ? WHERE name = ? AND userid = ? AND email = ?', [newpasswd, name, userid, email]);
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newpasswd, salt);
+        const [result] = await pool.query('UPDATE user SET passwd = ? WHERE name = ? AND userid = ? AND email = ?', [hashedPassword, name, userid, email]);
         res.json({ success: true });
     } catch (error) {
         res.status(500).send('Error');

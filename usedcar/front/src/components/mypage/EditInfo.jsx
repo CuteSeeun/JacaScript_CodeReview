@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { EditInfoStyle } from './EditInfoStyle';
+import bcrypt from 'bcryptjs';
 
 const EditInfo = () => {
   const uNo = localStorage.getItem('uNo');
@@ -32,20 +33,30 @@ const EditInfo = () => {
     }));
   };
 
+  // 기존 비밀번호 비교
+  const checkPassword = async (inputPassword, hashedPassword) => {
+    return await bcrypt.compare(inputPassword, hashedPassword);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.passwd !== inputData.passwd) {
-      setError('현제 비밀번호가 일치하지 않습니다.');
+
+    const isMatch = await checkPassword(inputData.passwd, formData.passwd);
+    if (!isMatch) {
+      setError('현재 비밀번호가 일치하지 않습니다.');
       return;
     }
+
     if (inputData.passwd === inputData.newpasswd) {
       setError('비밀번호를 다르게 설정하세요.');
       return;
     }
+
     try {
       const response = await axios.post('http://localhost:3333/editUser/editUser', {
         uNo,
-        passwd: inputData.newpasswd,
+        currentPasswd: inputData.passwd,
+        newpassword: inputData.newpasswd,
         tel: inputData.tel,
         email: inputData.email
       });
@@ -55,6 +66,7 @@ const EditInfo = () => {
       console.error(error);
     }
   };
+
 
 
 

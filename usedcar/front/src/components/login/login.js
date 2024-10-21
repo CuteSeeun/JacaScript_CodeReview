@@ -28,6 +28,7 @@ function Login() {
                 const uNo = response.data.uNo;
                 localStorage.setItem('uNo', uNo);
 
+                await alert('로그인 되었습니다.');
                 navigate('/');
                 window.location.reload();
             } else {
