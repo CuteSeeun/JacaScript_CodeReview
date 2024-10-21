@@ -27,7 +27,8 @@ function Login() {
             if (response.data.success) {
                 const uNo = response.data.uNo;
                 localStorage.setItem('uNo', uNo);
-                
+
+                await alert('로그인 되었습니다.');
                 navigate('/');
                 window.location.reload();
             } else {
