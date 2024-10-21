@@ -14,6 +14,7 @@ const EditInfo = () => {
     userid: '',
     tel: '',
     email: '',
+    passwd: ''
   });
 
   const [inputData, setInputData] = useState({
@@ -33,6 +34,10 @@ const EditInfo = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.passwd !== inputData.passwd) {
+      setError('현제 비밀번호가 일치하지 않습니다.');
+      return;
+    }
     if (inputData.passwd === inputData.newpasswd) {
       setError('비밀번호를 다르게 설정하세요.');
       return;
@@ -64,6 +69,7 @@ const EditInfo = () => {
             userid: userData.userid,
             tel: userData.tel,
             email: userData.email,
+            passwd: userData.passwd
           });
         } catch (error) {
           console.error(error);
