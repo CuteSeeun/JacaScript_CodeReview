@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const FooterWrap = styled.div`
-border-top: 1px solid #999;
+  border-top: 1px solid #999;
   footer {
-    background-color: #f8f9fa;
+    background-color: #e3f2fd;
     padding: 60px 20px;
   }
 
@@ -55,9 +55,10 @@ border-top: 1px solid #999;
   .app-download {
     margin-top: 30px;
     text-align: center;
-    h3{font-size:25px;
-        font-family: 900;
-        margin-bottom: 10px;
+    h3 {
+      font-size: 25px;
+      font-family: 900;
+      margin-bottom: 10px;
     }
   }
 
@@ -66,13 +67,15 @@ border-top: 1px solid #999;
     justify-content: center;
     gap: 10px;
 
-
-    button{background: #007bff;
-        width: 100px;
-        height:30px;
-        border-radius: 4px;
-    color: #fff;
-    &:hover{background: #0056b3;}
+    button {
+      background: #007bff;
+      width: 100px;
+      height: 30px;
+      border-radius: 4px;
+      color: #fff;
+      &:hover {
+        background: #0056b3;
+      }
     }
   }
 
@@ -81,11 +84,11 @@ border-top: 1px solid #999;
     font-size: 0.9rem;
     text-align: center;
     margin-top: 20px;
-    .bottomP1{
-        margin-top: 5px;
+    .bottomP1 {
+      margin-top: 5px;
     }
-    .bottomP2{
-        margin: 5px 0 10px ;
+    .bottomP2 {
+      margin: 5px 0 10px;
     }
   }
 
