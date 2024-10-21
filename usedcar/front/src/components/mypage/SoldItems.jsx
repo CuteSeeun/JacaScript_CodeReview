@@ -59,6 +59,7 @@ const SoldItems = () => {
                 <Link to={`/detailmain/${item.cNo}`} state={item}>{item.name}</Link> 
                 <p>주행거리:{item.mileage}km</p>
                 <p>가격:{formatPrice(item.price)}</p>
+                <p>{item.sale === 0 ? "판매중": "판매완료"}</p>
                 {/* <Link to={`/detailmain/${car.cNo}`} state={car}>{car.name}</Link> */}
               </WishListItem>
             ))}

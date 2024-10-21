@@ -82,7 +82,7 @@ const CarListMain = () => {
         const matchedCars = carList.filter(car => car.name.toLowerCase().includes(value.toLowerCase()));
         
         if(matchedCars.length > 0){
-            const carBrand = matchedCars[0].brand;
+            const carBrand = matchedCars.brand;
             setFilters(prevCar =>({
                 ...prevCar,
                 brand:carBrand,

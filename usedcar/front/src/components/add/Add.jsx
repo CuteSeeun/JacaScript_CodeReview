@@ -205,6 +205,7 @@ const SellForm = () => {
           <Label htmlFor="year">연식(제조년도)</Label>
           <Select id="year" value={year} onChange={(e) => setYear(e.target.value)}>
             <option selected>년도 선택</option>
+            
             <option value="2024">2024</option>
             <option value="2023">2023</option>
             <option value="2022">2022</option>

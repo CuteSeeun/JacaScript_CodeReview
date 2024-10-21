@@ -27,7 +27,7 @@ function Login() {
             if (response.data.success) {
                 const uNo = response.data.uNo;
                 localStorage.setItem('uNo', uNo);
-
+                
                 navigate('/');
                 window.location.reload();
             } else {
