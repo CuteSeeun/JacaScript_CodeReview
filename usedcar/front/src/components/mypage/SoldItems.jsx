@@ -3,9 +3,10 @@ import axios from 'axios';
 import { ListGroupItem, CollapseContent, WishListItem, StyledWishList } from './mypageStyle';
 import { Link } from 'react-router-dom';
 import { formatPrice } from '../../utils/formPrice';
+import { FaChevronUp ,FaChevronDown } from "react-icons/fa";
 
 const SoldItems = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
     const [soldItems, setSoldItems] = useState([]); // soldItems 상태에 데이터를 저장
     // 로그인된 사용자의 user_uno를 localStorage에서 가져옴
     const user_uno = localStorage.getItem('uNo');
@@ -38,7 +39,7 @@ const SoldItems = () => {
     return (
       <>
         <ListGroupItem onClick={toggleCollapse}>
-          판매하기 <i className="fas fa-chevron-down action-icon"></i>
+          판매하기  {isOpen ? <FaChevronUp />:<FaChevronDown /> }
         </ListGroupItem>
         {isOpen && (
           <CollapseContent>

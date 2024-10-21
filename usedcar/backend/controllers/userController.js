@@ -43,7 +43,7 @@ const saveUser = async (req, res) => {
         connection.release(); // 연결 해제
     }
 };
-
+    
 const verifyEmail = async (req, res) => {
     const { email } = req.body;
     try {

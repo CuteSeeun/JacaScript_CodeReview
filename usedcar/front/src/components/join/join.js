@@ -53,6 +53,7 @@ function Join() {
         try {
             const response = await axios.post('http://localhost:3333/user/saveUser', formData);
             console.log(response.data);
+            alert('회원가입이 완료되었습니다.')
             navigate('/login'); // 성공적으로 저장된 후 로그인 페이지로 이동
         } catch (error) {
             console.error(error);
