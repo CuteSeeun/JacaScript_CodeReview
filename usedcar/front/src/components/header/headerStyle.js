@@ -24,7 +24,11 @@ const HeaderWrap = styled.div`
   }
 
   .header nav a:hover {
-    color: #2767ff;
+    color: #ffffff;
+  }
+  .header label {
+    color: white; /* 하얀색으로 설정 */
+    font-weight: normal; /* 원하시면 굵게 설정 */
   }
 `;
 export default HeaderWrap;

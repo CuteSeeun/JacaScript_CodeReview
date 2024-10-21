@@ -44,7 +44,7 @@ const Header = () => {
         <nav className="ms-auto">
           {uNo ? (
             <>
-              <label>{name}님 어서오세요</label>
+              <label style={{ color: "white" }}>{name}님 어서오세요</label>
               <Link to="/" onClick={Logout}>
                 로그아웃
               </Link>
