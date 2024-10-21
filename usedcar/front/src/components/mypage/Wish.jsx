@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ListGroupItem, CollapseContent, StyledWishList, WishListItem, WishListContainer } from './mypageStyle';
+import { ListGroupItem, CollapseContent, StyledWishList, WishListItem, WishListContainer, PopUp } from './mypageStyle';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -8,11 +8,16 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { formatPrice } from '../../utils/formPrice';
 
+import { FaChevronUp ,FaChevronDown } from "react-icons/fa";
+
 
 const WishList = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [wishlist, setWishlist] = useState([]); // wishlist 데이터를 저장할 상태
   const user_uno = localStorage.getItem('uNo');  // localStorage에서 uNo로 가져오기
+
+  const [popMsg,setPopMsg] = useState('');
+  const [show , setShow] = useState(false);
 
   const location = useLocation();
   const car = location.state;
@@ -66,20 +71,32 @@ const WishList = () => {
       // 2. favorite 값을 0으로 변경하는 요청을 백엔드에 보냄
       await axios.put(`http://localhost:3333/wishList/${cNo}`, { user_uno, favorite: newFavorite });
       console.log('백엔드에 favorite 값 업데이트 요청 성공');
+      
+      popshow(newFavorite === 0 ? "찜 목록에서 삭제되었습니다!" : "찜 목록에 추가되었습니다!");
+      
     } catch (error) {
       console.log('favorite 값 업데이트 실패: ' + error);
     }
   };
 
+  const popshow = (message) =>{
+    setPopMsg(message);
+    setShow(true);
+    setTimeout(()=>{
+      setShow(false);
+      window.location.reload();
+    },500)
+  }
 
 
   return (
     <>
+    <PopUp>
+    {show && <div className='popup'>{popMsg}</div>}
+    </PopUp>
       {console.log(wishlist)} {/* 렌더링 전에 데이터를 출력 */}
       <ListGroupItem onClick={toggleCollapse}>
-        찜한 차  <i
-   className={`fas ${isOpen ? 'fa-chevron-up' : 'fa-chevron-down'} action-icon`}
-  ></i>
+        찜한 차  {isOpen ? <FaChevronUp />:<FaChevronDown /> }
       </ListGroupItem>
       {isOpen && (
         <CollapseContent>

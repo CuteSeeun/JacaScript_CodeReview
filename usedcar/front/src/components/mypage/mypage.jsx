@@ -12,7 +12,7 @@ const MyPage = () => {
   return (
     <MyPageWrap>
       <ProfileInfo id="user100" />
-      <OrderHistory />
+      {/* <OrderHistory /> */}
       <WishList />
       <SoldItems />
       <Link to="/EditInfo"><button className="modify">회원정보 수정</button></Link>

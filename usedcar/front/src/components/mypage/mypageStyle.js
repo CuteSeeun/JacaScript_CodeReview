@@ -22,6 +22,39 @@ width: 100%;
     }
   }
 `
+export const PopUp =styled.div`
+
+.popup{
+    position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 18px;
+  text-align: center;
+  z-index: 1000;
+  animation: fadein 0.3s, fadeout 0.3s 1.7s; /* 팝업 애니메이션 */
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+`
 
 export const MyPageContainer = styled.main`
   margin: 0 auto;

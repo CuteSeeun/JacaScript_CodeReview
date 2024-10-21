@@ -108,6 +108,7 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
   return (
     <CarListOutputWrap>
       {show && <div className="popup">{popMsg}</div>}
+      
       <div className="outTop">
         <strong>전체 {carList.length}</strong>
 
@@ -120,7 +121,7 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
         </select>
       </div>
       <ul>
-        {currentItems.map((car, idx) => (
+        {currentItems.map((car) => (
           <li
             key={car.cNo}
             onClick={() => {
@@ -131,7 +132,8 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
               <img
                 src={`http://localhost:3333${car.image}`}
                 alt=""
-                onError={(e) => (e.target.src = "/images/placeholder.png")}
+                // onError={(e) => (e.target.src = "/images/placeholder.png")}
+                // 깜빡이~
               />
             </div>
             <p className="carName">{car.name}</p>
