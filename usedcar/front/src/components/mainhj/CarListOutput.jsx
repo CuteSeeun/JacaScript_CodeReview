@@ -1,5 +1,5 @@
 // 정연
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { CarListOutputWrap } from "./carListStyle";
 import { GoHeartFill } from "react-icons/go";
 import { IoCarSport } from "react-icons/io5";
@@ -14,6 +14,9 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
   const itemsPerPage = 15;
   const user_uno = localStorage.getItem("uNo"); // 로컬 스토리지에서 유저 번호 가져오기
 
+  const [modalOn , setModalOn]=useState(false);
+  const modalRef = useRef();
+
   const [favoriteStates, setFavoriteStates] = useState({}); // favorite 상태 관리
   console.log(favoriteStates);
   console.log(user_uno);
@@ -21,6 +24,7 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
 
   const [popMsg, setPopMsg] = useState(""); // 팝업 메시지
   const [show, setShow] = useState(false); // 팝업 보여주기 토글
+  const navi = useNavigate();
 
   // useEffect를 사용하여 carList가 업데이트되었을 때 favoriteStates 초기화
   useEffect(() => {
@@ -90,12 +94,17 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
             : "찜 목록에서 삭제되었습니다!";
         showPop(message);
       } else {
-        alert("로그인 사용 후 가능한 서비스입니다.");
+        setModalOn(true);
+        // alert("로그인 사용 후 가능한 서비스입니다.");
       }
     } catch (error) {
       console.error("Favorite 업데이트 오류:", error);
     }
   };
+
+  function modal(){
+
+  }
 
   const showPop = (message) => {
     setPopMsg(message);
@@ -147,8 +156,6 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
               className="ZimBtn"
               onClick={(e) => {
                 e.stopPropagation();
-                console.log("하트 클릭");
-
                 toggleFavorite(car.cNo, favoriteStates[car.cNo]);
               }}
             >
@@ -158,6 +165,43 @@ const CarListOutput = ({ carList, currentPage, setCurrentPage }) => {
                 <GoHeartFill style={{ color: "gray" }} />
               )}
             </button>
+
+            {modalOn && (
+  <div
+    className="modal-container"
+    ref={modalRef}
+    onClick={(e) => {
+      if (e.target === modalRef.current) {
+        e.stopPropagation();
+        setModalOn(false);
+      }
+    }}
+  >
+    <div
+      className="modal-content"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <p>로그인 후 사용해 주시길 바랍니다.</p>
+      <div className="modal-buttons">
+        <button
+          className="modal-close-btn"
+          onClick={() => {
+            setModalOn(false);
+            navi("/login");
+          }}
+        >
+          로그인 이동
+        </button>
+        <button
+          className="modal-close-btn"
+          onClick={() => setModalOn(false)}
+        >
+          확인
+        </button>
+      </div>
+    </div>
+  </div>
+)}
           </li>
         ))}
       </ul>

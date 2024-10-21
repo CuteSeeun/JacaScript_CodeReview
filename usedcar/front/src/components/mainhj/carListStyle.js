@@ -50,6 +50,57 @@ export const CarListOutputWrap = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 
+
+  .modal-container {
+  width: 100%;
+  height: 150px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* 최상단에 표시 */
+}
+
+.modal-content {
+  background-color: #fff;
+  width: 300px;
+  padding: 20px;
+  border-radius: 8px; /* 모서리 둥글게 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+.modal-buttons {
+  display: flex; /* 가로 정렬 */
+  justify-content: space-between; 
+  width: 100%; 
+  gap: 10px; 
+}
+
+.modal-close-btn {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.modal-close-btn:hover {
+  background-color: #0056b3;
+}
+
+
   .popup{
     position: fixed;
   top: 50%;
