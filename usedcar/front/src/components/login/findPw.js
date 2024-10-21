@@ -19,17 +19,15 @@ function FindPw() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // console.log('Submitting form data:', formData);
         try {
             const response = await axios.post('http://localhost:3333/login/findPw', formData);
-            // console.log('Response data:', response.data);
+            console.log('Response data:', response);
             if (response.data.passwd) {
                 setPassWd(response.data.passwd);
                 setShowModal(true);
-            } else {
-                alert('사용자를 찾을 수 없습니다');
             }
         } catch (error) {
+            alert('사용자를 찾을 수 없습니다');
             console.error(error);
         }
     };
@@ -103,7 +101,8 @@ function FindPw() {
                         placeholder="이메일 입력"
                     />
                 </div>
-                <button className="btn btn-danger w-100 login-btn mb-3" id="searchBtn" onClick={handleSubmit}>
+                <button className="btn btn-danger w-100 login-btn mb-3" id="searchBtn" 
+                onClick={handleSubmit}>
                     비밀번호 찾기
                 </button>
             </div>
@@ -130,7 +129,8 @@ function FindPw() {
                             placeholder="비밀번호 확인"
                         />
                     </div>
-                    <button className="btn btn-danger w-100 login-btn mb-3" id="searchBtn" onClick={changePasswd}>
+                    <button className="btn btn-danger w-100 login-btn mb-3" id="searchBtn" 
+                    onClick={changePasswd}>
                         비밀번호 변경
                     </button>
                 </div>

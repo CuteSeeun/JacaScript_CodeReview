@@ -17,16 +17,19 @@ const saveUser = async (req, res) => {
         const [result] = await connection.query('INSERT INTO user (name, userid, passwd, tel, email) VALUES (?, ?, ?, ?, ?)', [name, userid, passwd, tel, email]);
         // res.json({ id: result.insertId, name, userid, passwd, tel, email });
         const userId = result.insertId;
+
         // 차량 수 만큼 favorite 테이블 초기화
         const [carRows] = await connection.query('select cNo from car');
-        const carList = carRows // 차 목록
 
-        const favoriteData = carList.map((car) => [0,userId,car.cNo]);
+        if (carRows.length > 0) {
+            const favoriteData = carRows.map((car) => [0, userId, car.cNo]);
 
-        await connection.query(
-            'insert into favorite (favorite,user_uNo,car_cNo) values ?',
-            [favoriteData]
-        );
+            await connection.query(
+                'INSERT INTO favorite (favorite, user_uNo, car_cNo) VALUES ?',
+                [favoriteData]
+            );
+        }
+
 
         await connection.commit();
 
@@ -136,6 +139,8 @@ const findPw = async (req, res) => {
         const [rows] = await pool.query('SELECT * FROM user WHERE name = ? AND userid = ? AND email = ?', [name, userid, email]);
         if (rows.length > 0) {
             res.json(rows[0]);
+        }else{
+            res.status(500).send('Error');
         }
     } catch (error) {
         res.status(500).send('Error');
