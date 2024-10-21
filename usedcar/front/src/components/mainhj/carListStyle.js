@@ -167,9 +167,10 @@ export const CarListOutputWrap = styled.div`
       border-radius: 8px;
       position: relative;
       transition: box-shadow 0.3s;
+      cursor: pointer;
 
       &:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
       }
 
       .img {
