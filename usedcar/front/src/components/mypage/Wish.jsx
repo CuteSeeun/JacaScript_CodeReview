@@ -95,27 +95,39 @@ const WishList = () => {
         <CollapseContent>
           <WishListContainer>
             <StyledWishList>  
+            {wishlist.length === 0 ? (
+                <p>찜한 차량이 없습니다.</p>
+              ) : (
+                wishlist.map((car) => (
+                  <WishListItem key={car.cNo}>
+                    <Link to={`/detailmain/${car.cNo}`} state={car}>
+                      <img
+                        src={`http://localhost:3333${car.image}`}
+                        alt={car.name}
+                      />{" "}
+                      {/* 이 코드 의문.. */}
+                    </Link>
+                    {/* <a onClick ={() => navigate(`/detailmain/${car.cNo}`, { state: car })}> {car.name} </a> */}
+                    <Link to={`/detailmain/${car.cNo}`} state={car}>
+                      {car.name}
+                    </Link>
+                    <p>주행거리:{car.mileage}km</p>
+                    <p>가격:{formatPrice(car.price)}</p>
+                    {/* <a href={`/detailmain/${car.cNo}`}>{car.name}</a> */}
+                    {/* () => navigate(`/detailuser/${car.cNo}`, { state: car }) */}
 
-              {wishlist.map((car) => (
-                <WishListItem key={car.cNo}>
-                  <Link to={`/detailmain/${car.cNo}`} state={car}>
-                  <img src={`http://localhost:3333${car.image}`} alt={car.name} /> {/* 이 코드 의문.. */}
-                  </Link>
-                  {/* <a onClick ={() => navigate(`/detailmain/${car.cNo}`, { state: car })}> {car.name} </a> */}
-                  <Link to={`/detailmain/${car.cNo}`} state={car}>{car.name}</Link>
-                  <p>주행거리:{car.mileage}km</p>
-                  <p>가격:{formatPrice(car.price)}</p>
-                  {/* <a href={`/detailmain/${car.cNo}`}>{car.name}</a> */}
-                  {/* () => navigate(`/detailuser/${car.cNo}`, { state: car }) */}
-
-                  <FontAwesomeIcon
-                    icon={faHeart}
-                    onClick={() => toggleFavorite(car.cNo, car.favorite)}  // 하트를 누르면 해당 차량의 favorite 값만 0으로 변경
-                    style={{ cursor: 'pointer', fontSize: '24px', color: car.favorite === 1 ? 'red' : 'gray' }}
-                  />
-
-                </WishListItem>
-              ))}
+                    <FontAwesomeIcon
+                      icon={faHeart}
+                      onClick={() => toggleFavorite(car.cNo, car.favorite)} // 하트를 누르면 해당 차량의 favorite 값만 0으로 변경
+                      style={{
+                        cursor: "pointer",
+                        fontSize: "24px",
+                        color: car.favorite === 1 ? "red" : "gray",
+                      }}
+                    />
+                  </WishListItem>
+                ))
+              )}
             </StyledWishList>
           </WishListContainer>
         </CollapseContent>
