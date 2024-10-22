@@ -49,37 +49,33 @@ const SoldItems = () => {
       {isOpen && (
         <CollapseContent>
           <StyledWishList>
+            <WishListItem>
+              <Link to="/add" className="add-icon">
+                <i className="fas fa-plus"> 판매</i>
+              </Link>
+            </WishListItem>
             {soldItems.length === 0 ? (
-              <p>판매 등록한 차량이 없습니다.</p>
-            ) : (
-              <WishListItem>
-                <Link to="/add" className="add-icon">
-                  <i className="fas fa-plus"> 판매</i>
-                </Link>
-              </WishListItem>
-            )}
-            {/* soldItems 데이터를 map으로 렌더링 */}
-            {soldItems.map((item) => (
+            <WishListItem>
+              <p style={{ marginBottom: '20px' }}>판매 등록한 차량이 없습니다.</p>
+            </WishListItem>
+          ) : (
+            // soldItems가 있을 경우, map으로 아이템들을 렌더링
+            soldItems.map((item) => (
               <WishListItem key={item.cNo}>
-                {" "}
-                {/*bNo를 key로 설정*/}
                 <Link to={`/detailmain/${item.cNo}`} state={item}>
-                  <img
-                    src={`http://localhost:3333${item.image}`}
-                    alt={item.name}
-                  />
+                  <img src={`http://localhost:3333${item.image}`} alt={item.name} />
                 </Link>
                 <Link to={`/detailmain/${item.cNo}`} state={item}>
                   {item.name}
                 </Link>
-                <p>주행거리:{item.mileage}km</p>
-                <p>가격:{formatPrice(item.price)}</p>
+                <p>주행거리: {item.mileage}km</p>
+                <p>가격: {formatPrice(item.price)}</p>
                 <p style={{ color: "#007bff" }}>
                   {item.sale === 0 ? "판매중" : "판매완료"}
                 </p>
-                {/* <Link to={`/detailmain/${car.cNo}`} state={car}>{car.name}</Link> */}
               </WishListItem>
-            ))}
+            ))
+          )}
           </StyledWishList>
         </CollapseContent>
       )}
