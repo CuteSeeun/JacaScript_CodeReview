@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
+import { useNavigate} from 'react-router-dom';
 import axios from 'axios';
 // import './add.js';
 
@@ -69,6 +70,7 @@ const SellForm = () => {
   const [carImage, setCarImage] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [showModal, setShowModal] = useState(false); // 모달 상태 추가
+  const navi = useNavigate();
 
   // 유효성 검사 함수
   const validateForm = () => {
@@ -153,7 +155,11 @@ const SellForm = () => {
           console.dir(error);
           alert('등록 실패');
         });
+    }else{
+      setShowModal(true)
     }
+
+
   };
 
   // 모달 닫기 핸들러
@@ -354,7 +360,7 @@ const SellForm = () => {
 
         <ButtonGroup>
           <Button type="submit" className="save">저장</Button>
-          <Button type="reset" className="cancel">취소</Button>
+          <Button type="reset" onClick={()=>navi(-1)} className="cancel">취소</Button>
         </ButtonGroup>
       </form>
       {/* 모달 컴포넌트 */}
