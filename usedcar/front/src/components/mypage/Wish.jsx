@@ -5,7 +5,7 @@ import { ListGroupItem, CollapseContent, StyledWishList, WishListItem, WishListC
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link  } from 'react-router-dom';
 import { formatPrice } from '../../utils/formPrice';
 
 import { FaChevronUp ,FaChevronDown } from "react-icons/fa";
@@ -18,13 +18,6 @@ const WishList = () => {
 
   const [popMsg,setPopMsg] = useState('');
   const [show , setShow] = useState(false);
-
-  const location = useLocation();
-  const car = location.state;
-  console.log(car);
-
-  // const navigate= useNavigate();
-
 
   const toggleCollapse = () => {
     setIsOpen((prev) => {
@@ -101,50 +94,7 @@ const WishList = () => {
       {isOpen && (
         <CollapseContent>
           <WishListContainer>
-            <StyledWishList>  {/* 여기서 StyledWishList만 사용 */}
-
-              {/* <WishListItem>
-                <img src="/src/assets/images/car.jpg" alt="기아 더 뉴 카니발" />
-                <a href="/car-details/1.html">기아 더 뉴 카니발</a>
-                <i className="fas fa-heart wish-icon"></i>
-              </WishListItem>
-              <WishListItem>
-                <img src="/src/assets/images/car.jpg" alt="현대 아반떼" />
-                <a href="/car-details/2.html">현대 아반떼</a>
-                <i className="fas fa-heart wish-icon"></i>
-              </WishListItem>
-              <WishListItem>
-                <img src="/src/assets/images/car.jpg" alt="현대 아반떼" />
-                <a href="/car-details/2.html">현대 아반떼</a>
-                <i className="fas fa-heart wish-icon"></i>
-              </WishListItem>
-              <WishListItem>
-                <img src="/src/assets/images/car.jpg" alt="현대 아반떼" />
-                <a href="/car-details/2.html">현대 아반떼</a>
-                <i className="fas fa-heart wish-icon"></i>
-              </WishListItem>
-              <WishListItem>
-                <img src="/src/assets/images/car.jpg" alt="현대 아반떼" />
-                <a href="/car-details/2.html">현대 아반떼</a>
-                <i className="fas fa-heart wish-icon"></i>
-              </WishListItem>
-              <WishListItem>
-                <img src="/src/assets/images/car.jpg" alt="현대 아반떼" />
-                <a href="/car-details/2.html">현대 아반떼</a>
-                <i className="fas fa-heart wish-icon"></i>
-              </WishListItem>
-              <WishListItem>
-                <img src="/src/assets/images/car.jpg" alt="현대 아반떼" />
-                <a href="/car-details/2.html">현대 아반떼</a>
-                <i className="fas fa-heart wish-icon"></i>
-              </WishListItem> */}
-
-              {/* {wishlist.map((car) => (
-                <WishListItem key={car.cNo}>
-                  <img src={car.image} alt={car.name} /> 
-                  <a href={`/car-details/${car.cNo}`}>{car.name}</a> 
-                  <FontAwesomeIcon icon={faHeart } onClick={()=> console.log('클릭')} 
-                                   style={{ cursor: 'pointer', fontSize: '24px', color: 'red' }} /> */}
+            <StyledWishList>  
 
               {wishlist.map((car) => (
                 <WishListItem key={car.cNo}>
@@ -171,55 +121,9 @@ const WishList = () => {
         </CollapseContent>
       )}
     </>
-    // <>
-    //   <ListGroupItem onClick={toggleCollapse}>
-    //     찜한 차 <i className="fas fa-chevron-down action-icon"></i>
-    //   </ListGroupItem>
-    //   {isOpen && (
-    //     <CollapseContent>
-    //       <WishListContainer>
-    //         <WishList>
-    //           <WishListItem>
-    //             <img src="/src/assets/images/car.jpg" alt="기아 더 뉴 카니발" />
-    //             <a href="/car-details/1.html">기아 더 뉴 카니발</a>
-    //             <i className="fas fa-heart wish-icon"></i>
-    //           </WishListItem>
-    //           {/* 다른 항목들 */}
-    //         </WishList>
-    //       </WishListContainer>
-    //     </CollapseContent>
-    //   )}
-    // </>
   );
 
 
-  //이는 styled components css로 바꾸기 전 걍 div로 렌더링만 한거
-  // return (
-  //   <>
-  //     <li className="list-group-item" onClick={toggleCollapse}>
-  //       찜한 차 <i className="fas fa-chevron-down action-icon"></i>
-  //     </li>
-  //     {isOpen && (
-  //       <div id="wishlist" className="collapse-content">
-  //         <div className="wish-list-container">
-  //           <ul className="wish-list">
-  //             <li>
-  //               <img src="/src/assets/images/car.jpg" alt="기아 더 뉴 카니발" />
-  //               <a href="/car-details/1.html">기아 더 뉴 카니발</a>
-  //               <i className="fas fa-heart wish-icon"></i>
-  //             </li>
-  //             <li>
-  //               <img src="/src/assets/images/car.jpg" alt="현대 아반떼" />
-  //               <a href="/car-details/2.html">현대 아반떼</a>
-  //               <i className="fas fa-heart wish-icon"></i>
-  //             </li>
-  //             {/* 추가 리스트 항목들 */}
-  //           </ul>
-  //         </div>
-  //       </div>
-  //     )}
-  //   </>
-  // );
 };
 
 export default WishList;
