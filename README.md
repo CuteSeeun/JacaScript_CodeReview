@@ -39,7 +39,7 @@
 ## 데이터베이스 설계
 - **DB 엔진** : MySQL 8.0
 - **주요 테이블**
-<img src="https://github.com/CuteSeeun/Web-UsedCar/blob/main/table.jpg" alt="데이터베이스 테이블" width="900" />
+<img src="https://github.com/CuteSeeun/Web-UsedCar/blob/main/table.jpg" alt="데이터베이스 테이블" width="600" />
 
 ## 페이지별 주요 기능
 - **로그인/회원가입** : 세션을 활용한 로그인, 로그인에 따른 활성화 기능
