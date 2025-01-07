@@ -12,7 +12,7 @@
     중고차 직거래 사이트.mp4  :  이미지 클릭 -> 영상 시청 
   </summary>
 
-  [![유튜브 미리보기 이미지](https://img.youtube.com/vi/QKTLIbQ3dWc&t=1s/0.jpg)](https://www.youtube.com/watch?v=QKTLlbQ3dWc&t)
+  [![유튜브 미리보기 이미지](https://img.youtube.com/vi/QKTLIbQ3dWc/0.jpg)](https://www.youtube.com/watch?v=QKTLIbQ3dWc)
 </details>
 
 
