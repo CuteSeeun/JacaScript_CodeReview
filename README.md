@@ -9,10 +9,10 @@
   <rect x="3" y="7" width="13" height="10" rx="2" ry="2"></rect>
   <polygon points="16 7 22 11 22 13 16 17 16 7"></polygon>
 </svg>
-    중고차 직거래 사이트.mp4  :  이미지를 클릭해서 영상을 시청하세요 
+    중고차 직거래 사이트.mp4  :  이미지 클릭 -> 영상 시청 
   </summary>
 
-  [![유튜브 미리보기 이미지](https://img.youtube.com/vi/QKTLlbQ3dWc&t/0.jpg)](https://www.youtube.com/watch?v=QKTLlbQ3dWc&t)
+  [![유튜브 미리보기 이미지](https://img.youtube.com/vi/QKTLIbQ3dWc&t=1s/0.jpg)](https://www.youtube.com/watch?v=QKTLlbQ3dWc&t)
 </details>
 
 
